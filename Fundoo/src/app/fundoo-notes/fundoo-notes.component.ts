@@ -156,7 +156,7 @@ export class FundooNotesComponent {
 
 
 
-
+   debugger;
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
       // this.url = event.target.files[0];

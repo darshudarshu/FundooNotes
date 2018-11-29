@@ -49,7 +49,7 @@ class RemainderController
             /**
              * @var string $query has query to Insert data into database (notes) table name
              */
-            $query = "SELECT * FROM notes where email='$email' and remainder != 'undefined' and isDeleted='no'  order by id desc";
+            $query = "SELECT * FROM notes where email='$email' and remainder != 'undefined' and isDeleted='no'  order by dragId desc";
             /**
              * @var string $statement holds statement object
              */
@@ -216,7 +216,7 @@ class RemainderController
             /**
              * @var string $query has query to select the notes from database
              */
-            $query = "SELECT * FROM notes where email='$email' and remainder != 'undefined' and isDeleted='no'  order by id desc";
+            $query = "SELECT * FROM notes where email='$email' and remainder != 'undefined' and isDeleted='no'  order by dragId desc";
             /**
              * @var string $statement holds statement object
              */

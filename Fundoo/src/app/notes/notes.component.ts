@@ -213,19 +213,18 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @param CdkDragDrop array
    */
   drop(event: CdkDragDrop<string[]>) {
-
     moveItemInArray(this.notes, event.previousIndex, event.currentIndex);
     if ((event.previousIndex - event.currentIndex) >= 0) {
       this.difference = (event.previousIndex - event.currentIndex);
-      alert("pas");
+      // alert("pas");
       this.dirrection = "positive"
     }
     else {
       this.difference = (event.previousIndex - event.currentIndex) * -1;
-      alert("neg");
+      // alert("neg");
       this.dirrection = "negative"
     }
-    let obbs = this.notesService.dragAndDrop(this.difference, this.notes[event.currentIndex].id, this.dirrection, this.email);
+    let obbs = this.notesService.dragAndDrop(this.difference, this.notes[event.currentIndex].dragId, this.dirrection, this.email);
     obbs.subscribe(
       (res: any) => {
       }, error => {

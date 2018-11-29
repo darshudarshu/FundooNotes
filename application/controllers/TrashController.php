@@ -52,7 +52,7 @@ class TrashController
                 /**
                  * @var string $query has query to select deleted notes data from database 
                  */
-                $query = "SELECT * FROM notes where email='$email' and isDeleted = 'yes' order by id desc";
+                $query = "SELECT * FROM notes where email='$email' and isDeleted = 'yes' order by dragId desc";
                 /**
                  * @var string $statement holds statement object
                  */

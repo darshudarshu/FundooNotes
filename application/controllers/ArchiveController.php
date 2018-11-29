@@ -51,7 +51,7 @@ class ArchiveController
                 /**
                  * @var string $query has query to select all notes 
                  */
-                $query = "SELECT * FROM notes where email = '$email' and isArchive = 'no' and isDeleted = 'no' order by id desc";
+                $query = "SELECT * FROM notes where email = '$email' and isArchive = 'no' and isDeleted = 'no' order by dragId desc";
                 /**
                  * @var string $statement holds statement object
                  */
@@ -97,7 +97,7 @@ class ArchiveController
             /**
              * @var string $query has query to select all notes
              */
-            $query = "SELECT * FROM notes where  email = '$email' and isArchive = 'yes' and isDeleted = 'no' order by id desc";
+            $query = "SELECT * FROM notes where  email = '$email' and isArchive = 'yes' and isDeleted = 'no' order by dragId desc";
             /**
              * @var string $statement holds statement object
              */
@@ -230,7 +230,7 @@ class ArchiveController
             /**
              * @var string $query has query to select all notes
              */
-            $query = "SELECT * FROM notes where email = '$email' and isArchive = 'yes' and isDeleted = 'no' order by id desc";
+            $query = "SELECT * FROM notes where email = '$email' and isArchive = 'yes' and isDeleted = 'no' order by dragId desc";
             /**
              * @var string $statement holds statement object
              */

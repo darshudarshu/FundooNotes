@@ -69,7 +69,16 @@ class NotesController
                     $query     = "UPDATE collabarator SET noteId = ( SELECT MAX(id) FROM notes WHERE email ='$email') WHERE noteId = 1111 ";
                     $statement = $this->connect->prepare($query);
                     $darshu    = $statement->execute();
-                    $reff      = new NotesController();
+                    $query     = " SELECT MAX(id) id FROM notes WHERE email ='$email' ";
+                    $statement = $this->connect->prepare($query);
+                    $darshu    = $statement->execute();
+                    $dragId    = $statement->fetch(PDO::FETCH_ASSOC);
+                    $dragId    = $dragId['id'];
+                    $query     = "UPDATE notes SET dragId = '$dragId' where id = '$dragId' ";
+                    $statement = $this->connect->prepare($query);
+                    $darshu    = $statement->execute();
+
+                    $reff = new NotesController();
                     $reff->userNotes();
                 } else {
                     $data = array(
@@ -89,7 +98,15 @@ class NotesController
                  */
                 $statement = $this->connect->prepare($query);
                 if ($statement->execute()) {
-                    $reff = new NotesController();
+                    $query     = " SELECT MAX(id) id FROM notes WHERE email ='$email' ";
+                    $statement = $this->connect->prepare($query);
+                    $darshu    = $statement->execute();
+                    $dragId    = $statement->fetch(PDO::FETCH_ASSOC);
+                    $dragId    = $dragId['id'];
+                    $query     = "UPDATE notes SET dragId = '$dragId' where id = '$dragId' ";
+                    $statement = $this->connect->prepare($query);
+                    $darshu    = $statement->execute();
+                    $reff      = new NotesController();
                     $reff->userNotes();
                 } else {
                     $data = array(
@@ -126,7 +143,7 @@ class NotesController
         /**
          * @var string $query has query to select the all the notes
          */
-        $query = "SELECT * FROM notes where  isArchive = 'no' and isDeleted='no' and (email = '$email' or id in ( SELECT noteId from collabarator WHERE email='$email') )  order by id desc ";
+        $query = "SELECT * FROM notes where  isArchive = 'no' and isDeleted='no' and (email = '$email' or id in ( SELECT noteId from collabarator WHERE email='$email') )  order by dragId desc ";
 
         /**
          * @var string $statement holds statement object
@@ -198,7 +215,7 @@ class NotesController
             /**
              * @var string $query has query to select all the notes from notes tabel
              */
-            $query = "SELECT * FROM notes where  isArchive = 'no' and isDeleted='no' and (email = '$email' or id in ( SELECT noteId from collabarator WHERE email='$email') )  order by id desc ";
+            $query = "SELECT * FROM notes where  isArchive = 'no' and isDeleted='no' and (email = '$email' or id in ( SELECT noteId from collabarator WHERE email='$email') )  order by dragId desc ";
             /**
              * @var string $statement holds statement object
              */
@@ -487,12 +504,12 @@ class NotesController
                     /**
                      * @var string $query has query to select the next max note id of the notes
                      */
-                    $query = "SELECT MAX(id) id FROM notes where id < '$currId' and email='$email'";
+                    $query = "SELECT MAX(dragId) dragId FROM notes where dragId < '$currId' and email='$email'";
                 } else {
                     /**
                      * @var string $query has query to select the next min note id of the notes
                      */
-                    $query = "SELECT MIN(id) id FROM notes where id > '$currId'  and email='$email'";
+                    $query = "SELECT MIN(dragId) dragId FROM notes where dragId > '$currId' and email='$email'";
                 }
                 $statement = $this->connect->prepare($query);
                 $statement->execute();
@@ -500,14 +517,15 @@ class NotesController
                 /**
                  * @var swapId to store the next id
                  */
-                $swapId = $swapId['id'];
+                $swapId = $swapId['dragId'];
                 /**
                  * @var string $query has query to swap the tow rows
                  */
-                $query = "UPDATE notes a INNER JOIN notes b on a.id <> b.id set a.email = b.email,a.title = b.title,a.notes = b.notes,a.remainder =b.remainder, a.color=b.color,a.isArchive=b.isArchive , a.isDeleted = b.isDeleted,a.label = b.label
-                    WHERE a.id in ('$swapId','$currId') and b.id in ('$swapId','$currId')";
+                $query = "UPDATE notes a INNER JOIN notes b on a.dragId <> b.dragId set a.dragId = b.dragId
+                    WHERE a.dragId in ('$swapId','$currId') and b.dragId in ('$swapId','$currId')";
                 $statement = $this->connect->prepare($query);
                 $temp      = $statement->execute();
+
                 /**
                  * storing in the next id
                  */
