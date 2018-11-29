@@ -1,0 +1,21 @@
+<app-header>
+</app-header>
+<mat-card>
+    <div>
+        <mat-card-title class="matcardtitle">Reset Password</mat-card-title>
+    </div>
+    <div class="example-container">
+        <div>
+            <label>session :{{session}}</label>
+            <br>
+            <label>Mail ID : {{value}}</label>
+        </div>
+        <mat-form-field>
+            <input matInput maxlength="6" minlength="6" [(ngModel)]="model.pass" placeholder="New Password" type="password" [formControl]="pass" required>
+            <mat-error *ngIf="pass.invalid ">{{getPassErrorMessage()}}</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="button">
+        <button routerLink="/login" mat-raised-button [disabled]="pass.invalid" (click)="reset()" class="buttonregister">Reset</button>
+    </div>
+</mat-card>

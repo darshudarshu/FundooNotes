@@ -1,0 +1,50 @@
+<mat-form-field appearance="null">
+    <input matInput>
+</mat-form-field>
+<!-- other cards  -->
+<div *ngIf="grid" fxLayout="column wrap" fxLayoutAlign="center" fxLayoutGap="10px" style='margin-top: 121px;margin-left: 27%;margin-right:26%;'>
+    <mat-card class="othermat1 " *ngFor="let user of notes " [ngStyle]="{'background-color': user.color}">
+        <div style="    margin-top: -17px;" *ngIf="!displayOtherCards ">
+            <input style=" width: 92%;    margin-top: 16px; " (click)="openDialog(user)" matInput [(ngModel)]="user.title ">
+        </div>
+        <div *ngIf="!displayOtherCards " style="padding-bottom: 0; ">
+            <input style=" width:95%; " (click)="openDialog(user)" matInput [(ngModel)]="user.notes ">
+        </div>
+        <div align=left style="margin-top: 7px;" *ngIf="(user.remainder !='undefined' && user.remainder !='null')">
+            <button (click)="othertimepanel(user.id)" mat-button><mat-icon><img class="timerclass" src="../../assets/img/fundoAssests/timer.svg "></mat-icon>{{ user.remainder }}</button>
+            <button style="margin-left: -33px;height: 0px;" mat-button (click)="otherClearTimeDate(user.id)"><mat-icon><img style=" margin: 2px;" src="../../assets/img/fundoAssests/close.svg "></mat-icon></button>
+        </div>
+        <div *ngIf="!displayOtherCards " align=left class="tools">
+            <button matTooltip="More " [matMenuTriggerFor]="moreMenu" mat-icon-button>
+                    <mat-icon> <img src="../../assets/img/fundoAssests/more.svg "></mat-icon></button>
+            <mat-menu [overlapTrigger]="false " #moreMenu="matMenu">
+                <button (click)="deletNote(user.id)" mat-menu-item>Delete forever </button>
+                <button (click)="restoreNote(user.id)" mat-menu-item>Restore </button>
+            </mat-menu>
+        </div>
+    </mat-card>
+</div>
+<div *ngIf="!grid" fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="flex-start" style='margin-top: 121px;margin-left: 20%;margin-right:8%;'>
+    <mat-card class="othermat " *ngFor="let user of notes " [ngStyle]="{'background-color': user.color}">
+        <div style="    margin-top: -17px;" *ngIf="!displayOtherCards ">
+            <input style=" width: 80%;    margin-top: 16px; " (click)="openDialog(user)" matInput [(ngModel)]="user.title ">
+        </div>
+        <div *ngIf="!displayOtherCards " style="padding-bottom: 0; ">
+            <input style=" width:95%; " (click)="openDialog(user)" matInput [(ngModel)]="user.notes ">
+        </div>
+        <div align=left style="margin-top: 7px;" *ngIf="( user.remainder !='undefined' && user.remainder !='null')">
+            <button (click)="othertimepanel(user.id)" mat-button><mat-icon><img class="timerclass" src="../../assets/img/fundoAssests/timer.svg "></mat-icon>{{ user.remainder }}</button>
+            <button style="margin-left: -33px;height: 0px;" mat-button (click)="otherClearTimeDate(user.id)"><mat-icon><img   style=" margin: 2px;"  src="../../assets/img/fundoAssests/close.svg "></mat-icon></button>
+        </div>
+        <div *ngIf="!displayOtherCards " align=left class="tools">
+            <button matTooltip="More " [matMenuTriggerFor]="moreMenu" mat-icon-button>
+                    <mat-icon> <img src="../../assets/img/fundoAssests/more.svg "></mat-icon></button>
+            <mat-menu [overlapTrigger]="false " #moreMenu="matMenu">
+                <button (click)="deletNote(user.id)" mat-menu-item>Delete forever</button>
+                <button (click)="restoreNote(user.id)" mat-menu-item>Restore </button>
+            </mat-menu>
+        </div>
+    </mat-card>
+</div>
+<div *ngIf="iserror">{{errorMessage}}
+</div>

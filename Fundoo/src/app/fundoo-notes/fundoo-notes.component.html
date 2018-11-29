@@ -1,0 +1,54 @@
+<mat-toolbar class="toolbar">
+    <button mat-icon-button matTooltip="Main menu" (click)="drawer.toggle()"><mat-icon><img src="../../assets/img/fundoAssests/menu.svg "></mat-icon></button>
+    <span class="title">Fundoo Notes</span>
+    <button mat-icon-button matTooltip="Search" (click)="sendSearchData()"><mat-icon><img src="../../assets/img/fundoAssests/search.svg "></mat-icon></button>
+    <input class="searchbar" type="text" [(ngModel)]="searchData" (keyup)="sendSearchData()" placeholder="Search">
+    <button *ngIf="data" matTooltip="Grid view" style="margin-left: 175px" mat-icon-button (click)="sendMessage()"> <mat-icon><img src="../../assets/img/fundoAssests/view1.svg "></mat-icon></button>
+    <button *ngIf="!data" matTooltip="List view" style="margin-left: 175px" mat-icon-button (click)="sendMessage()"> <mat-icon><img src="../../assets/img/fundoAssests/view.svg "></mat-icon></button>
+    <button *ngIf="!ispresent" mat-mini-fab style="font-size: 25px;" class="margin: 30px" matTooltip="Google Account {{val}}" [matMenuTriggerFor]="menu"> {{val[0]}}</button>
+    <button *ngIf="ispresent" mat-mini-fab class="margin: 30px" matTooltip="Google Account {{val}}" [matMenuTriggerFor]="menu"> <mat-icon>  <img  [src]="myurl" class="imagg"></mat-icon></button>
+    <mat-menu [overlapTrigger]="false" #menu="matMenu">
+        <button *ngIf="!ispresent" (click)="file.click()" mat-fab style="font-size: 50px;" class="imag">{{val[0]}} </button>
+        <div *ngIf="ispresent">
+            <button mat-fab style="background-colour:'white'" (click)="file.click()">
+                <img [src]="myurl" class="imag">
+            </button>
+            <button class="google" mat-button>Google Account</button>
+        </div>
+        <input style="margin-left: -273px;" type='file' #file (change)="onSelectFile($event)">
+        <button mat-menu-item>{{val}}</button>
+        <button mat-menu-item>Add account</button><button (click)="logout()" mat-menu-item>Sign out</button>
+    </mat-menu>
+</mat-toolbar>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport="true" fixedTopGap="64" mode="side">
+        <mat-nav-list>
+            <div style="background-colour:blue">
+                <a mat-list-item routerLink="notes">
+                    <mat-icon> <img src="../../assets/img/login/bulb.svg"></mat-icon>Notes</a>
+                <a mat-list-item routerLink="remainder">
+                    <mat-icon><img src="../../assets/img/fundoAssests/touch.svg"></mat-icon>Remainders</a>
+                <mat-divider>
+                </mat-divider>
+                <div class="label">Labels
+                    <button class="edit" (click)="openDialog(user)" mat-icon-button>EDIT</button></div>
+                <a *ngFor="let label of labels">
+                    <a routerLink="labelcomp" (click)="sendLabelName(label.name)" mat-list-item>
+                        <mat-icon><img src="../../assets/img/fundoAssests/label.svg"></mat-icon>{{label.name}}
+                    </a>
+                </a>
+                <a mat-list-item (click)="openDialog(user)">
+                    <mat-icon><img src="../../assets/img/fundoAssests/plus.svg "></mat-icon>Create new label</a>
+                <mat-divider style="padding-top: 8px">
+                </mat-divider>
+                <a mat-list-item routerLink="archive">
+                    <mat-icon><img src="../../assets/img/fundoAssests/archive.svg "></mat-icon>Archive</a>
+                <a mat-list-item routerLink="trash">
+                    <mat-icon> <img src="../../assets/img/fundoAssests/delete.svg "></mat-icon>Trash</a>
+            </div>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content style="    padding-bottom: 40%;">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

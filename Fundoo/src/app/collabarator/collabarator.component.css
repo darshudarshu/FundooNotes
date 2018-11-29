@@ -1,0 +1,25 @@
+::ng-deep.mat-dialog-container {
+    padding: 10px;
+    height: fit-content!important;
+}
+
+.matcard {
+    padding: 5px;
+}
+
+.input {
+    outline: none;
+    border: none;
+    width: 76%;
+    padding: 12px;
+}
+
+.button {
+    /* margin-left: 257px; */
+    height: 0px;
+}
+
+.buttonn {
+    /* margin-left: 257px; */
+    height: 0px;
+}

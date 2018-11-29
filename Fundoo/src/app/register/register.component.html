@@ -1,0 +1,29 @@
+<app-header>
+</app-header>
+<mat-card>
+    <ngx-spinner></ngx-spinner>
+    <mat-card-title class="matcardtitle">Registration</mat-card-title>
+    <div class=" example-container">
+        <mat-form-field>
+            <input matInput placeholder="username" autocomplete="on" [(ngModel)]="model.name" [formControl]="name" required>
+            <mat-error *ngIf="name.invalid">{{getNameErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Enter your email" autocomplete="on" [(ngModel)]="model.email" [formControl]="email" required>
+            <mat-error *ngIf="email.invalid ">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput maxlength="10" autocomplete="on" placeholder="Moblie number" [(ngModel)]="model.number" [formControl]="mobile" required>
+            <mat-error *ngIf="mobile.invalid ">{{getMobileErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput minlength="6" maxlength="6" placeholder="Password" [(ngModel)]="model.pass" type=password [formControl]="pass" required>
+            <mat-error *ngIf="pass.invalid ">{{getPassErrorMessage()}}</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="button ">
+        <button mat-raised-button [disabled]="(name.invalid || email.invalid || mobile.invalid || pass.invalid)" (click)="register()" class="buttonregister">Sign Up</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button routerLink="/login" mat-raised-button class="buttonregister">Login</button>
+    </div>
+</mat-card>

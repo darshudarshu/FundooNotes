@@ -1,0 +1,86 @@
+ .sidenav-container {
+     height: 100%;
+ }
+ 
+ .sidenav {
+     width: 21%;
+     background-color: #e8e8e8;
+ }
+ 
+ .mat-drawer-container {
+     background-color: #e8e8e8;
+ }
+ 
+ .title {
+     padding-left: 30px;
+     font-size: 21px;
+ }
+ 
+ .searchbar {
+     background: transparent;
+     border: none;
+     height: 25px;
+     outline: none;
+     padding: 11px 16px 11px 16px;
+     width: 51%;
+     background-color: #efb401;
+     font: normal 16px Roboto, sans-serif;
+     font-variant-ligatures: none;
+     margin-right: 33px;
+ }
+ 
+ .search {
+     padding-left: 45px;
+     padding-top: 4px;
+     color: #705400;
+     height: 25px;
+ }
+ 
+ .mat-icon {
+     width: 50px;
+ }
+ 
+ .label {
+     cursor: default;
+     font-size: 15px;
+     padding: 15px 24px 10px;
+     color: black;
+ }
+ 
+ .edit {
+     margin-left: 110px;
+     font-size: 13px
+ }
+ 
+ .mat-icon-button {
+     /* margin-left: 11px; */
+     width: 43px;
+ }
+ 
+ .toolbar {
+     position: fixed;
+     z-index: 2;
+     background-color: #f8bb01;
+     width: 100%
+ }
+ 
+ .imag {
+     height: 80px;
+     width: 80px;
+     border-radius: 50%;
+     margin-top: -22px;
+     margin-left: -2px;
+ }
+ 
+ .imagg {
+     height: 42px;
+     width: 42px;
+     border-radius: 50%;
+     margin-right: 9px;
+     margin-top: -9px;
+ }
+ 
+ .google {
+     margin-left: 34px;
+     background-color: #42b729;
+ }

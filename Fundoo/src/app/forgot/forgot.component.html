@@ -1,0 +1,17 @@
+<app-header>
+</app-header>
+<mat-card>
+    <div>
+        <mat-card-title class="matcardtitle">Forgot Password</mat-card-title>
+    </div>
+    <div class="example-container">
+        <mat-form-field>
+            <input matInput placeholder="Enter your email" [(ngModel)]="model.email" [formControl]="email" required>
+            <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="button">
+        <ngx-spinner></ngx-spinner>
+        <button mat-raised-button (click)="forgot()" [disabled]="email.invalid" class="buttonregister">Submit</button>
+    </div>
+</mat-card>

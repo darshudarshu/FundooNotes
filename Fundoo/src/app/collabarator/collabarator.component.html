@@ -1,0 +1,32 @@
+<body class="matcard">
+    <div>
+        <h2>Collabarator :</h2>
+        <mat-divider></mat-divider>
+        <div>
+            <button style="color:'black'" [ngStyle]="{'background-color': data.user.color}" mat-fab>{{owner[0]}}</button>
+            <b> {{owner}}(owner)</b>
+        </div>
+        <div contenteditable="false" *ngFor="let item of collabarators">
+            <a mat-list-item>
+                <button [ngStyle]="{'background-color': data.user.color}" mat-fab>{{item.email[0]}}</button>
+                <input class="input " contenteditable="false" matInput [(ngModel)]="item.email">
+
+                <button class="button" mat-mini-fab (click)="deleteCollabarator(item.id,data.user.id,data.user.email,item.owner,item.email)">   <mat-icon *ngIf="true" > <img src="../../assets/img/fundoAssests/close.svg "></mat-icon></button>
+                <mat-icon *ngIf="false"> <img src="../../assets/img/fundoAssests/addp.svg "></mat-icon>
+            </a>
+        </div>
+        <div>
+            <button [ngStyle]="{'background-color': data.user.color}" mat-fab> <mat-icon> <img src="../../assets/img/fundoAssests/person.svg "></mat-icon></button>
+
+            <input class="input " (click)="errorCheck = false" placeholder="Person or email to share with" [(ngModel)]="emmail">
+            <button class="buttonn" (click)="addCollabarator(data.user.email,data.user.id)" mat-mini-fab>  <mat-icon> <img src="../../assets/img/fundoAssests/done.svg "></mat-icon> </button>
+            <mat-error style="margin-left: 66px;" *ngIf="errorCheck">Enter valid emailId</mat-error>
+        </div>
+    </div>
+    <div align=right>
+
+        <button mat-button (click)="onClose()">Cancel</button>
+
+        <button mat-button (click)="save()">Save</button>
+    </div>
+</body>

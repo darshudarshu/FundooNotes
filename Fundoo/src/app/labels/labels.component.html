@@ -1,0 +1,27 @@
+<label> Add label</label>
+<div>
+    <button mat-button (click)="currentLabel=null"><mat-icon><img style=" margin: 2px;" src="../../assets/img/fundoAssests/close.svg "></mat-icon></button>
+    <input class="closebutton" matInput placeholder="Create new label" [(ngModel)]="currentLabel">
+</div>
+<div *ngFor="let label of labels">
+    <div *ngIf="labelid != label.id">
+        <a *ngIf="edit || labelid != label.id">
+            <button mat-button> <mat-icon><img src=" ../../assets/img/fundoAssests/label.svg "></mat-icon></button>
+            <input class="input " (click)="noChange(label.id) " matInput [(ngModel)]="label.name ">
+            <button matSuffix mat-button (click)="noChange(label.id) ">  <mat-icon ><img src="../../assets/img/fundoAssests/edit.svg "> </mat-icon></button>
+        </a>
+    </div>
+    <div *ngIf="labelid == label.id ">
+        <a *ngIf="!edit ">
+            <button mat-button (click)="delete(label.id) "> <mat-icon><img src="../../assets/img/fundoAssests/delete.svg "></mat-icon></button>
+            <input class="input " matInput [(ngModel)]="label.name ">
+            <button mat-button (click)="change(label.id,label.name) "> <mat-icon><img src="../../assets/img/fundoAssests/done.svg "> </mat-icon></button>
+        </a>
+        <a *ngIf="edit ">
+            <button mat-button> <mat-icon><img src="../../assets/img/fundoAssests/label.svg "></mat-icon></button>
+            <input class="input " matInput (click)="noChange(label.id) " [(ngModel)]="label.name ">
+            <button matSuffix mat-button (click)="noChange(label.id) ">  <mat-icon ><img src="../../assets/img/fundoAssests/edit.svg "> </mat-icon></button>
+        </a>
+    </div>
+</div>
+<button mat-button (click)="onClose()" cdkFocusInitial>Done</button>

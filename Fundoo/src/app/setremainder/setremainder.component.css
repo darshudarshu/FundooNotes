@@ -1,0 +1,149 @@
+.mainmat {
+    width: 560px;
+    padding: 14px;
+    margin-top: 91px;
+    /* margin-left: 19%;
+    margin-right: 9%; */
+}
+
+.othermat {
+    width: 210px;
+    /* padding: 20px; */
+    margin-top: 30px;
+    /* padding: 10px; */
+    height: fit-content;
+    padding: 10px;
+}
+
+.othermat1 {
+    width: 560px;
+    /* padding: 20px; */
+    margin-top: 30px;
+    /* padding: 10px; */
+    height: fit-content;
+    padding: 10px;
+}
+
+.mat-form-field {
+    width: 560px;
+    border-top: 0px;
+    margin-top: -28px;
+    padding-bottom: -12px;
+}
+
+.example-full-width {
+    width: auto;
+}
+
+.mat-icon-button {
+    width: 33px;
+}
+
+.mat-form-field-wrapper {
+    padding-bottom: 00;
+}
+
+.tools:hover {
+    opacity: 1;
+}
+
+.tools {
+    opacity: 0.5;
+}
+
+.mat-button {
+    line-height: 0;
+}
+
+.mat-menu-item {
+    font-size: 14px;
+}
+
+.mat-card:not([class*=mat-elevation-z]) {
+    box-shadow: -313px1px-2pxrgba(0, 0, 0, .2), 02px2px0rgba(0, 0, 0, .14), 01px5px0rgba(0, 0, 0, .12);
+    box-shadow: 006pxblack;
+    box-shadow: 0012pxblack;
+}
+
+element.style {
+    width: 273px;
+    margin-top: -14px;
+    /*margin-left:-262px;*/
+    padding-left: -34px;
+    margin-right: 256px;
+}
+
+.menu {
+    /* margin-left: 347px; */
+    margin-left: 27%;
+    margin-top: -25px;
+    position: absolute;
+    z-index: 100;
+    box-shadow: 000pxblack;
+    /* border-radius: 0px; */
+    width: 248px;
+    height: 221px;
+    padding: 2px;
+}
+
+.mat-card {
+    border-radius: 10px;
+}
+
+.mat-button {
+    font-size: 12px;
+    padding: 0;
+}
+
+.timerclass {
+    width: 17px;
+    height: 17px;
+    margin-bottom: 4px;
+}
+
+img {
+    width: 20px;
+    height: 20px;
+}
+
+.mainbutton {
+    width: 45px;
+}
+
+.mat-input-element {
+    text-align: left;
+}
+
+.maintitle {
+    margin-left: -8px;
+    margin-top: -15px;
+}
+
+
+/* .tools {
+    position: relative;
+} */
+
+.mat-button {
+    border-radius: 214px;
+}
+
+.colorlens {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    margin-bottom: 6px;
+}
+
+.othermenu {
+    /* margin-left: 347px; */
+    /* margin-left: 27%; */
+    /* margin-top: -25px; */
+    position: absolute;
+    z-index: 100;
+    box-shadow: 000pxblack;
+    /* border-radius: 0px; */
+    width: 248px;
+    height: 221px;
+    padding: 2px;
+}

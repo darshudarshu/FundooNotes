@@ -1,0 +1,27 @@
+   ::ng-deep.mat-dialog-container {
+      width: 51% !important;
+      align-content: center !important;
+      margin: 111px !important;
+      padding: 20px !important;
+  }
+  
+  .mat-form-field-infix {
+      padding: .5em 0;
+      border-top: 0px;
+  }
+  
+  .buttons {
+      margin: -6px;
+      height: fit-content;
+  }
+  
+  .input {
+      width: 33%;
+      padding: 7px;
+  }
+  
+  .closebutton {
+      width: 47%;
+      font-size: 22px;
+      padding: 4px;
+  }
