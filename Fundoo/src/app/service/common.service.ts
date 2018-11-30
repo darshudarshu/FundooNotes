@@ -35,7 +35,7 @@ export class CommonService {
     * @description function to add data to subject
     */
   public sendSearchDataToService(data: any) {
-    debugger;
+
     this.searchData.next(data);
   }
 }

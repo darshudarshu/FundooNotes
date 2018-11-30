@@ -4,8 +4,9 @@ header('Access-Control-Allow-Origin: *');
 /*********************************************************************
  * @discription  Controller API
  *********************************************************************/
-require 'phpmailer/index.php';
+// require 'phpmailer/index.php';
 require 'JWT.php';
+include "/var/www/html/codeigniter/application/RabbitMQ/sender.php";
 /**
  * @var string $query has query to update data into database (tbl_sample) table name
  */
@@ -64,30 +65,27 @@ class FundoAPI
             ";
             $statement = $this->connect->prepare($query);
             if ($statement->execute()) {
-                $ref = new Mailing();
+                $ref = new SendMail();
                 // define("PROJECT_HOME", "http://localhost:4200/verify");
                 $token = md5($email);
                 $sub   = 'verify email id';
-                $body  = "<div> hello <br>
-            <p>click this link to verify your email<br>
-            <a href='" . "http://localhost:4200/verify" . "?token=" . $token . "'>"
-                    . "click here" .
-                    "</a><br></p>Regards,<br> DARSHU.</div>";
-                $ref->sendMail($email, $body, $sub);
-                $query     = "UPDATE registration SET reset_key = '$token' where email = '$email'";
-                $statement = $this->connect->prepare($query);
-                if ($statement->execute()) {
-                    $data = array(
-                        "message" => "200",
-                    );
-                    print json_encode($data);
+                $body  = " hello click this link to verify your email click here " . "http://localhost:4200/verify" . "?token=" . $token .
+                    "  Regards DARSHU ";
+                $ref->sendEmail($email, $sub, $body);
+                    $query     = "UPDATE registration SET reset_key = '$token' where email = '$email'";
+                    $statement = $this->connect->prepare($query);
+                    if ($statement->execute()) {
+                        $data = array(
+                            "message" => "200",
+                        );
+                        print json_encode($data);
 
-                } else {
-                    $data = array(
-                        "message" => "204",
-                    );
-                    print json_encode($data);
-                }
+                    } else {
+                        $data = array(
+                            "message" => "204",
+                        );
+                        print json_encode($data);
+                    }
             } else {
                 $data = array(
                     "message" => "304",
@@ -136,7 +134,6 @@ class FundoAPI
  */
     public function login()
     {
-       
 
         $email = $_POST["email"];
         $pass  = $_POST["password"];
@@ -196,26 +193,32 @@ class FundoAPI
     public function forgotPassword()
     {
         $email = $_POST["email"];
-        // define("PROJECT_HOME", "http://localhost:4200/reset");
+        // define("PROJECT_HOME", "http://localhost:4200/reset");    PhpAmqpLib\Wire\bcadd
 
         if (FundoAPI::checkEmail($email)) {
-            $ref       = new Mailing();
+            $ref       = new SendMail();
             $token     = md5($email);
             $query     = "UPDATE registration SET reset_key = '$token' where email = '$email'";
             $statement = $this->connect->prepare($query);
             $statement->execute();
             $sub  = 'password recovery mail';
-            $body = "<div> hello <br>
-            <p>Click this link to recover your password<br>
-            <a href='" . "http://localhost:4200/reset" . "?token=" . $token . "'>"
-                . "click here" .
-                "</a><br></p>Regards,<br> DARSHU.</div>";
+            $body = " hello
+            Click this link to recover your password click here " . "http://localhost:4200/reset" . "?token=" . $token .
+                " Regards DARSHU";
+            $response = $ref->sendEmail($email, $sub, $body);
+            if ($response == "sent") {
+                $data = array(
+                    "message" => "200",
+                );
+                print json_encode($data);
 
-            $ref->sendMail($email, $body, $sub);
-            $data = array(
-                "message" => "200",
-            );
-            print json_encode($data);
+            } else {
+                $data = array(
+                    "message" => "400",
+                );
+                print json_encode($data);
+
+            }
 
         } else {
             $data = array(

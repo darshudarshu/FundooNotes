@@ -99,10 +99,12 @@ export class LabelService {
     * @param url 
     * @description Function to send email and url to server
     */
-  saveProfile(url, email) {
+  saveProfile(url, email,imagefile) {
     let saveImage = new FormData();
     saveImage.append("url", url)
     saveImage.append("email", email)
+    // saveImage.append("file", imagefile , imagefile.tmp_name )
+    saveImage.append("file", imagefile)
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
