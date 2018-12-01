@@ -47,7 +47,8 @@ class ImageControllerService
             /**
              * returns json array response
              */
-            print json_encode($arr);
+            print json_encode(base64_encode($arr['profilepic']));
+             
         }
 
     }
@@ -55,60 +56,56 @@ class ImageControllerService
  * @method saveImage() upload the profile pic
  * @return void
  */
-    public function saveImage( $url, $email)
+    public function saveImage($url, $email)
     {
         $ref           = new DatabaseConnection();
         $this->connect = $ref->Connection();
-        $encode2       = base64_decode($url);
-
-
-
-
+        $file          = base64_decode($url);
 
 // $conf = new NoteStoreConfig();
-// $conn = $conf->configs();
+        // $conn = $conf->configs();
 
 // $email = $_POST['email'];
-// if ($email != null) {
+        // if ($email != null) {
 
 // $filePath = base64_decode($_POST['fileKey']);
-// $stmt = $conn->prepare("UPDATE users SET `profilepic` = :filePath where `email`= :email ");
+        // $stmt = $conn->prepare("UPDATE users SET `profilepic` = :filePath where `email`= :email ");
 
-// $stmt->execute(array(
-// ':filePath' => $filePath,
-// ':email' => $email
-// ));
+        // $stmt->execute(array(
+        //     ':file' => $file,
+        //     ':email'    => $email,
+        // ));
 
 // print json_encode($data);
 
 // if ($stmt->execute()) {
-// $conff = new ProfilePic();
-// $conff->getPic();
+        // $conff = new ProfilePic();
+        // $conff->getPic();
 
 // } else {
-// $data = array(
-// "status" => "401"
-// );
-// print json_encode($data);
-// }
-
-
-
-
-
+        // $data = array(
+        // "status" => "401"
+        // );
+        // print json_encode($data);
+        // }
 
         /**
          * @var string $query has query to update the user profile pic
          */
-        $query     = "UPDATE registration  SET profilepic ='$encode2' where email='$email' ";
+        $query     = "UPDATE registration  SET `profilepic` = :file  where `email`= :email ";
         $statement = $this->connect->prepare($query);
-        $d         = $statement->execute();
-        if ($statement->execute()) {
+        if ($statement->execute(array(
+            ':file' => $file,
+            ':email'    => $email,))) {
 
             $ref = new ImageControllerService();
-            $ref->fetchImage();
-        }
+            $ref->fetchImage($email);
+        } else {
+            $data = array(
+                "message" => "203",
+            );
+            print json_encode($data);
 
-        print $filee;
+        }
     }
 }
