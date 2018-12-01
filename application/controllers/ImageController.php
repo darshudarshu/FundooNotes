@@ -48,6 +48,17 @@ class ImageController
         $this->serviceReference->saveImage($url, $email);
 
     }
+/**
+ * @method noteSaveImage() upload the profile pic
+ * @return void
+ */
+    public function noteSaveImage()
+    {
+        $email = $_POST["email"];
+        $url   = $_POST["url"];
+        $id    = $_POST["id"];
+        $this->serviceReference->noteSaveImage($url, $email, $id);
 
+    }
 
 }

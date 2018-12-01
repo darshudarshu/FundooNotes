@@ -169,8 +169,8 @@ export class FundooNotesComponent {
   _handleReaderLoaded(readerEvt) {
     var binaryString = readerEvt.target.result;
     this.base64textString = btoa(binaryString);
-    console.log(binaryString));
-    console.log(this.base64textString);
+    // console.log(binaryString));
+    // console.log(this.base64textString);
     
 let obss = this.image.saveProfile(this.base64textString,this.email);
 obss.subscribe(

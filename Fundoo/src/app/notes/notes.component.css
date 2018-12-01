@@ -131,3 +131,14 @@ img {
     height: 221px;
     padding: 2px;
 }
+
+
+/* noteImage {
+    width: 100% !important;
+    height: 100% !important;
+} */
+
+ ::ng-deep.noteImage {
+    width: 100% !important;
+    height: 100% !important;
+}

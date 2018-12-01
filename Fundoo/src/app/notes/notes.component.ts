@@ -19,7 +19,7 @@ import { EditnotesComponent } from './../editnotes/editnotes.component';
 import { CollabaratorComponent } from './../collabarator/collabarator.component';
 import { CreatecollabaratorComponent } from './../createcollabarator/createcollabarator.component';
 import { LabelService } from "../service/label.service";
-
+import { ImageService } from '../service/image.service';
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -93,7 +93,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   * variable to hold search data
   */
   searchData;
-  constructor(private collabaratorService: CollabaratorService, private commonlabelService: CommonlabelService, private labelservice: LabelService, private archiveService: ArchiveService, public dialog: MatDialog, private router: Router, private notesService: NoteserviceService, private _cookieService: CookieService, private commonService: CommonService) {
+  constructor(private image:ImageService,private collabaratorService: CollabaratorService, private commonlabelService: CommonlabelService, private labelservice: LabelService, private archiveService: ArchiveService, public dialog: MatDialog, private router: Router, private notesService: NoteserviceService, private _cookieService: CookieService, private commonService: CommonService) {
     /**
     * subscribing the notifyObservable variable in common service
     */
@@ -639,5 +639,42 @@ export class NotesComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       this.mainCollabarators = result;
     });
+  }
+
+  /**
+   * var to hold image base64url
+   */
+  public base64textString;
+myurl;
+
+   onSelectFile(event,noteId) {
+    var files = event.target.files;
+    var file = files[0];
+    if (files && file) {
+      var reader = new FileReader();
+      reader.onload = this._handleReaderLoaded.bind(this);
+      reader.readAsBinaryString(file);
+    }
+  }
+
+  _handleReaderLoaded(readerEvt) {
+    var binaryString = readerEvt.target.result;
+    this.base64textString = btoa(binaryString);
+    // console.log(binaryString));
+    // console.log(this.base64textString);
+    
+let obss = this.image.noteSaveImage(this.base64textString,this.email,id);
+obss.subscribe(
+  (res: any) => {
+    if (res != "") {
+
+      this.myurl = "data:image/jpeg;base64,"+res;
+
+    }
+    else {
+    
+    }
+  });
+
   }
 }

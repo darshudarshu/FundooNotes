@@ -187,6 +187,13 @@
 </div>
 <div *ngIf="!grid" fxLayout="row wrap" cdkDropList fxLayoutGap="10px" (cdkDropListDropped)="drop($event)" fxLayoutAlign="flex-start" style='margin-top: 40px;margin-left: 20%;margin-right:8%;'>
     <mat-card class="othermat " *ngFor="let user of ( notes | searchdata : searchData )" cdkDrag [ngStyle]="{'background-color': user.color}">
+
+
+        <div>
+            <img [src]="myurl" class="noteImage">
+
+        </div>
+        <input style="display: none;" type='file' #file (change)="onSelectFile($event)">
         <div style="    margin-top: -17px;" *ngIf="!displayOtherCards ">
             <input style=" width: 80%; " (click)="openDialog(user)" matInput [(ngModel)]="user.title ">
             <button style=" width: 40px ;padding-top: 5px; " class="tools" mat-icon-button><mat-icon   matSuffix><img src="../../assets/img/fundoAssests/pin.svg "></mat-icon></button>
@@ -238,7 +245,7 @@
                 <button matTooltip="Pink" (click)="setColor( user.id, '#fccfe8 ')" mat-mini-fab class="colorlens" style="background-color:#fccfe8 "> </button>
                 <button matTooltip="Purple" (click)="setColor(user.id,  '#d7aefb ')" mat-mini-fab class="colorlens" style="background-color:#d7aefb "> </button>
             </mat-menu>
-            <button matTooltip="Add image " mat-icon-button>
+            <button matTooltip="Add image " (click)="file.click()" mat-icon-button>
                     <mat-icon> <img src="../../assets/img/fundoAssests/photo.svg "></mat-icon> </button>
             <button matTooltip="Archive " (click)="archiveNote(user.id)" mat-icon-button>
                     <mat-icon> <img src="../../assets/img/fundoAssests/archive2.svg "></mat-icon></button>

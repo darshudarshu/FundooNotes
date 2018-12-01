@@ -61,34 +61,6 @@ class ImageControllerService
         $ref           = new DatabaseConnection();
         $this->connect = $ref->Connection();
         $file          = base64_decode($url);
-
-// $conf = new NoteStoreConfig();
-        // $conn = $conf->configs();
-
-// $email = $_POST['email'];
-        // if ($email != null) {
-
-// $filePath = base64_decode($_POST['fileKey']);
-        // $stmt = $conn->prepare("UPDATE users SET `profilepic` = :filePath where `email`= :email ");
-
-        // $stmt->execute(array(
-        //     ':file' => $file,
-        //     ':email'    => $email,
-        // ));
-
-// print json_encode($data);
-
-// if ($stmt->execute()) {
-        // $conff = new ProfilePic();
-        // $conff->getPic();
-
-// } else {
-        // $data = array(
-        // "status" => "401"
-        // );
-        // print json_encode($data);
-        // }
-
         /**
          * @var string $query has query to update the user profile pic
          */
@@ -100,6 +72,36 @@ class ImageControllerService
 
             $ref = new ImageControllerService();
             $ref->fetchImage($email);
+        } else {
+            $data = array(
+                "message" => "203",
+            );
+            print json_encode($data);
+
+        }
+    }
+
+    /**
+ * @method saveImage() upload the profile pic
+ * @return void
+ */
+    public function noteSaveImage($url, $email,$id)
+    {
+        $ref           = new DatabaseConnection();
+        $this->connect = $ref->Connection();
+        $file          = base64_decode($url);
+        /**
+         * @var string $query has query to update the user profile pic
+         */
+        $query     = "UPDATE notes  SET `image` = :file  where `email`= :email  and `id`= :id ";
+        $statement = $this->connect->prepare($query);
+        if ($statement->execute(array(
+            ':file' => $file,
+            ':email'    => $email,
+            ':id'    => $id, ))) {
+
+            // $ref = new ImageControllerService();
+            // $ref->fetchImage($email);
         } else {
             $data = array(
                 "message" => "203",
