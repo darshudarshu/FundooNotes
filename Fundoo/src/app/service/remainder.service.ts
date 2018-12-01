@@ -1,19 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from '@angular/common/http';
-
+import { serviceUrl } from '../serviceUrl/serviceUrl';
 @Injectable({
   providedIn: 'root'
 })
 export class RemainderService {
- /**
-  * Api urls
-  */
-  private urlFetchRemainderNote = "http://localhost/codeigniter/fetchRemainderNote";
-  private urlchangeDateTime = "http://localhost/codeigniter/changeRemainderDateTime";
-  private urlCreateRemainderNotes = "http://localhost/codeigniter/createRemainderNotes";
-  private urlDeleteRemainderNote = "http://localhost/codeigniter/deleteRemainderNote";
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient, private serviceurl: serviceUrl) { }
 
   /**
     * @method fetchRemainderNote() 
@@ -25,10 +19,7 @@ export class RemainderService {
     ;
     let RemainderNote = new FormData();
     RemainderNote.append("email", email)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlFetchRemainderNote, RemainderNote, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.remainderFetchRemainderNote, RemainderNote)
   }
 
   /**
@@ -44,11 +35,7 @@ export class RemainderService {
     DataTime.append("id", id)
     DataTime.append("email", email)
     DataTime.append("presentDateTime", otherPresentTime)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-
-    }
-    return this.http.post(this.urlchangeDateTime, DataTime, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.remainderchangeDateTime, DataTime)
   }
   /**
     * @method noteData() 
@@ -71,11 +58,8 @@ export class RemainderService {
     notesData.append("color", color)
     notesData.append("isArchive", isArchive)
     notesData.append("label", labelname)
-
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlCreateRemainderNotes, notesData, otheroption);
+    return this.http.post(this.serviceurl.host + this.serviceurl.remainderCreateRemainderNotes
+      , notesData);
 
   }
   /**
@@ -89,10 +73,6 @@ export class RemainderService {
     let remainderId = new FormData();
     remainderId.append("id", id)
     remainderId.append("email", email)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-
-    }
-    return this.http.post(this.urlDeleteRemainderNote, remainderId, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.remainderDeleteRemainderNote, remainderId)
   }
 }

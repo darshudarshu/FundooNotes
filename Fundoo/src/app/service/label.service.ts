@@ -1,17 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-
+import { serviceUrl } from '../serviceUrl/serviceUrl';
 @Injectable({
   providedIn: 'root'
 })
 export class LabelService {
-  private urlLabelData = "http://localhost/codeigniter/addLabel";
-  private urlFetchLabelData = "http://localhost/codeigniter/saveLabels";
-  private urlchangeLabel = "http://localhost/codeigniter/changeLabel";
-  private urldeleteLabel = "http://localhost/codeigniter/deleteLabel";
-  private urlfetchImage = "http://localhost/codeigniter/fetchImage";
-  private urlsaveImage = "http://localhost/codeigniter/saveImage";
-  constructor(private http: HttpClient) { }
+
+ 
+  constructor(private http: HttpClient, private serviceurl: serviceUrl) { }
   /**
     * @method addLabels() 
     * @return observable data
@@ -24,10 +20,7 @@ export class LabelService {
     let labelData = new FormData();
     labelData.append("label", label)
     labelData.append("email", email)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlLabelData, labelData, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.mainLabelLabelData, labelData)
   }
   /**
     * @method changeLabels() 
@@ -43,10 +36,7 @@ export class LabelService {
     changeLabel.append("id", id)
     changeLabel.append("name", name)
     changeLabel.append("email", email)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlchangeLabel, changeLabel, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.mainLabelChangeLabel, changeLabel)
   }
   /**
     * @method deleteLabels() 
@@ -59,10 +49,7 @@ export class LabelService {
     let deleteLabelData = new FormData();
     deleteLabelData.append("id", id)
     deleteLabelData.append("email", email)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urldeleteLabel, deleteLabelData, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.mainLabelDeleteLabel , deleteLabelData)
   }
   /**
     * @method fetchLabels() 
@@ -73,41 +60,7 @@ export class LabelService {
   fetchLabels(email) {
     let fetchLabelsss = new FormData();
     fetchLabelsss.append("email", email)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlFetchLabelData, fetchLabelsss, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.mainLabelFetchLabelData, fetchLabelsss)
   }
-  /**
-    * @method fetchProfile() 
-    * @return observable data
-    * @param email 
-    * @description Function to send email to server
-    */
-  fetchProfile(email) {
-    let fetchImage = new FormData();
-    fetchImage.append("email", email)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlfetchImage, fetchImage, otheroption)
-  }
-  /**
-    * @method saveProfile() 
-    * @return observable data
-    * @param email 
-    * @param url 
-    * @description Function to send email and url to server
-    */
-  saveProfile(url, email,imagefile) {
-    let saveImage = new FormData();
-    saveImage.append("url", url)
-    saveImage.append("email", email)
-    // saveImage.append("file", imagefile , imagefile.tmp_name )
-    saveImage.append("file", imagefile)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlsaveImage, saveImage, otheroption)
-  }
+
 }

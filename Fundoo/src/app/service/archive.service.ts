@@ -1,19 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from '@angular/common/http';
-
+import { serviceUrl } from '../serviceUrl/serviceUrl';
 @Injectable({
   providedIn: 'root'
 })
 export class ArchiveService {
-  /**
-    * Api urls
-    */
-  private urlArchiveNote = "http://localhost/codeigniter/archiveNote";
-  private urlFetchArchiveNote = "http://localhost/codeigniter/fetchArchiveNote";
-  private urlFetchUnArchiveNote = "http://localhost/codeigniter/fetchUnArchiveNote";
-  private urlDeleteArchiveNote = "http://localhost/codeigniter/deleteArchiveNote";
-  constructor(private http: HttpClient) { }
+  
+constructor(private http: HttpClient, private serviceurl: serviceUrl ) { }
   /**
     * @method archiveThisNote() 
     * @return observable data
@@ -22,14 +16,10 @@ export class ArchiveService {
     * @description Function to send email and id to server
     */
   archiveThisNote(id, email) {
-    ;
     let archiveNote = new FormData();
     archiveNote.append("id", id)
     archiveNote.append("email", email)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlArchiveNote, archiveNote, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.archiveNote, archiveNote)
   }
   /**
     * @method fetchArchiveNote() 
@@ -38,13 +28,9 @@ export class ArchiveService {
     * @description Function to send email to server
     */
   fetchArchiveNote(email) {
-    ;
     let ArchiveNote = new FormData();
     ArchiveNote.append("email", email)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlFetchArchiveNote, ArchiveNote, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.fetchArchiveNote, ArchiveNote)
   }
   /**
     * @method unArchiveThisNote() 
@@ -57,10 +43,7 @@ export class ArchiveService {
     let unArchiveNote = new FormData();
     unArchiveNote.append("id", id)
     unArchiveNote.append("email", email)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlFetchUnArchiveNote, unArchiveNote, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.fetchUnArchiveNote , unArchiveNote)
   }
   /**
     * @method deleteArchiveNote() 
@@ -73,9 +56,6 @@ export class ArchiveService {
     let deleteArchiveNote = new FormData();
     deleteArchiveNote.append("id", id)
     deleteArchiveNote.append("email", email)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlDeleteArchiveNote, deleteArchiveNote, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.deleteArchiveNote, deleteArchiveNote)
   }
 }

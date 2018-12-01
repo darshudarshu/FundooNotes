@@ -1,18 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from '@angular/common/http';
-
+import { serviceUrl } from '../serviceUrl/serviceUrl';
 @Injectable({
   providedIn: 'root'
 })
 export class TrashService {
-  /**
-    * Api urls
-    */
-  private urlRestoreDeletedNote = "http://localhost/codeigniter/restoreDeletedNote";
-  private urlFetchTrashNote = "http://localhost/codeigniter/fetchTrashNote";
-  private urlFetchDeleteNote = "http://localhost/codeigniter/deleteTrashNote";
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient, private serviceurl: serviceUrl) { }
   /**
     * @method restoreTrashNote() 
     * @return observable data
@@ -24,10 +19,7 @@ export class TrashService {
     let restoreTrashNote = new FormData();
     restoreTrashNote.append("id", id)
     restoreTrashNote.append("email", email)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlRestoreDeletedNote, restoreTrashNote, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.trashRestoreDeletedNote, restoreTrashNote)
   }
   /**
     * @method fetchTrashNote() 
@@ -38,10 +30,7 @@ export class TrashService {
   fetchTrashNote(email) {
     let TrashNote = new FormData();
     TrashNote.append("email", email)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlFetchTrashNote, TrashNote, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.trashFetchTrashNote, TrashNote)
   }
   /**
     * @method deletTrashNote() 
@@ -54,10 +43,7 @@ export class TrashService {
     let deleteNote = new FormData();
     deleteNote.append("id", id)
     deleteNote.append("email", email)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlFetchDeleteNote, deleteNote, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.trashFetchDeleteNote, deleteNote)
   }
 
 }

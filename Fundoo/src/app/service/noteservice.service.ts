@@ -1,26 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from '@angular/common/http';
-
+import { serviceUrl } from '../serviceUrl/serviceUrl';
 @Injectable({
   providedIn: 'root'
 })
 export class NoteserviceService {
-  /**
-    * Api urls
-    */
-  private urlCreateNotes = "http://localhost/codeigniter/createNotes";
-  private urlUserNotes = "http://localhost/codeigniter/userNotes";
-  private urlchangeColor = "http://localhost/codeigniter/changeColor";
-  private urlchangeDateTime = "http://localhost/codeigniter/changeDateTime";
-  private urlDeleteNote = "http://localhost/codeigniter/deleteNote";
-  private urlEditedNotesData = "http://localhost/codeigniter/editNotes";
-  private urlNoteLabel = "http://localhost/codeigniter/noteLabel";
-  private urlDeleteNoteLabel = "http://localhost/codeigniter/deleteNoteLabel";
-  private urlDragAndDropData = "http://localhost/codeigniter/dragDrop";
 
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private serviceurl: serviceUrl) { }
   /**
     * @method noteData() 
     * @return void
@@ -44,10 +31,7 @@ export class NoteserviceService {
     notesData.append("isArchive", isArchive)
     notesData.append("label", labelname)
     notesData.append("isHaveCollabarator", isHaveCollabarator)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlCreateNotes, notesData, otheroption);
+    return this.http.post(this.serviceurl.host + this.serviceurl.createNotes, notesData);
   }
   /**
     * @method noteUserData() 
@@ -56,13 +40,10 @@ export class NoteserviceService {
     * @description Function to send email to server
     */
   noteUserData(email) {
-    ;
+
     let notesUserData = new FormData();
     notesUserData.append("email", email)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlUserNotes, notesUserData, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.userNotes, notesUserData)
   }
   /**
     * @method colorChange() 
@@ -75,10 +56,7 @@ export class NoteserviceService {
     let colorData = new FormData();
     colorData.append("id", id)
     colorData.append("color", color)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlchangeColor, colorData, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.changeColor, colorData)
   }
   /**
     * @method dateTimeChange() 
@@ -91,10 +69,7 @@ export class NoteserviceService {
     let DataTime = new FormData();
     DataTime.append("id", id)
     DataTime.append("presentDateTime", otherPresentTime)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlchangeDateTime, DataTime, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.changeDateTime, DataTime)
   }
   /**
     * @method deleteThisNote() 
@@ -107,10 +82,7 @@ export class NoteserviceService {
     let deleteNote = new FormData();
     deleteNote.append("id", id)
     deleteNote.append("email", email)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlDeleteNote, deleteNote, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.deleteNote, deleteNote)
   }
   /**
     * @method editedNoteData() 
@@ -120,7 +92,6 @@ export class NoteserviceService {
     * @description Function to send email and editedNotes to server
     */
   editedNoteData(editedNotes, email) {
-    ;
     let editedNotesData = new FormData();
     editedNotesData.append("id", editedNotes.id)
     editedNotesData.append("title", editedNotes.title)
@@ -128,11 +99,7 @@ export class NoteserviceService {
     editedNotesData.append("remainder", editedNotes.remainder)
     editedNotesData.append("color", editedNotes.color)
     editedNotesData.append("email", email)
-
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlEditedNotesData, editedNotesData, otheroption);
+    return this.http.post(this.serviceurl.host + this.serviceurl.editedNotesData, editedNotesData);
 
   }
   /**
@@ -146,10 +113,7 @@ export class NoteserviceService {
     let noteLabel = new FormData();
     noteLabel.append("id", id)
     noteLabel.append("label", label)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlNoteLabel, noteLabel, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.noteLabel, noteLabel)
   }
   /**
     * @method deleteLabels() 
@@ -160,10 +124,7 @@ export class NoteserviceService {
   deleteLabels(id) {
     let deleteNoteLabel = new FormData();
     deleteNoteLabel.append("id", id)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlDeleteNoteLabel, deleteNoteLabel, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.deleteNoteLabel, deleteNoteLabel)
   }
   /**
     * @method dragAndDrop() 
@@ -172,16 +133,13 @@ export class NoteserviceService {
     * @param currId 
     * @description Function to drag and drop the card
     */
-  dragAndDrop(diff , currId , direction,email) {
+  dragAndDrop(diff, currId, direction, email) {
     let dragAndDropData = new FormData();
     dragAndDropData.append("diff", diff)
     dragAndDropData.append("currId", currId)
     dragAndDropData.append("direction", direction)
     dragAndDropData.append("email", email)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlDragAndDropData, dragAndDropData, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.dragAndDropData, dragAndDropData)
   }
 
 

@@ -38,6 +38,7 @@ import { ArchiveService } from "./service/archive.service";
 import { RemainderService } from "./service/remainder.service";
 import { CollabaratorService } from "./service/collabarator.service";
 import { TrashService } from "./service/trash.service";
+import { ImageService } from "./service/image.service";
 import { CommonlabelService } from "./service/commonlabel.service";
 import { LabelcomponentComponent } from './labelcomponent/labelcomponent.component';
 import { CollabaratorComponent } from './collabarator/collabarator.component';
@@ -45,6 +46,7 @@ import { MatChipsModule } from "@angular/material/chips";
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CreatecollabaratorComponent } from './createcollabarator/createcollabarator.component';
 import { SearchdataPipe } from './notes/searchdata.pipe';
+import { serviceUrl } from './serviceUrl/serviceUrl';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +71,7 @@ import { SearchdataPipe } from './notes/searchdata.pipe';
   imports: [
     BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatCardModule, MatInputModule, MatFormFieldModule, MatAutocompleteModule, FormsModule, ReactiveFormsModule, DragDropModule, MatButtonModule, MatIconModule, HttpClientModule, RouterModule, MatProgressSpinnerModule, NgxSpinnerModule, LayoutModule, MatToolbarModule, MatSidenavModule, MatListModule, MatTooltipModule, MatMenuModule, MatGridListModule, MatDatepickerModule, MatNativeDateModule, MatExpansionModule, NgxMaterialTimepickerModule.forRoot(), FlexLayoutModule, MatDialogModule, MatSelectModule, MatChipsModule
   ],
-  providers: [CommonlabelService, SelectlabelService, TrashService, RemainderService, ArchiveService, DataService, LabelService, CommonService, AuthGuard, CookieService, NoteserviceService,
+  providers: [serviceUrl,ImageService ,CommonlabelService, SelectlabelService, TrashService, RemainderService, ArchiveService, DataService, LabelService, CommonService, AuthGuard, CookieService, NoteserviceService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorsService,

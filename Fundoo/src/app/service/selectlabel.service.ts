@@ -1,20 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from '@angular/common/http';
-
+import { serviceUrl } from '../serviceUrl/serviceUrl';
 @Injectable({
   providedIn: 'root'
 })
 export class SelectlabelService {
- /**
-  * Api urls
-  */
-  private urlFetchLabelNote = "http://localhost/codeigniter/fetchLabelNote";
-  private urlchangeLabelDateTime = "http://localhost/codeigniter/changeLabelDateTime";
-  private urlCreateLabelNotes = "http://localhost/codeigniter/createLabelNotes";
-  private urlDeleteLabelNote = "http://localhost/codeigniter/deleteLabelNote";
-  private urlDeleteNoteLabel = "http://localhost/codeigniter/deleteNoteLabels";
-  constructor(private http: HttpClient) { }
+
+constructor(private http: HttpClient, private serviceurl: serviceUrl) { }
 
   /**
     * @method fetchRemainderNote() 
@@ -28,10 +21,7 @@ export class SelectlabelService {
     let fetchData = new FormData();
     fetchData.append("label", label)
     fetchData.append("email", email)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlFetchLabelNote, fetchData, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.labelFetchLabelNote, fetchData)
   }
   /**
     * @method dateTimeChange() 
@@ -48,11 +38,7 @@ export class SelectlabelService {
     DataTime.append("label", label)
     DataTime.append("email", email)
     DataTime.append("presentDateTime", otherPresentTime)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-
-    }
-    return this.http.post(this.urlchangeLabelDateTime, DataTime, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.labelChangeLabelDateTime, DataTime)
   }
   /**
     * @method noteData() 
@@ -75,11 +61,7 @@ export class SelectlabelService {
     notesData.append("color", color)
     notesData.append("isArchive", isArchive)
     notesData.append("label", labelname)
-
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlCreateLabelNotes, notesData, otheroption);
+    return this.http.post(this.serviceurl.host + this.serviceurl.labelCreateLabelNotes, notesData);
 
   }
   /**
@@ -95,11 +77,7 @@ export class SelectlabelService {
     remainderId.append("id", id)
     remainderId.append("label", label)
     remainderId.append("email", email)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-
-    }
-    return this.http.post(this.urlDeleteLabelNote, remainderId, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.labelDeleteLabelNote, remainderId)
   }
   /**
     * @method deleteLabels() 
@@ -114,9 +92,6 @@ export class SelectlabelService {
     deleteNoteLabel.append("id", id)
     deleteNoteLabel.append("label", label)
     deleteNoteLabel.append("email", email)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlDeleteNoteLabel, deleteNoteLabel, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.labelDeleteNoteLabel, deleteNoteLabel)
   }
 }

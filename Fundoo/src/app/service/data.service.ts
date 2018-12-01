@@ -1,22 +1,23 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { ActivatedRoute } from '@angular/router';
+import { serviceUrl } from '../serviceUrl/serviceUrl';
 @Injectable({
   providedIn: "root"
 })
 export class DataService {
  /**
-  * Api urls
+  * Api urls this.serviceurl.host + this.serviceurl.mainLabelLabelData
   */
-  private urlRegister = "http://localhost/codeigniter/registration";
-  private urlLogin = "http://localhost/codeigniter/login";
-  private urlForgot = "http://localhost/codeigniter/forgotPassword";
-  private urlReset = "http://localhost/codeigniter/resetPassword";
-  private urlGetEmail = "http://localhost/codeigniter/getEmailId";
-  private urlVerifyEmail = "http://localhost/codeigniter/veryfyEmailId";
+  // private urlRegister = "http://localhost/codeigniter/registration";
+  // private urlLogin = "http://localhost/codeigniter/login";
+  // private urlForgot = "http://localhost/codeigniter/forgotPassword";
+  // private urlReset = "http://localhost/codeigniter/resetPassword";
+  // private urlGetEmail = "http://localhost/codeigniter/getEmailId";
+  // private urlVerifyEmail = "http://localhost/codeigniter/veryfyEmailId";
 
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute, private serviceurl: serviceUrl) { }
   /**
     * @method UserLoginData() 
     * @return observable data
@@ -27,10 +28,7 @@ export class DataService {
     let userLoginData = new FormData();
     userLoginData.append("email", login.email)
     userLoginData.append("password", login.pass)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlLogin, userLoginData, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.login, userLoginData)
   }
   /**
     * @method UserRegistrationData() 
@@ -44,10 +42,7 @@ export class DataService {
     userRegisterData.append("email", register.email)
     userRegisterData.append("mobilenumber", register.number)
     userRegisterData.append("password", register.pass)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlRegister, userRegisterData, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.register, userRegisterData)
   }
   /**
     * @method userPasswordRecoveryData() 
@@ -58,10 +53,7 @@ export class DataService {
   userPasswordRecoveryData(forgot) {
     let userPassRecoveryData = new FormData();
     userPassRecoveryData.append("email", forgot.email)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlForgot, userPassRecoveryData, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.forgot, userPassRecoveryData)
   }
   /**
     * @method UserResetData() 
@@ -74,10 +66,7 @@ export class DataService {
     let userResetData = new FormData();
     userResetData.append("token", this.route.snapshot.queryParamMap.get('token'));
     userResetData.append("pass", reset.pass)
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlReset, userResetData, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.reset, userResetData)
   }
   /**
     * @method getEmail() 
@@ -88,10 +77,7 @@ export class DataService {
   getEmail(reset) {
     let urlTocken = new FormData();
     urlTocken.append("token", this.route.snapshot.queryParamMap.get('token'));
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlGetEmail, urlTocken, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.getEmail, urlTocken)
   }
   /**
     * @method verifyemail() 
@@ -101,10 +87,7 @@ export class DataService {
   verifyemail() {
     let verifyEmailId = new FormData();
     verifyEmailId.append("token", this.route.snapshot.queryParamMap.get('token'));
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    return this.http.post(this.urlVerifyEmail, verifyEmailId, otheroption)
+    return this.http.post(this.serviceurl.host + this.serviceurl.verifyEmail, verifyEmailId)
   }
   /**
     * @method loggedIn() 

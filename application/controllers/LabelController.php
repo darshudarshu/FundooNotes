@@ -104,28 +104,6 @@ class LabelController
         $this->serviceReference->deleteNoteLabels($id, $label, $email);
 
     }
-/**
- * @method fetchImage() fetch the user profile pic
- * @return void
- */
-    public function fetchImage()
-    {
-        $email = $_POST["email"];
-        $this->serviceReference->fetchImage($email);
 
-    }
-/**
- * @method saveImage() upload the profile pic
- * @return void
- */
-    public function saveImage()
-    {
-
-        $file  = $_FILES["file"];
-        $email = $_POST["email"];
-        $url   = $_POST["url"];
-        $this->serviceReference->saveImage($file, $url, $email);
-
-    }
 
 }

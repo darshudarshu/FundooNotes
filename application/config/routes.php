@@ -102,8 +102,6 @@ $route['changeLabelDateTime'] = 'LabelController/changeLabelDateTime';
 $route['createLabelNotes']    = 'LabelController/createLabelNotes';
 $route['deleteLabelNote']     = 'LabelController/deleteLabelNote';
 $route['deleteNoteLabels']    = 'LabelController/deleteNoteLabels';
-$route['fetchImage']          = 'LabelController/fetchImage';
-$route['saveImage']           = 'LabelController/saveImage';
 
 $route['addCollabarator']               = 'Collabarator/addCollabarator';
 $route['fetchCollabarators']            = 'Collabarator/fetchCollabarators';
@@ -112,3 +110,6 @@ $route['deleteCollabaratorData']        = 'Collabarator/deleteCollabaratorData';
 $route['collabaratorsOfNotes']          = 'Collabarator/collabaratorsOfNotes';
 $route['deleteMainCollabaratorData']    = 'Collabarator/deleteMainCollabaratorData';
 $route['deleteAllMainCollabaratorData'] = 'Collabarator/deleteAllMainCollabaratorData';
+
+$route['fetchImage'] = 'ImageController/fetchImage';
+$route['saveImage']  = 'ImageController/saveImage';
