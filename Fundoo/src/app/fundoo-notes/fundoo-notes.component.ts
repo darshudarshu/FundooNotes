@@ -151,50 +151,36 @@ export class FundooNotesComponent {
   * @return void
   * @description Function to upload profile pic
   */
-  onSelectFile(event) {
-   debugger;
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-      // this.url = event.target.files[0];
-      var file = event.target.files[0]);
-      console.log(file);
-      // "{"name":"download (1).jpeg","type":"image\/jpeg","tmp_name":"\/tmp\/phpcG1W7w","error":0,"size":5917}"
-      // console.log(file['name']);
-      reader.readAsDataURL(event.target.files[0]); // read file as data url
-      reader.onload = (event) => { // called once readAsDataURL is completed
-        this.url = event.target.result;
+//   onSelectFile(event) {
+//    debugger;
+//     if (event.target.files && event.target.files[0]) {
+//       var reader = new FileReader();
+//       // this.url = event.target.files[0];
+//       var file = event.target.files[0];
+//       console.log(file);
+//       // "{"name":"download (1).jpeg","type":"image\/jpeg","tmp_name":"\/tmp\/phpcG1W7w","error":0,"size":5917}"
+//       // console.log(file['name']);
+//       reader.readAsDataURL(event.target.files[0]); // read file as data url
+//       reader.onload = (event) => { // called once readAsDataURL is completed
+//         this.url = event.target.result;
         
-        console.log("darshu");
-        console.log(this.url);
+//         console.log("darshu");
+//         console.log(this.url);
         
-        let obss = this.labelservice.saveProfile(this.url, this.email,file);
-        obss.subscribe(
-          (res: any) => {
-           console.log("darshu");
+//         let obss = this.labelservice.saveProfile(this.url, this.email,file);
+//         obss.subscribe(
+//           (res: any) => {
+//            console.log("darshu");
            
-            console.log(res);
-               reader.readAsDataURL(res); // read file as data url
-      reader.onload = (event) => { // called once readAsDataURL is completed
-        this.myurl = event.target.result;
-            this.myurl= JSON.parse(res);
-            console.log(this.myurl);
-            // alert(this.myurl);
-          });
-      }
-    }
-  }
+//             console.log(res);
+//                reader.readAsDataURL(res); // read file as data url
+//       reader.onload = (event) => { // called once readAsDataURL is completed
+//         this.myurl = event.target.result;
+//             this.myurl= JSON.parse(res);
+//             console.log(this.myurl);
+//             // alert(this.myurl);
+//              }   });
+//     }
+//   }
+// }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

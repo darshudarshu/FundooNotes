@@ -6,7 +6,7 @@
 header('Access-Control-Allow-Origin: *');
 include "DatabaseConnection.php";
 require 'JWT.php';
-
+// include "/var/www/html/codeigniter/application/service/NotesControllerService.php";
 /**
  * class Api notes contoller methods
  */
@@ -26,14 +26,16 @@ class NotesController
  * @var string $remainder remainder
  */
     public $connect = "";
-/**
- * @method constructor to establish the database connection
- * @return void
- */
+    // public $serviceReference = "";
+    /**
+     * @method constructor to establish the database connection
+     * @return void
+     */
     public function __construct()
     {
         $ref           = new DatabaseConnection();
         $this->connect = $ref->Connection();
+        // $this->serviceReference = new NotesController();
 
     }
 /**
@@ -42,6 +44,8 @@ class NotesController
  */
     public function createNotes()
     {
+
+        // $this->serviceReference->createNotes($remainder, $isHaveCollabarator, $label, $title, $notes, $email, $color, $isArchive);
         $headers = apache_request_headers();
         $token   = explode(" ", $headers['Authorization']);
 
