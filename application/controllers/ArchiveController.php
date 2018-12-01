@@ -4,31 +4,32 @@
  ********************************************************************/
 
 header('Access-Control-Allow-Origin: *');
-include "DatabaseConnection.php";
-require 'JWT.php';
 
+include "/var/www/html/codeigniter/application/service/ArchiveControllerService.php";
 /**
  * class Api Archive notes contoller methods
  */
 
 class ArchiveController
 {
-/**
- * @var string $connect PDO object
- */
+
 /**
  * @var string $id id
  * @var string $email email
  */
-    public $connect = "";
 /**
- * @method constructor to establish the database connection
+ * @var string $serviceReference serviceReference
+ */
+
+    public $serviceReference = "";
+/**
+ * @method constructor to establish the service connection
  * @return void
  */
     public function __construct()
     {
-        $ref           = new DatabaseConnection();
-        $this->connect = $ref->Connection();
+        $this->serviceReference = new ArchiveControllerService();
+
     }
 /**
  * @method archiveNote() to make notes archive
@@ -36,50 +37,9 @@ class ArchiveController
  */
     public function archiveNote()
     {
-        $headers = apache_request_headers();
-        $token   = explode(" ", $headers['Authorization']);
-
-        $reff = new JWT();
-        if ($reff->verify($token[1])) {
-            $ref           = new DatabaseConnection();
-            $this->connect = $ref->Connection();
-            $id            = $_POST["id"];
-            $email         = $_POST["email"];
-            $query         = "UPDATE notes SET isArchive = 'yes' where id = '$id'";
-            $statement     = $this->connect->prepare($query);
-            if ($statement->execute()) {
-                /**
-                 * @var string $query has query to select all notes 
-                 */
-                $query = "SELECT * FROM notes where email = '$email' and isArchive = 'no' and isDeleted = 'no' order by dragId desc";
-                /**
-                 * @var string $statement holds statement object
-                 */
-                $statement = $this->connect->prepare($query);
-                $statement->execute();
-                /**
-                 * @var array $arr to store result
-                 */
-                $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-                /**
-                 * returns json array response
-                 */
-                print json_encode($arr);
-            } else {
-                $data = array(
-                    "error" => "202",
-                );
-                print json_encode($data);
-            }
-        } else {
-            $data = array(
-                "error" => "404",
-            );
-            /**
-             * returns json array response
-             */
-            print json_encode($data);
-        }
+        $id    = $_POST["id"];
+        $email = $_POST["email"];
+        $this->serviceReference->archiveNote($id, $email);
     }
 /**
  * @method fetchArchiveNote() to fetch all  archived notes
@@ -87,41 +47,10 @@ class ArchiveController
  */
     public function fetchArchiveNote()
     {
-        $headers       = apache_request_headers();
-        $token         = explode(" ", $headers['Authorization']);
-        $email         = $_POST["email"];
-        $ref           = new DatabaseConnection();
-        $this->connect = $ref->Connection();
-        $reff = new JWT();
-        if ($reff->verify($token[1])) {
-            /**
-             * @var string $query has query to select all notes
-             */
-            $query = "SELECT * FROM notes where  email = '$email' and isArchive = 'yes' and isDeleted = 'no' order by dragId desc";
-            /**
-             * @var string $statement holds statement object
-             */
-            $statement = $this->connect->prepare($query);
-            $ref       = $statement->execute();
-            /**
-             * @var array $arr to store result
-             */
-            $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-            /**
-             * returns json array response
-             */
-            print json_encode($arr);
 
-        } else {
-            $data = array(
-                "error" => "404",
-            );
-            /**
-             * returns json array response
-             */
-            print json_encode($data);
+        $email = $_POST["email"];
+        $this->serviceReference->fetchArchiveNote($email);
 
-        }
     }
 /**
  * @method fetchUnArchiveNote() fetch all  unarchive notes
@@ -129,43 +58,10 @@ class ArchiveController
  */
     public function fetchUnArchiveNote()
     {
-        $headers = apache_request_headers();
-        $token   = explode(" ", $headers['Authorization']);
-        $email   = $_POST["email"];
 
-        $reff = new JWT();
-        if ($reff->verify($token[1])) {
-            $ref           = new DatabaseConnection();
-            $this->connect = $ref->Connection();
-            $id            = $_POST["id"];
-            /**
-             * @var string $query has query to un archive the archived notes
-             */
-            $query         = "UPDATE notes SET  isArchive = 'no' where id = '$id'";
-            $statement     = $this->connect->prepare($query);
-            if ($statement->execute()) {
-                $reff = new ArchiveController();
-                $reff->fetchArchiveNotee($email);
-
-            } else {
-                $data = array(
-                    "error" => "202",
-                );
-                /**
-                 * returns json array response
-                 */
-                print json_encode($data);
-            }
-
-        } else {
-            $data = array(
-                "error" => "404",
-            );
-            /**
-             * returns json array response
-             */
-            print json_encode($data);
-        }
+        $email = $_POST["email"];
+        $id = $_POST["id"];
+        $this->serviceReference->fetchUnArchiveNote($email,$id);
     }
 /**
  * @method deleteArchiveNote() delete the archive notes
@@ -173,87 +69,10 @@ class ArchiveController
  */
     public function deleteArchiveNote()
     {
-        $headers = apache_request_headers();
-        $token   = explode(" ", $headers['Authorization']);
-        $email   = $_POST["email"];
-
-        $reff = new JWT();
-        if ($reff->verify($token[1])) {
-            $ref           = new DatabaseConnection();
-            $this->connect = $ref->Connection();
-            $id            = $_POST["id"];
-            /**
-             * @var string $query has query to set the notes to be deleted
-             */
-            $query         = "UPDATE notes SET isDeleted = 'yes' where id = '$id'";
-            $statement     = $this->connect->prepare($query);
-            if ($statement->execute()) {
-                $reff = new ArchiveController();
-                $reff->fetchArchiveNotee($email);
-
-            } else {
-                $data = array(
-                    "error" => "202",
-                );
-                /**
-                 * returns json array response
-                 */
-                print json_encode($data);
-            }
-
-        } else {
-            $data = array(
-                "error" => "404",
-            );
-            /**
-             * returns json array response
-             */
-            print json_encode($data);
-
-        }
+        $email = $_POST["email"];
+        $id = $_POST["id"];
+        $this->serviceReference->deleteArchiveNote($email,$id);
 
     }
-/**
- * @method fetchArchiveNotee() fetch archive notes
- * @param email
- * @return void
- */
-    public function fetchArchiveNotee($email)
-    {
-        $headers = apache_request_headers();
-        $token   = explode(" ", $headers['Authorization']);
-        $email   = $_POST["email"];
 
-        $reff = new JWT();
-        if ($reff->verify($token[1])) {
-
-            /**
-             * @var string $query has query to select all notes
-             */
-            $query = "SELECT * FROM notes where email = '$email' and isArchive = 'yes' and isDeleted = 'no' order by dragId desc";
-            /**
-             * @var string $statement holds statement object
-             */
-            $statement = $this->connect->prepare($query);
-            $statement->execute();
-            /**
-             * @var array $arr to store result
-             */
-            $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-            /**
-             * returns json array response
-             */
-            print json_encode($arr);
-
-        } else {
-            $data = array(
-                "error" => "404",
-            );
-            /**
-             * returns json array response
-             */
-            print json_encode($data);
-
-        }
-    }
 }

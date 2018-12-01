@@ -4,8 +4,7 @@
  ********************************************************************/
 
 header('Access-Control-Allow-Origin: *');
-include "DatabaseConnection.php";
-require 'JWT.php';
+include "/var/www/html/codeigniter/application/service/CollabaratorService.php";
 
 /**
  * class Api Collabarator notes contoller methods
@@ -13,14 +12,16 @@ require 'JWT.php';
 
 class Collabarator
 {
-/**
- * @var string $connect PDO object
- */
+
 /**
  * @var string $id id
  * @var string $email email
  */
-    public $connect = "";
+/**
+ * @var string $serviceReference serviceReference
+ */
+
+    public $serviceReference = "";
 /**
  * @method constructor to establish the database connection
  * @return void
@@ -28,57 +29,7 @@ class Collabarator
 
     public function __construct()
     {
-        $ref           = new DatabaseConnection();
-        $this->connect = $ref->Connection();
-    }
-/**
- * @method fetchCollabarator() fetch all collabarator
- * @param id
- * @param email
- * @return void
- */
-    public function fetchCollabarator($id, $email)
-    {
-        $headers = apache_request_headers();
-        $token   = explode(" ", $headers['Authorization']);
-        $reff    = new JWT();
-        if ($reff->verify($token[1])) {
-            /**
-             * @var string $query has query to select all the collabarator
-             */
-            $query = "SELECT * FROM collabarator WHERE owner='$email' and noteId='$id'  order by id desc";
-            /**
-             * @var string $statement holds statement object
-             */
-            $statement = $this->connect->prepare($query);
-            if ($statement->execute()) {
-                /**
-                 * @var array $arr to store result
-                 */
-                $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-                /**
-                 * returns json array response
-                 */
-                print json_encode($arr);
-
-            } else {
-                $data = array(
-                    "error" => "404",
-                );
-                /**
-                 * returns json array response
-                 */
-                print json_encode($data);
-            }
-        } else {
-            $data = array(
-                "error" => "404",
-            );
-            /**
-             * returns json array response
-             */
-            print json_encode($data);
-        }
+        $this->serviceReference = new CollabaratorService();
     }
 /**
  * @method addCollabarator() to add the collabarator
@@ -86,96 +37,11 @@ class Collabarator
  */
     public function addCollabarator()
     {
-        $headers = apache_request_headers();
-        $token   = explode(" ", $headers['Authorization']);
 
-        $reff = new JWT();
-        if ($reff->verify($token[1])) {
-
-            $id               = $_POST["id"];
-            $email            = $_POST["email"];
-            $collabratorEmail = $_POST["collabratorEmail"];
-            $reff             = new Collabarator();
-            if ($reff->checkCollabarator($id, $collabratorEmail, $email)) {
-                /**
-                 * @var string $query has query to add collabarator to database
-                 */
-                $query     = "INSERT INTO collabarator (email,noteId,owner) VALUES('$collabratorEmail','$id','$email')";
-                $statement = $this->connect->prepare($query);
-                if ($statement->execute()) {
-                    $reff = new Collabarator();
-                    $reff->fetchCollabarator($id, $email);
-                } else {
-                    $data = array(
-                        "error" => "202",
-                    );
-                    /**
-                     * returns json array response
-                     */
-                    print json_encode($data);
-                }
-            } else {
-                $data = array(
-                    "status" => "300",
-                );
-                /**
-                 * returns json array response
-                 */
-                print json_encode($data);
-            }
-        } else {
-            $data = array(
-                "error" => "404",
-            );
-            /**
-             * returns json array response
-             */
-            print json_encode($data);
-        }
-    }
-/**
- * @method checkCollabarator() check for duplicate collabarator
- * @param id
- * @param email
- * @param collabratorEmail
- * @return void
- */
-    public function checkCollabarator($id, $collabratorEmail, $email)
-    {
-        $reff = new Collabarator();
-        if ($reff->checkEmail($id, $collabratorEmail)) {
-            $query     = "SELECT * FROM registration ORDER BY id";
-            $statement = $this->connect->prepare($query);
-            $statement->execute();
-            $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($arr as $regData) {
-                if ($regData['email'] == $collabratorEmail && $collabratorEmail != $email) {
-                    return true;
-                }
-            }
-            return false;
-
-        }
-
-    }
-/**
- * @method checkEmail() to check email and collabarator email
- * @param id
- * @param collabratorEmail
- * @return boolean
- */
-    public function checkEmail($id, $collabratorEmail)
-    {
-        $query     = "SELECT * FROM collabarator ORDER BY id";
-        $statement = $this->connect->prepare($query);
-        $statement->execute();
-        $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-        foreach ($arr as $regData) {
-            if ($regData['email'] == $collabratorEmail && $regData['noteId'] == $id) {
-                return false;
-            }
-        }
-        return true;
+        $id               = $_POST["id"];
+        $email            = $_POST["email"];
+        $collabratorEmail = $_POST["collabratorEmail"];
+        $this->serviceReference->addCollabarator($id, $email, $collabratorEmail);
     }
 /**
  * @method fetchCollabarator() fetch all collabarator
@@ -183,47 +49,11 @@ class Collabarator
  */
     public function fetchCollabarators()
     {
-        $headers = apache_request_headers();
-        $token   = explode(" ", $headers['Authorization']);
-        $reff    = new JWT();
-        $id      = $_POST["id"];
-        $email   = $_POST["email"];
-        if ($reff->verify($token[1])) {
-            /**
-             * @var string $query has query to select all collabarator
-             */
-            $query = "SELECT * FROM collabarator WHERE owner='$email' and noteId='$id'  order by id desc";
-            /**
-             * @var string $statement holds statement object
-             */
-            $statement = $this->connect->prepare($query);
-            if ($statement->execute()) {
-                /**
-                 * @var array $arr to store result
-                 */
-                $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-                /**
-                 * returns json array response
-                 */
-                print json_encode($arr);
-            } else {
-                $data = array(
-                    "error" => "404",
-                );
-                /**
-                 * returns json array response
-                 */
-                print json_encode($data);
-            }
-        } else {
-            $data = array(
-                "error" => "404",
-            );
-            /**
-             * returns json array response
-             */
-            print json_encode($data);
-        }
+
+        $id    = $_POST["id"];
+        $email = $_POST["email"];
+        $this->serviceReference->fetchCollabarators($id, $email);
+
     }
 /**
  * @method deleteCollabaratorData() delete the collabarator
@@ -231,43 +61,12 @@ class Collabarator
  */
     public function deleteCollabaratorData()
     {
-        $headers      = apache_request_headers();
-        $token        = explode(" ", $headers['Authorization']);
-        $reff         = new JWT();
         $collId       = $_POST["collId"];
         $noteId       = $_POST["noteId"];
         $email        = $_POST["email"];
         $currentEmail = $_POST["currentEmail"];
-        if ($reff->verify($token[1])) {
-            /**
-             * @var string $query has query to delete the collabarator 
-             */
-            $query = "DELETE FROM collabarator WHERE id = '$collId' and email = '$currentEmail' and noteId='$noteId'";
-            /**
-             * @var string $statement holds statement object
-             */
-            $statement = $this->connect->prepare($query);
-            if ($statement->execute()) {
-                $reff = new Collabarator();
-                $reff->fetchCollabarator($noteId, $email);
-            } else {
-                $data = array(
-                    "error" => "404",
-                );
-                /**
-                 * returns json array response
-                 */
-                print json_encode($data);
-            }
-        } else {
-            $data = array(
-                "error" => "404",
-            );
-            /**
-             * returns json array response
-             */
-            print json_encode($data);
-        }
+        $this->serviceReference->deleteCollabaratorData($collId, $noteId, $currentEmail, $email);
+
     }
 /**
  * @method fetchOwner() fetch the owner of the note
@@ -275,49 +74,8 @@ class Collabarator
  */
     public function fetchOwner()
     {
-        $headers = apache_request_headers();
-        $token   = explode(" ", $headers['Authorization']);
-        $reff    = new JWT();
-        $id      = $_POST["id"];
-        if ($reff->verify($token[1])) {
-            /**
-             * @var string $query has query to fetch the owner of the notes
-             */
-            $query = "SELECT owner FROM collabarator WHERE noteId='$id'";
-            /**
-             * @var string $statement holds statement object
-             */
-            $statement = $this->connect->prepare($query);
-            if ($statement->execute()) {
-                /**
-                 * @var array $arr to store result
-                 */
-                $arr  = $statement->fetch(PDO::FETCH_ASSOC);
-                $data = array(
-                    "owner" => $arr,
-                );
-                /**
-                 * returns json array response
-                 */
-                print json_encode($data);
-            } else {
-                $data = array(
-                    "error" => "404",
-                );
-                /**
-                 * returns json array response
-                 */
-                print json_encode($data);
-            }
-        } else {
-            $data = array(
-                "error" => "404",
-            );
-            /**
-             * returns json array response
-             */
-            print json_encode($data);
-        }
+        $id = $_POST["id"];
+        $this->serviceReference->fetchOwner($id);
     }
 /**
  * @method collabaratorsOfNotes() fetch all collabarator
@@ -325,95 +83,21 @@ class Collabarator
  */
     public function collabaratorsOfNotes()
     {
-        $headers = apache_request_headers();
-        $token   = explode(" ", $headers['Authorization']);
-        $reff    = new JWT();
-        $email   = $_POST["email"];
-        if ($reff->verify($token[1])) {
-            /**
-             * @var string $query has query to select all collabarators
-             */
-            $query = "SELECT * FROM collabarator WHERE owner in ('$email')  or noteId in ( select noteId FROM collabarator where email='$email' )";
-            /**
-             * @var string $statement holds statement object
-             */
-            $statement = $this->connect->prepare($query);
-            if ($statement->execute()) {
-                /**
-                 * @var array $arr to store result
-                 */
-                $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-                /**
-                 * returns json array response
-                 */
-                print json_encode($arr);
-            } else {
-                $data = array(
-                    "error" => "404",
-                );
-                /**
-                 * returns json array response
-                 */
-                print json_encode($data);
-            }
-        } else {
-            $data = array(
-                "error" => "404",
-            );
-            /**
-             * returns json array response
-             */
-            print json_encode($data);
-        }
+
+        $email = $_POST["email"];
+        $this->serviceReference->collabaratorsOfNotes($email);
+
     }
 /**
- * @method deleteMainCollabaratorData() delete the main collabarators 
+ * @method deleteMainCollabaratorData() delete the main collabarators
  * @return void
  */
     public function deleteMainCollabaratorData()
     {
-        $headers      = apache_request_headers();
-        $token        = explode(" ", $headers['Authorization']);
-        $reff         = new JWT();
         $noteId       = $_POST["noteId"];
         $email        = $_POST["email"];
         $currentEmail = $_POST["currentEmail"];
-
-        if ($reff->verify($token[1])) {
-            /**
-             * @var string $query has query to delete the main card collabarators
-             */
-            $query = "DELETE FROM collabarator WHERE  email='$currentEmail' and noteId = '$noteId' and owner = '$email'";
-            /**
-             * @var string $statement holds statement object
-             */
-            $statement = $this->connect->prepare($query);
-            if ($statement->execute()) {
-                $reff = new Collabarator();
-                $reff->fetchCollabarator($noteId, $email);
-
-            } else {
-                $data = array(
-                    "error" => "404",
-                );
-                /**
-                 * returns json array response
-                 */
-                print json_encode($data);
-
-            }
-
-        } else {
-            $data = array(
-                "error" => "404",
-            );
-            /**
-             * returns json array response
-             */
-            print json_encode($data);
-
-        }
-
+        $this->serviceReference->deleteMainCollabaratorData($noteId,$email, $currentEmail);
     }
 /**
  * @method deleteAllMainCollabaratorData() delete all collabarator
@@ -421,46 +105,9 @@ class Collabarator
  */
     public function deleteAllMainCollabaratorData()
     {
-        $headers = apache_request_headers();
-        $token   = explode(" ", $headers['Authorization']);
-        $reff    = new JWT();
+
         $noteId  = $_POST["noteId"];
         $email   = $_POST["email"];
-
-        if ($reff->verify($token[1])) {
-            /**
-             * @var string $query has query to delete the noteid collabarator
-             */
-            $query = "DELETE FROM collabarator WHERE  noteId = '$noteId' and owner = '$email'";
-            /**
-             * @var string $statement holds statement object
-             */
-            $statement = $this->connect->prepare($query);
-            if ($statement->execute()) {
-                $reff = new Collabarator();
-                $reff->fetchCollabarator($noteId, $email);
-
-            } else {
-                $data = array(
-                    "error" => "404",
-                );
-                /**
-                 * returns json array response
-                 */
-                print json_encode($data);
-
-            }
-
-        } else {
-            $data = array(
-                "error" => "404",
-            );
-            /**
-             * returns json array response
-             */
-            print json_encode($data);
-
-        }
-
+        $this->serviceReference->deleteAllMainCollabaratorData($noteId,$email);
     }
 }

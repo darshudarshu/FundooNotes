@@ -10,6 +10,6 @@ class DatabaseConnection
     {
         $obj = new Constant();
         return new PDO("$obj->database:host=$obj->host;dbname=$obj->databaseName", "$obj->user", "$obj->password");
-       
+
     }
 }
