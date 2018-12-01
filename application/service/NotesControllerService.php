@@ -61,15 +61,15 @@ class NotesControllerService
                      */
                     $query     = "UPDATE collabarator SET noteId = ( SELECT MAX(id) FROM notes WHERE email ='$email') WHERE noteId = 1111 ";
                     $statement = $this->connect->prepare($query);
-                    $darshu    = $statement->execute();
+                    $statement->execute();
                     $query     = " SELECT MAX(id) id FROM notes WHERE email ='$email' ";
                     $statement = $this->connect->prepare($query);
-                    $darshu    = $statement->execute();
+                    $statement->execute();
                     $dragId    = $statement->fetch(PDO::FETCH_ASSOC);
                     $dragId    = $dragId['id'];
                     $query     = "UPDATE notes SET dragId = '$dragId' where id = '$dragId' ";
                     $statement = $this->connect->prepare($query);
-                    $darshu    = $statement->execute();
+                    $statement->execute();
 
                     $reff = new NotesControllerService();
                     $reff->userNotes($email);
@@ -456,7 +456,7 @@ class NotesControllerService
  * @method dragDrop() drag and drop the card
  * @return void
  */
-    public function dragDrop($diff, $currId,$direction,$email)
+    public function dragDrop($diff, $currId, $direction, $email)
     {
         $headers = apache_request_headers();
         $token   = explode(" ", $headers['Authorization']);

@@ -60,8 +60,8 @@ class ArchiveController
     {
 
         $email = $_POST["email"];
-        $id = $_POST["id"];
-        $this->serviceReference->fetchUnArchiveNote($email,$id);
+        $id    = $_POST["id"];
+        $this->serviceReference->fetchUnArchiveNote($email, $id);
     }
 /**
  * @method deleteArchiveNote() delete the archive notes
@@ -70,8 +70,8 @@ class ArchiveController
     public function deleteArchiveNote()
     {
         $email = $_POST["email"];
-        $id = $_POST["id"];
-        $this->serviceReference->deleteArchiveNote($email,$id);
+        $id    = $_POST["id"];
+        $this->serviceReference->deleteArchiveNote($email, $id);
 
     }
 

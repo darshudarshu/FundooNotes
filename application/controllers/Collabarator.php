@@ -97,7 +97,7 @@ class Collabarator
         $noteId       = $_POST["noteId"];
         $email        = $_POST["email"];
         $currentEmail = $_POST["currentEmail"];
-        $this->serviceReference->deleteMainCollabaratorData($noteId,$email, $currentEmail);
+        $this->serviceReference->deleteMainCollabaratorData($noteId, $email, $currentEmail);
     }
 /**
  * @method deleteAllMainCollabaratorData() delete all collabarator
@@ -106,8 +106,8 @@ class Collabarator
     public function deleteAllMainCollabaratorData()
     {
 
-        $noteId  = $_POST["noteId"];
-        $email   = $_POST["email"];
-        $this->serviceReference->deleteAllMainCollabaratorData($noteId,$email);
+        $noteId = $_POST["noteId"];
+        $email  = $_POST["email"];
+        $this->serviceReference->deleteAllMainCollabaratorData($noteId, $email);
     }
 }

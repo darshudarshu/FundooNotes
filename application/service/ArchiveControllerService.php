@@ -33,7 +33,7 @@ class ArchiveControllerService
  * @method archiveNote() to make notes archive
  * @return void
  */
-    public function archiveNote($id,$email)
+    public function archiveNote($id, $email)
     {
         $headers = apache_request_headers();
         $token   = explode(" ", $headers['Authorization']);
@@ -123,11 +123,11 @@ class ArchiveControllerService
  * @method fetchUnArchiveNote() fetch all  unarchive notes
  * @return void
  */
-    public function fetchUnArchiveNote($email,$id)
+    public function fetchUnArchiveNote($email, $id)
     {
         $headers = apache_request_headers();
         $token   = explode(" ", $headers['Authorization']);
-        $reff = new JWT();
+        $reff    = new JWT();
         if ($reff->verify($token[1])) {
             $ref           = new DatabaseConnection();
             $this->connect = $ref->Connection();
@@ -164,7 +164,7 @@ class ArchiveControllerService
  * @method deleteArchiveNote() delete the archive notes
  * @return void
  */
-    public function deleteArchiveNote($email,$id)
+    public function deleteArchiveNote($email, $id)
     {
         $headers = apache_request_headers();
         $token   = explode(" ", $headers['Authorization']);
@@ -213,7 +213,7 @@ class ArchiveControllerService
     {
         $headers = apache_request_headers();
         $token   = explode(" ", $headers['Authorization']);
-        $reff = new JWT();
+        $reff    = new JWT();
         if ($reff->verify($token[1])) {
 
             /**

@@ -34,16 +34,16 @@ class TrashControllerService
      * @method restoreDeletedNote
      * @return void
      */
-    public function restoreDeletedNote($id,$email)
+    public function restoreDeletedNote($id, $email)
     {
         $headers = apache_request_headers();
         $token   = explode(" ", $headers['Authorization']);
-        $reff = new JWT();
+        $reff    = new JWT();
         if ($reff->verify($token[1])) {
             $ref           = new DatabaseConnection();
             $this->connect = $ref->Connection();
-            $query     = "UPDATE notes SET isDeleted = 'no' where id = '$id'";
-            $statement = $this->connect->prepare($query);
+            $query         = "UPDATE notes SET isDeleted = 'no' where id = '$id'";
+            $statement     = $this->connect->prepare($query);
             if ($statement->execute()) {
                 /**
                  * @var string $query has query to select deleted notes data from database
@@ -89,7 +89,7 @@ class TrashControllerService
     {
         $headers = apache_request_headers();
         $token   = explode(" ", $headers['Authorization']);
-        $reff = new JWT();
+        $reff    = new JWT();
         if ($reff->verify($token[1])) {
 
             /**

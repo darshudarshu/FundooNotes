@@ -172,9 +172,9 @@ class NotesController
     public function deleteNoteLabel()
     {
 
-        $id            = $_POST["id"];
-        $label         = $_POST["label"];
-$this->serviceReference->deleteNoteLabel($id, $label);
+        $id    = $_POST["id"];
+        $label = $_POST["label"];
+        $this->serviceReference->deleteNoteLabel($id, $label);
 
     }
 /**
@@ -184,12 +184,12 @@ $this->serviceReference->deleteNoteLabel($id, $label);
     public function dragDrop()
     {
 
-            $diff      = $_POST["diff"];
-            $currId    = $_POST["currId"];
-            $direction = $_POST["direction"];
-            $email     = $_POST["email"];
-      $this->serviceReference->dragDrop($diff, $currId,$direction,$email);
-     
+        $diff      = $_POST["diff"];
+        $currId    = $_POST["currId"];
+        $direction = $_POST["direction"];
+        $email     = $_POST["email"];
+        $this->serviceReference->dragDrop($diff, $currId, $direction, $email);
+
     }
 
 }

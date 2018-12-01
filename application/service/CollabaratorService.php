@@ -84,14 +84,14 @@ class CollabaratorService
  * @method addCollabarator() to add the collabarator
  * @return void
  */
-    public function addCollabarator($id,$email,$collabratorEmail)
+    public function addCollabarator($id, $email, $collabratorEmail)
     {
         $headers = apache_request_headers();
         $token   = explode(" ", $headers['Authorization']);
 
         $reff = new JWT();
         if ($reff->verify($token[1])) {
-            $reff             = new CollabaratorService();
+            $reff = new CollabaratorService();
             if ($reff->checkCollabarator($id, $collabratorEmail, $email)) {
                 /**
                  * @var string $query has query to add collabarator to database
@@ -223,11 +223,11 @@ class CollabaratorService
  * @method deleteCollabaratorData() delete the collabarator
  * @return void
  */
-    public function deleteCollabaratorData($collId,$noteId,$currentEmail,$email)
+    public function deleteCollabaratorData($collId, $noteId, $currentEmail, $email)
     {
-        $headers      = apache_request_headers();
-        $token        = explode(" ", $headers['Authorization']);
-        $reff         = new JWT();
+        $headers = apache_request_headers();
+        $token   = explode(" ", $headers['Authorization']);
+        $reff    = new JWT();
         if ($reff->verify($token[1])) {
             /**
              * @var string $query has query to delete the collabarator
@@ -358,11 +358,11 @@ class CollabaratorService
  * @method deleteMainCollabaratorData() delete the main collabarators
  * @return void
  */
-    public function deleteMainCollabaratorData($noteId,$email, $currentEmail)
+    public function deleteMainCollabaratorData($noteId, $email, $currentEmail)
     {
-        $headers      = apache_request_headers();
-        $token        = explode(" ", $headers['Authorization']);
-        $reff         = new JWT();
+        $headers = apache_request_headers();
+        $token   = explode(" ", $headers['Authorization']);
+        $reff    = new JWT();
         if ($reff->verify($token[1])) {
             /**
              * @var string $query has query to delete the main card collabarators
@@ -403,7 +403,7 @@ class CollabaratorService
  * @method deleteAllMainCollabaratorData() delete all collabarator
  * @return void
  */
-    public function deleteAllMainCollabaratorData($noteId,$email)
+    public function deleteAllMainCollabaratorData($noteId, $email)
     {
         $headers = apache_request_headers();
         $token   = explode(" ", $headers['Authorization']);

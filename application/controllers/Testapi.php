@@ -8,7 +8,7 @@ include "Api.php";
 /**
  * class Api has curd operation methods
  */
-class Testapi 
+class Testapi
 {
     /**
      * @method caller() to perform CURD operation
