@@ -105,7 +105,7 @@ export class LoginComponent {
 
     this.socialAuthService.signIn(socialPlatformProvider).then(userData => {
       debugger;
-      console.log(socialPlatform + " sign in data : ", userData);
+      // console.log(socialPlatform + " sign in data : ", userData);
       // Now sign-in with userData
       // ...
       // this.sendToRestApiMethod(
@@ -114,57 +114,32 @@ export class LoginComponent {
         // userData.image,
         // userData.name
       // );
+
+
+let obs = this.data.socialLoginData(userData.email);
+obs.subscribe(
+  (res: any) => {
+    if (res.message == "200") {
+      localStorage.setItem('token', res.token);
+      this.router.navigate(['/fundoo'])
+    } else {
+      localStorage.setItem('token', res.token);
+      this.router.navigate(['/fundoo'])
+    }
+    
+  },
+  error => {
+    this.iserror = true;
+    this.errorMessage = error.message;
+  });
+
+
+
+
+
+
     });
   }
-flag;
-mail;
-name;
-Error;
-
-
-
-  // sendToRestApiMethod(
-  //   token: string,
-  //   email: string,
-  //   profilepic: string,
-  //   first_name: string
-  // ): void {
-  //   debugger;
-
-  //   let data = [{ username: first_name, email: email, profilepic: profilepic }];
-  //   this.service.SocialLogin(data).subscribe((Statusdata: any) => {
-  //     console.log(Statusdata);
-  //     debugger;
-  //     this.flag = Statusdata.status;
-  //     this.mail = Statusdata.email;
-  //     this.name = Statusdata.name;
-  //     if (this.flag == 1) {
-  //       localStorage.setItem("email", "prashantcoolboy1@rediffmail.com");
-  //       localStorage.setItem("uname", "Prashant Deshmukh");
-  //       // this.auth.sendToken(this.mail);
-  //       this.router.navigate(["/FundooNotes"]);
-  //     } else {
-  //       this.Error = true;
-  //     }
-  //   });
-  // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

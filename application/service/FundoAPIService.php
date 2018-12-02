@@ -154,6 +154,52 @@ class FundoAPIService
         }
     }
 /**
+ * @method login() login in to fundo logic
+ * @return void
+ */
+    public function socialSignIn($email)
+    {
+        $flag = FundoAPIService::isPresentRegisteredLogged($email);
+        if ($flag == 1) {
+            $token = FundoAPIService::jwtToken($email);
+            $data  = array(
+                "token"   => $token,
+                "message" => "200",
+            );
+            print json_encode($data);
+
+        } else {
+
+            $query     = "INSERT INTO registration(username,email,active) VALUES('$email','$email','active')";
+            $statement = $this->connect->prepare($query);
+            $statement->execute();
+            $token = FundoAPIService::jwtToken($email);
+            $data  = array(
+                "token"   => $token,
+                "message" => "400",
+            );
+            print json_encode($data);
+
+        }
+    }
+/**
+ * @method isPresentRegistered() check email and pass match
+ * @return void
+ */
+    public function isPresentRegisteredLogged($email)
+    {
+        $query     = "SELECT * FROM registration ORDER BY id";
+        $statement = $this->connect->prepare($query);
+        $statement->execute();
+        $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($arr as $titleData) {
+            if ($titleData['email'] == $email) {
+                return 1;
+            }
+        }
+        return 0;
+    }
+/**
  * @method isPresentRegistered() check email and pass match
  * @return void
  */

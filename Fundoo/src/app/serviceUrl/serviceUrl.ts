@@ -57,6 +57,7 @@ export class serviceUrl {
   public profileFetchImage = "fetchImage";
   public profileSaveImage = "saveImage";
   public notesSaveImage = "noteSaveImage";
-
+  
+  public socialLoginData = "socialSignIn"
 
 }

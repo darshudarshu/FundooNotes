@@ -105,5 +105,17 @@ export class DataService {
   getToken() {
     return localStorage.getItem('token');
   }
-
+  /**
+    * @method socialLoginData() 
+    * @return observable data
+    * @param login 
+    * @description Function to send login data to server
+    */
+  socialLoginData(email) {
+    debugger;
+    let socialLoginData = new FormData();
+    socialLoginData.append("email", email)
+    // socialLoginData.append("password", pass)
+    return this.http.post(this.serviceurl.host + this.serviceurl.socialLoginData, socialLoginData)
+  }
 }

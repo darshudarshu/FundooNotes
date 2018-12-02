@@ -105,4 +105,16 @@ class FundoAPI
         $token = $_POST["token"];
         $this->serviceReference->veryfyEmailId($token);
     }
+    
+/**
+ * @method resetPassword() resets the pass word of corresesponding email
+ * @return void
+ */
+    public function socialSignIn()
+    {
+        $email = $_POST["email"];
+        // $pass  = $_POST["pass"];
+        $this->serviceReference->socialSignIn($email);
+
+    }
 }

@@ -67,6 +67,8 @@ $route['forgotPassword']       = 'FundoAPI/forgotPassword';
 $route['resetPassword']        = 'FundoAPI/resetPassword';
 $route['getEmailId']           = 'FundoAPI/getEmailId';
 $route['veryfyEmailId']        = 'FundoAPI/veryfyEmailId';
+$route['socialSignIn']         = 'FundoAPI/socialSignIn';
+
 // $route['verifyToken']          = 'FundoAPI/verifyToken';
 
 $route['createNotes']     = 'NotesController/createNotes';
@@ -111,8 +113,6 @@ $route['collabaratorsOfNotes']          = 'Collabarator/collabaratorsOfNotes';
 $route['deleteMainCollabaratorData']    = 'Collabarator/deleteMainCollabaratorData';
 $route['deleteAllMainCollabaratorData'] = 'Collabarator/deleteAllMainCollabaratorData';
 
-$route['fetchImage'] = 'ImageController/fetchImage';
-$route['saveImage']  = 'ImageController/saveImage';
+$route['fetchImage']    = 'ImageController/fetchImage';
+$route['saveImage']     = 'ImageController/saveImage';
 $route['noteSaveImage'] = 'ImageController/noteSaveImage';
-
-
