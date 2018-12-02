@@ -20,10 +20,10 @@
     <div class="button">
         <button mat-raised-button [routerLink]="link ? ['/fundoo'] : []" (click)="login()" [disabled]="(email.invalid || pass.invalid)" class="buttonregister">Login</button>
         <h5>or sign in with</h5>
-        <a target="__blank" href="https://www.facebook.com">
+        <a (click)="socialSignIn('facebook')">
             <mat-icon svgIcon="fb"></mat-icon>
         </a>&nbsp;
-        <a target="__blank" href="https://accounts.google.com">
+        <a (click)="socialSignIn('google')">
             <mat-icon svgIcon="google"></mat-icon>
         </a>
         <div style=" margin-top: 25px;">

@@ -138,7 +138,7 @@ img {
     height: 100% !important;
 } */
 
- ::ng-deep.noteImage {
+::ng-deep.noteImage {
     width: 100% !important;
     height: 100% !important;
 }

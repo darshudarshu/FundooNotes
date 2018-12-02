@@ -1,0 +1,49 @@
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '{your-app-id}',
+      cookie     : true,
+      xfbml      : true,
+      version    : '{api-version}'
+    });
+      
+    FB.AppEvents.logPageView();   
+      
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+
+
+https://termsfeed.com/privacy-policy/7a7457a1584eeb7a81cfe19a3094debf
+
+
+
+
+
+
+
+Account                       up loader (Plan: Free)                            
+Version                       2.2.8                                             
+Region                        United States (us)                                
+Web Interface                 http://127.0.0.1:4040                             
+Forwarding                    http://894e75da.ngrok.io -> localhost:4200        
+Forwarding                    https://894e75da.ngrok.io -> localhost:4200 
+
+
+
+
+
+
+580711237587-g1bpfeimingvjgl7b9dv1d46tt4qsumv.apps.googleusercontent.com
+MTGHgV3_16cV2QKLeL00tCr4

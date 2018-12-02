@@ -162,6 +162,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     * @description Function to fetch the data from source
     */
   ngOnInit() {
+    debugger;
     this.email = this._cookieService.get('email');
     /**
      * loading notes while refreshing the page
@@ -173,6 +174,8 @@ export class NotesComponent implements OnInit, OnDestroy {
          * assing response to the user notes
          */
         this.notes = res;
+        console.log(res);
+        
       }, error => {
         this.iserror = true;
         this.errorMessage = error.message;
@@ -645,9 +648,12 @@ export class NotesComponent implements OnInit, OnDestroy {
    * var to hold image base64url
    */
   public base64textString;
+  noteImageArray;
 myurl;
-
+imageNoteId;
    onSelectFile(event,noteId) {
+     debugger;
+    this.imageNoteId=noteId;
     var files = event.target.files;
     var file = files[0];
     if (files && file) {
@@ -660,20 +666,20 @@ myurl;
   _handleReaderLoaded(readerEvt) {
     var binaryString = readerEvt.target.result;
     this.base64textString = btoa(binaryString);
-    // console.log(binaryString));
-    // console.log(this.base64textString);
-    
-let obss = this.image.noteSaveImage(this.base64textString,this.email,id);
+
+let obss = this.image.noteSaveImage(this.base64textString,this.email,this.imageNoteId);
 obss.subscribe(
   (res: any) => {
-    if (res != "") {
+//     alert("darshu");
+// console.log("darshu");
+// this.noteImageArray=res;
+//  console.log(res);
+  
+// res.forEach(element => {
+//   console.log(element.image);
+   
+// });
 
-      this.myurl = "data:image/jpeg;base64,"+res;
-
-    }
-    else {
-    
-    }
   });
 
   }

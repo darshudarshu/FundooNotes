@@ -26,6 +26,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SetremainderComponent } from './setremainder/setremainder.component';
 import { AuthGuard } from "./auth.guard";
+import { getAuthServiceConfigs } from "./socialloginConfig";
 import { InterceptorsService } from "./service/interceptors.service";
 import { EditnotesComponent } from './editnotes/editnotes.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -47,6 +48,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CreatecollabaratorComponent } from './createcollabarator/createcollabarator.component';
 import { SearchdataPipe } from './notes/searchdata.pipe';
 import { serviceUrl } from './serviceUrl/serviceUrl';
+import { SocialLoginModule, AuthServiceConfig } from "angular-6-social-login";
+// import { FacebookLoginProvider } from "angular-6-social-login";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +63,7 @@ import { serviceUrl } from './serviceUrl/serviceUrl';
     FundooNotesComponent,
     NotesComponent,
     SetremainderComponent,
-      EditnotesComponent,
+    EditnotesComponent,
     LabelsComponent,
     TrashComponent,
     ArchiveComponent,
@@ -69,13 +73,21 @@ import { serviceUrl } from './serviceUrl/serviceUrl';
     SearchdataPipe
   ],
   imports: [
-    BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatCardModule, MatInputModule, MatFormFieldModule, MatAutocompleteModule, FormsModule, ReactiveFormsModule, DragDropModule, MatButtonModule, MatIconModule, HttpClientModule, RouterModule, MatProgressSpinnerModule, NgxSpinnerModule, LayoutModule, MatToolbarModule, MatSidenavModule, MatListModule, MatTooltipModule, MatMenuModule, MatGridListModule, MatDatepickerModule, MatNativeDateModule, MatExpansionModule, NgxMaterialTimepickerModule.forRoot(), FlexLayoutModule, MatDialogModule, MatSelectModule, MatChipsModule
+    SocialLoginModule
+    , 
+    BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatCardModule, MatInputModule, MatFormFieldModule, MatAutocompleteModule, FormsModule, ReactiveFormsModule, DragDropModule, MatButtonModule, MatIconModule, HttpClientModule, RouterModule, MatProgressSpinnerModule, NgxSpinnerModule, LayoutModule, MatToolbarModule, MatSidenavModule, MatListModule, MatTooltipModule, MatMenuModule, MatGridListModule, MatDatepickerModule, MatNativeDateModule, MatExpansionModule, NgxMaterialTimepickerModule.forRoot(),
+    FlexLayoutModule,
+    MatDialogModule, MatSelectModule, MatChipsModule
   ],
-  providers: [serviceUrl,ImageService ,CommonlabelService, SelectlabelService, TrashService, RemainderService, ArchiveService, DataService, LabelService, CommonService, AuthGuard, CookieService, NoteserviceService,
+  providers: [serviceUrl ,ImageService, CommonlabelService, SelectlabelService, TrashService, RemainderService, ArchiveService, DataService, LabelService, CommonService, AuthGuard, CookieService, NoteserviceService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorsService,
       multi: true
+    },
+    {
+      provide: AuthServiceConfig,
+      useFactory: getAuthServiceConfigs
     }
   ]
   ,

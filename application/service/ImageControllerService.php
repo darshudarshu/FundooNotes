@@ -48,7 +48,7 @@ class ImageControllerService
              * returns json array response
              */
             print json_encode(base64_encode($arr['profilepic']));
-             
+
         }
 
     }
@@ -67,8 +67,8 @@ class ImageControllerService
         $query     = "UPDATE registration  SET `profilepic` = :file  where `email`= :email ";
         $statement = $this->connect->prepare($query);
         if ($statement->execute(array(
-            ':file' => $file,
-            ':email'    => $email,))) {
+            ':file'  => $file,
+            ':email' => $email))) {
 
             $ref = new ImageControllerService();
             $ref->fetchImage($email);
@@ -82,10 +82,10 @@ class ImageControllerService
     }
 
     /**
- * @method saveImage() upload the profile pic
- * @return void
- */
-    public function noteSaveImage($url, $email,$id)
+     * @method saveImage() upload the profile pic
+     * @return void
+     */
+    public function noteSaveImage($url, $email, $id)
     {
         $ref           = new DatabaseConnection();
         $this->connect = $ref->Connection();
@@ -96,12 +96,12 @@ class ImageControllerService
         $query     = "UPDATE notes  SET `image` = :file  where `email`= :email  and `id`= :id ";
         $statement = $this->connect->prepare($query);
         if ($statement->execute(array(
-            ':file' => $file,
-            ':email'    => $email,
-            ':id'    => $id, ))) {
+            ':file'  => $file,
+            ':email' => $email,
+            ':id'    => $id))) {
 
-            // $ref = new ImageControllerService();
-            // $ref->fetchImage($email);
+            $ref = new ImageControllerService();
+            $ref->notesFetchImage($email);
         } else {
             $data = array(
                 "message" => "203",
@@ -109,5 +109,31 @@ class ImageControllerService
             print json_encode($data);
 
         }
+    }
+/**
+ * @method fetchImage() fetch the user profile pic
+ * @return void
+ */
+    public function notesFetchImage($email)
+    {
+        /**
+         * @var string $query has query to select the profile pic of the user
+         */
+        $query     = "SELECT image , id FROM notes where email='$email'";
+        $statement = $this->connect->prepare($query);
+        if ($statement->execute()) {
+
+            $arr        = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $imageArray = array();
+            for ($i = 0; $i < count($arr); $i++) {
+                $arr[$i]['image'] = "data:image/jpeg;base64,".base64_encode($arr[$i]['image']);
+            }
+            /**
+             * returns json array response
+             */
+            print json_encode($arr);
+
+        }
+
     }
 }

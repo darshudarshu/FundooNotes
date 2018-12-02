@@ -34,7 +34,6 @@ export class ImageService {
     saveImage.append("email", email)
     return this.http.post(this.serviceurl.host + this.serviceurl.profileSaveImage, saveImage)
   }
-noteSaveImage
   /**
     * @method saveProfile() 
     * @return observable data
@@ -43,11 +42,12 @@ noteSaveImage
     * @description Function to send email and url to server
     */
   noteSaveImage(url, email,noteId) {
+    debugger;
     let saveImage = new FormData();
-    noteSaveImage.append("url", url)
-    noteSaveImage.append("email", email)
-    noteSaveImage.append("id", noteId)
-    return this.http.post(this.serviceurl.host + this.serviceurl.noteSaveImage, noteSaveImage)
+    saveImage.append("url", url)
+    saveImage.append("email", email)
+    saveImage.append("id", noteId)
+    return this.http.post(this.serviceurl.host + this.serviceurl.notesSaveImage, saveImage)
   }
 
 }

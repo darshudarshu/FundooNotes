@@ -113,6 +113,6 @@ $route['deleteAllMainCollabaratorData'] = 'Collabarator/deleteAllMainCollabarato
 
 $route['fetchImage'] = 'ImageController/fetchImage';
 $route['saveImage']  = 'ImageController/saveImage';
-$route['saveImage'] = 'ImageController/noteSaveImage';
+$route['noteSaveImage'] = 'ImageController/noteSaveImage';
 
 

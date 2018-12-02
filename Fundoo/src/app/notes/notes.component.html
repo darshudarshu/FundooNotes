@@ -189,11 +189,12 @@
     <mat-card class="othermat " *ngFor="let user of ( notes | searchdata : searchData )" cdkDrag [ngStyle]="{'background-color': user.color}">
 
 
-        <div>
-            <img [src]="myurl" class="noteImage">
+        <!-- <div *ngFor="let image of noteImageArray">
+            <div *ngIf="noteImageArray.id == user.id">
+                <img [src]={{image.image}} class="noteImage"></div>
+        </div> -->
 
-        </div>
-        <input style="display: none;" type='file' #file (change)="onSelectFile($event)">
+        <input style="display: none;" type='file' #file (change)="onSelectFile($event,user.id)">
         <div style="    margin-top: -17px;" *ngIf="!displayOtherCards ">
             <input style=" width: 80%; " (click)="openDialog(user)" matInput [(ngModel)]="user.title ">
             <button style=" width: 40px ;padding-top: 5px; " class="tools" mat-icon-button><mat-icon   matSuffix><img src="../../assets/img/fundoAssests/pin.svg "></mat-icon></button>
@@ -210,7 +211,7 @@
             <button style="height: 0px; margin-left: -40px; margin-bottom: 3px;" mat-button (click)="deleteLabel(user.id)"><mat-icon><img   style=" margin: 2px;"  src="../../assets/img/fundoAssests/close.svg "></mat-icon></button>
         </div>
         <span *ngFor="let item of collabarators">
-            <button matTooltip="{{item.email}}" mat-mini-fab [ngStyle]="{'background-color':user.color,color:'black' }" style="color:'black'" *ngIf="item.noteId == user.id">
+            <button matTooltip={{item.email}} mat-mini-fab [ngStyle]="{'background-color':user.color,color:'black' }" style="color:'black'" *ngIf="item.noteId == user.id">
          
                 {{item.email[0]}}{{item.email[1]}}
             </button>
