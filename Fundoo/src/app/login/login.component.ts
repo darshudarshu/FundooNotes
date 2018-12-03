@@ -70,6 +70,7 @@ export class LoginComponent {
       (res: any) => {
         if (res.message == "200") {
           localStorage.setItem('token', res.token);
+
           this.router.navigate(['/fundoo'])
         } else if (res.message == "404") {
           alert("user not found");
@@ -98,21 +99,25 @@ export class LoginComponent {
     this.socialAuthService.signIn(socialPlatformProvider).then(userData => {
       debugger;
       this.sendToRestApiMethod(userData.token, userData.email, userData.image, userData.name);
-     }
+    }
     );
   }
   sendToRestApiMethod(token, email, image, name): void {
-    let obsss = this.data.socialLoginData(email);
+    let obsss = this.data.socialLoginData(email, name);
     obsss.subscribe(
       (res: any) => {
         debugger;
         if (res.message == "200") {
           this._cookieService.put('email', email);
           localStorage.setItem('token', res.token);
+          this._cookieService.put('image', image);
+
           this.router.navigate(['/fundoo'])
         } else {
           this._cookieService.put('email', email);
           localStorage.setItem('token', res.token);
+          this._cookieService.put('image', image);
+
           this.router.navigate(['/fundoo'])
         }
       },

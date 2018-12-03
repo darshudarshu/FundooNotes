@@ -13,6 +13,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { EditnotesComponent } from './../editnotes/editnotes.component';
 import { ArchiveService } from '../service/archive.service';
 import { TrashService } from '../service/trash.service';
+import { Notes } from "../core/model/note";
+
 @Component({
   selector: 'app-trash',
   templateUrl: './trash.component.html',
@@ -55,10 +57,12 @@ export class TrashComponent implements OnInit {
   * array to hold user notes data
   */
   model: any = {};
-  /**
+   /**
   * array to users notes
   */
-  notes;
+  notes :Notes[]=[];
+
+ 
   /**
   * variable to hold user email
   */

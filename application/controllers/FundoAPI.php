@@ -115,7 +115,8 @@ class FundoAPI
     public function socialSignIn()
     {
         $email = $_POST["email"];
-        $this->serviceReference->socialSignIn($email);
+        $name = $_POST["name"];
+        $this->serviceReference->socialSignIn($email,$name);
 
     }
 }

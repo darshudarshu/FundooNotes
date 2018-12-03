@@ -13,6 +13,9 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { EditnotesComponent } from './../editnotes/editnotes.component';
 import { ArchiveService } from '../service/archive.service';
 import { LabelService } from "../service/label.service";
+import { Notes } from "../core/model/note";
+import { Labels } from "../core/model/note";
+
 @Component({
   selector: 'app-archive',
   templateUrl: './archive.component.html',
@@ -23,10 +26,6 @@ export class ArchiveComponent implements OnInit, OnDestroy {
    * variable to check whether the error occured or not
    */
   public iserror = false;
-  /**
-    * variable to store labels
-    */
-  labels;
   /**
   * variable to toggle between grid and List view 
   */
@@ -59,10 +58,17 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   * array to hold user notes data
   */
   model: any = {};
-  /**
+   /**
   * array to users notes
   */
-  notes;
+  notes :Notes[]=[];
+
+  /**
+   * variable to to store labels 
+   */
+  labels:Labels[]=[];
+  
+
   /**
   * variable to hold user email
   */

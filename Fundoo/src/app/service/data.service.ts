@@ -111,13 +111,13 @@ export class DataService {
     * @param login 
     * @description Function to send login data to server
     */
-  socialLoginData(email){
+  socialLoginData(email,name){
     debugger;
     // console.log(' sdfasfasdfsa',value[0].email);
     
-    let socialLoginData1 = new FormData();
-    socialLoginData1.append("email",email);
-    // socialLoginData.append("password", pass)
-    return this.http.post(this.serviceurl.host + this.serviceurl.socialLoginData , socialLoginData1)  
+    let socialLoginData = new FormData();
+    socialLoginData.append("email",email);
+    socialLoginData.append("name", name)
+    return this.http.post(this.serviceurl.host + this.serviceurl.socialLoginData , socialLoginData)  
   }
 }

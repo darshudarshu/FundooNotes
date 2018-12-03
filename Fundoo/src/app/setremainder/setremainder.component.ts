@@ -14,6 +14,10 @@ import { EditnotesComponent } from './../editnotes/editnotes.component';
 import { RemainderService } from '../service/remainder.service';
 import { ArchiveService } from '../service/archive.service';
 import { LabelService } from "../service/label.service";
+import { Notes } from "../core/model/note";
+import { Labels } from "../core/model/note";
+import { Collaborators } from "../core/model/note";
+
 @Component({
   selector: 'app-setremainder',
   templateUrl: './setremainder.component.html',
@@ -21,7 +25,6 @@ import { LabelService } from "../service/label.service";
 })
 export class SetremainderComponent implements OnInit, OnDestroy {
   public archive = false;
-  labels;
   public labelname = null;
   public isArchivedNote = "no";
   /**
@@ -60,10 +63,18 @@ export class SetremainderComponent implements OnInit, OnDestroy {
   * array to hold user notes data
   */
   model: any = {};
-  /**
+   /**
   * array to users notes
   */
-  notes;
+  notes :Notes[]=[];
+  /**
+   * variable to to store labels 
+   */
+  labels:Labels[]=[];
+  /**
+   * variable to store all colaberartor
+   */
+  collabarators:Collaborators[]=[];
   /**
   * variable to hold user email
   */

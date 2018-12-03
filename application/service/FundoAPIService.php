@@ -62,7 +62,6 @@ class FundoAPIService
             $statement = $this->connect->prepare($query);
             if ($statement->execute()) {
                 $ref = new SendMail();
-                // define("PROJECT_HOME", "http://localhost:4200/verify");
                 $token = md5($email);
                 $sub   = 'verify email id';
                 $body  = " hello click this link to verify your email click here " . "http://localhost:4200/verify" . "?token=" . $token .
@@ -159,7 +158,7 @@ class FundoAPIService
  * @method login() login in to fundo logic
  * @return void
  */
-    public function socialSignIn($email)
+    public function socialSignIn($email,$name)
     {
         $flag = FundoAPIService::isPresentRegisteredLogged($email);
         if ($flag == 1) {
@@ -172,7 +171,7 @@ class FundoAPIService
 
         } else {
             if ($email != null) {
-                $query     = "INSERT INTO registration (email,active) VALUES ('$email','active')";
+                $query     = "INSERT INTO registration (username,email,active) VALUES ('$name','$email','active')";
                 $statement = $this->connect->prepare($query);
                 $true      = $statement->execute();
             }

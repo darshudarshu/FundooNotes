@@ -11,10 +11,11 @@
         <button *ngIf="!ispresent" (click)="file.click()" mat-fab style="font-size: 50px;" class="imag">{{val[0]}} </button>
         <div *ngIf="ispresent">
             <button mat-fab style="background-colour:'white'" (click)="file.click()">
-                <img [src]="myurl" class="imag">
+                <img src={{myurl}} class="imag"alt="profile">
             </button>
             <button class="google" mat-button>Google Account</button>
         </div>
+        <!-- <img src=> -->
         <input style="margin-left: -273px;" type='file' #file (change)="onSelectFile($event)">
         <button mat-menu-item>{{val}}</button>
         <button mat-menu-item>Add account</button><button (click)="logout()" mat-menu-item>Sign out</button>

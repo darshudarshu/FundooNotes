@@ -47,7 +47,7 @@ export class FundooNotesComponent {
   myurl = "";
   varr = false;
   ispresent;
-  constructor(private image:ImageService, private commonlabelService: CommonlabelService, private labelservice: LabelService, private _cookieService: CookieService, private router: Router, private commonService: CommonService, public dialog: MatDialog) { }
+  constructor(private image: ImageService, private commonlabelService: CommonlabelService, private labelservice: LabelService, private _cookieService: CookieService, private router: Router, private commonService: CommonService, public dialog: MatDialog) { }
   /**
     * @method ngOnInit() 
     * @return void
@@ -63,13 +63,19 @@ export class FundooNotesComponent {
     let obss = this.image.fetchProfile(this.email);
     obss.subscribe(
       (res: any) => {
-        if (res != "") {
+        console.log(res);
+        if (res != "" && res != null) {
+          alert(res);
           this.ispresent = true;
-          this.myurl = "data:image/jpeg;base64,"+res;
-
+          this.myurl = "data:image/jpeg;base64," + res;
         }
         else {
-          this.ispresent = false;
+          if (this._cookieService.get('image') != "" && this._cookieService.get('image') != null) {
+            this.ispresent = true;
+            this.myurl = this._cookieService.get('image');
+          }else{
+            this.ispresent = false; 
+          }
         }
       });
     /**
@@ -171,20 +177,20 @@ export class FundooNotesComponent {
     this.base64textString = btoa(binaryString);
     // console.log(binaryString));
     // console.log(this.base64textString);
-    
-let obss = this.image.saveProfile(this.base64textString,this.email);
-obss.subscribe(
-  (res: any) => {
-    if (res != "") {
-      this.ispresent = true;
-      this.myurl = "data:image/jpeg;base64,"+res;
 
-    }
-    else {
-      this.ispresent = false;
-    }
-  });
+    let obss = this.image.saveProfile(this.base64textString, this.email);
+    obss.subscribe(
+      (res: any) => {
+        if (res != "") {
+          this.ispresent = true;
+          this.myurl = "data:image/jpeg;base64," + res;
+
+        }
+        else {
+          this.ispresent = false;
+        }
+      });
 
   }
-  
+
 }

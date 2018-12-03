@@ -21,6 +21,8 @@ import { CreatecollabaratorComponent } from './../createcollabarator/createcolla
 import { LabelService } from "../service/label.service";
 import { ImageService } from '../service/image.service';
 import { Notes } from "../core/model/note";
+import { Labels } from "../core/model/note";
+import { Collaborators } from "../core/model/note";
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -38,10 +40,7 @@ export class NotesComponent implements OnInit, OnDestroy {
    * variable to check whether the error occured or not
    */
   public isArchived = "no";
-  /**
-   * variable to to store labels 
-   */
-  labels;
+ 
   /**
     * variable to  store selected labels 
     */
@@ -90,6 +89,14 @@ export class NotesComponent implements OnInit, OnDestroy {
   * array to users notes
   */
   notes :Notes[]=[];
+  /**
+   * variable to to store labels 
+   */
+  labels:Labels[]=[];
+  /**
+   * variable to store all colaberartor
+   */
+  collabarators:Collaborators[]=[];
   /**
   * variable to hold user email
   */
@@ -156,7 +163,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   other_timer_panel = false;
   remainder_id = "";
   note_id = "";
-  collabarators;
+
   /**
    * variable holding all main collabarators
    */
@@ -340,7 +347,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.searchSubscription.unsubscribe();
-    this.obs.unsubscribe();
+    // this.obs.unsubscribe();
   }
   /**
    * @method setColor()
