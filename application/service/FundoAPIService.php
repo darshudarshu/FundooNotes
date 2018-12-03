@@ -1,5 +1,7 @@
 <?php
 header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: Authorization");
+
 
 /*********************************************************************
  * @discription  Controller API
@@ -169,10 +171,11 @@ class FundoAPIService
             print json_encode($data);
 
         } else {
-
-            $query     = "INSERT INTO registration(username,email,active) VALUES('$email','$email','active')";
-            $statement = $this->connect->prepare($query);
-            $statement->execute();
+            if ($email != null) {
+                $query     = "INSERT INTO registration (email,active) VALUES ('$email','active')";
+                $statement = $this->connect->prepare($query);
+                $true      = $statement->execute();
+            }
             $token = FundoAPIService::jwtToken($email);
             $data  = array(
                 "token"   => $token,

@@ -1,5 +1,7 @@
 <?php
 header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: Authorization");
+
 
 /*********************************************************************
  * @discription  Controller API
@@ -113,7 +115,6 @@ class FundoAPI
     public function socialSignIn()
     {
         $email = $_POST["email"];
-        // $pass  = $_POST["pass"];
         $this->serviceReference->socialSignIn($email);
 
     }

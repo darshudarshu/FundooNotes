@@ -20,6 +20,7 @@ import { CollabaratorComponent } from './../collabarator/collabarator.component'
 import { CreatecollabaratorComponent } from './../createcollabarator/createcollabarator.component';
 import { LabelService } from "../service/label.service";
 import { ImageService } from '../service/image.service';
+import { Notes } from "../core/model/note";
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -29,6 +30,10 @@ import { ImageService } from '../service/image.service';
  * @class NotesComponent set of codes to operate on user notes 
  */
 export class NotesComponent implements OnInit, OnDestroy {
+  /**
+   * variable 
+   */
+  obs;
   /**
    * variable to check whether the error occured or not
    */
@@ -84,7 +89,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   /**
   * array to users notes
   */
-  notes;
+  notes :Notes[]=[];
   /**
   * variable to hold user email
   */
@@ -167,8 +172,8 @@ export class NotesComponent implements OnInit, OnDestroy {
     /**
      * loading notes while refreshing the page
      */
-    let obs = this.notesService.noteUserData(this.email);
-    obs.subscribe(
+    this.obs = this.notesService.noteUserData(this.email);
+    this.obs.subscribe(
       (res: any) => {
         /**
          * assing response to the user notes
@@ -279,8 +284,8 @@ export class NotesComponent implements OnInit, OnDestroy {
       /**
       * calling the function and subscribing to its response notedata present in the notesservice and 
       */
-      let obs = this.notesService.noteData(this.model, this.email, this.PresentTime, this.color, this.isArchived, this.labelname, this.isHaveCollabarator);
-      obs.subscribe(
+      this.obs = this.notesService.noteData(this.model, this.email, this.PresentTime, this.color, this.isArchived, this.labelname, this.isHaveCollabarator);
+      this.obs.subscribe(
         (res: any) => {
           /**
            * Checking the authorised user or not
@@ -335,6 +340,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.searchSubscription.unsubscribe();
+    this.obs.unsubscribe();
   }
   /**
    * @method setColor()

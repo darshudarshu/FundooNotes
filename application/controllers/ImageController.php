@@ -5,6 +5,8 @@
 
 header('Access-Control-Allow-Origin: *');
 header("Content-type: image/gif");
+header("Access-Control-Allow-Headers: Authorization");
+
 include "/var/www/html/codeigniter/application/service/ImageControllerService.php";
 
 /**

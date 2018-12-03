@@ -4,6 +4,8 @@
  ********************************************************************/
 
 header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: Authorization");
+
 include "/var/www/html/codeigniter/application/service/NotesControllerService.php";
 /**
  * class Api notes contoller methods

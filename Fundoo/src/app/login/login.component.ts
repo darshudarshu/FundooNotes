@@ -86,14 +86,6 @@ export class LoginComponent {
         this.errorMessage = error.message;
       });
   }
-
-
-
-
-
-
-
-
   public socialSignIn(socialPlatform: string) {
     debugger;
     let socialPlatformProvider;
@@ -105,41 +97,28 @@ export class LoginComponent {
 
     this.socialAuthService.signIn(socialPlatformProvider).then(userData => {
       debugger;
-      // console.log(socialPlatform + " sign in data : ", userData);
-      // Now sign-in with userData
-      // ...
-      // this.sendToRestApiMethod(
-        // userData.token,
-       alert(userData.email);
-        // userData.image,
-        // userData.name
-      // );
-
-
-let obs = this.data.socialLoginData(userData.email);
-obs.subscribe(
-  (res: any) => {
-    if (res.message == "200") {
-      localStorage.setItem('token', res.token);
-      this.router.navigate(['/fundoo'])
-    } else {
-      localStorage.setItem('token', res.token);
-      this.router.navigate(['/fundoo'])
-    }
-    
-  },
-  error => {
-    this.iserror = true;
-    this.errorMessage = error.message;
-  });
-
-
-
-
-
-
-    });
+      this.sendToRestApiMethod(userData.token, userData.email, userData.image, userData.name);
+     }
+    );
   }
-
-
+  sendToRestApiMethod(token, email, image, name): void {
+    let obsss = this.data.socialLoginData(email);
+    obsss.subscribe(
+      (res: any) => {
+        debugger;
+        if (res.message == "200") {
+          this._cookieService.put('email', email);
+          localStorage.setItem('token', res.token);
+          this.router.navigate(['/fundoo'])
+        } else {
+          this._cookieService.put('email', email);
+          localStorage.setItem('token', res.token);
+          this.router.navigate(['/fundoo'])
+        }
+      },
+      error => {
+        this.iserror = true;
+        this.errorMessage = error.message;
+      });
+  }
 }

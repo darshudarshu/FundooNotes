@@ -4,6 +4,8 @@
  ********************************************************************/
 
 header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: Authorization");
+
 include "DatabaseConnection.php";
 require 'JWT.php';
 // include "/var/www/html/codeigniter/application/service/NotesControllerServiceService.php";
