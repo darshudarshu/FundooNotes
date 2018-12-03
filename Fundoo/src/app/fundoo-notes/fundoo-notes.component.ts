@@ -122,6 +122,7 @@ export class FundooNotesComponent {
    * @description function to remove the user account once he choosed to logged out
    */
   logout() {
+    this._cookieService.remove("email")
     /**
      *remove the token present in the localstorage with key name token  
      */
@@ -133,7 +134,7 @@ export class FundooNotesComponent {
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(LabelsComponent, {
-      data: { user: "yrtyyt" }
+      data: { user: "user" }
     });
 
     dialogRef.afterClosed().subscribe(result => {

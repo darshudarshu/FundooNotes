@@ -62,5 +62,14 @@ class ImageController
         $this->serviceReference->noteSaveImage($url, $email, $id);
 
     }
+/**
+ * @method noteFetchImage() upload the profile pic
+ * @return void
+ */
+    public function notesFetchImage()
+    {
+        $email = $_POST["email"];
+        $this->serviceReference->notesFetchImage($email);
 
+    }
 }

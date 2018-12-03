@@ -84,7 +84,7 @@ class ImageControllerService
     }
 
     /**
-     * @method saveImage() upload the profile pic
+     * @method noteSaveImage() upload the profile pic
      * @return void
      */
     public function noteSaveImage($url, $email, $id)
@@ -102,8 +102,8 @@ class ImageControllerService
             ':email' => $email,
             ':id'    => $id))) {
 
-            $ref = new ImageControllerService();
-            $ref->notesFetchImage($email);
+            // $ref = new ImageControllerService();
+            // $ref->notesFetchImage($email);
         } else {
             $data = array(
                 "message" => "203",
@@ -113,7 +113,7 @@ class ImageControllerService
         }
     }
 /**
- * @method fetchImage() fetch the user profile pic
+ * @method noteFetchImage() fetch the user profile pic
  * @return void
  */
     public function notesFetchImage($email)
@@ -126,15 +126,15 @@ class ImageControllerService
         if ($statement->execute()) {
 
             $arr        = $statement->fetchAll(PDO::FETCH_ASSOC);
-            $imageArray = array();
+
             for ($i = 0; $i < count($arr); $i++) {
                 $arr[$i]['image'] = "data:image/jpeg;base64,".base64_encode($arr[$i]['image']);
             }
             /**
              * returns json array response
              */
-            print json_encode($arr);
-
+         print  json_encode($arr);
+       
         }
 
     }

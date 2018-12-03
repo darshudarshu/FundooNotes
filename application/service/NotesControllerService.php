@@ -148,6 +148,10 @@ class NotesControllerService
          * @var array $arr to store result
          */
         $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+        for ($i = 0; $i < count($arr); $i++) {
+            $arr[$i]['image'] = "data:image/jpeg;base64," . base64_encode($arr[$i]['image']);
+        }
+
         /**
          * returns json array response
          */

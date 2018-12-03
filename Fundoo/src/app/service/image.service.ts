@@ -19,7 +19,7 @@ export class ImageService {
   fetchProfile(email) {
     let fetchImage = new FormData();
     fetchImage.append("email", email)
-    return this.http.post(this.serviceurl.host + this.serviceurl.profileFetchImage , fetchImage)
+    return this.http.post(this.serviceurl.host + this.serviceurl.profileFetchImage, fetchImage)
   }
   /**
     * @method saveProfile() 
@@ -35,13 +35,13 @@ export class ImageService {
     return this.http.post(this.serviceurl.host + this.serviceurl.profileSaveImage, saveImage)
   }
   /**
-    * @method saveProfile() 
+    * @method noteSaveImage() 
     * @return observable data
     * @param email 
     * @param url 
     * @description Function to send email and url to server
     */
-  noteSaveImage(url, email,noteId) {
+  noteSaveImage(url, email, noteId) {
     debugger;
     let saveImage = new FormData();
     saveImage.append("url", url)
@@ -49,5 +49,15 @@ export class ImageService {
     saveImage.append("id", noteId)
     return this.http.post(this.serviceurl.host + this.serviceurl.notesSaveImage, saveImage)
   }
-
+  /**
+    * @method notesFetchImage() 
+    * @return observable data
+    * @param email 
+    * @description Function to send email and url to server
+    */
+  notesFetchImage(email) {
+    let noteFetchImage = new FormData();
+    noteFetchImage.append("email", email)
+    return this.http.post(this.serviceurl.host + this.serviceurl.notesFetchImage, noteFetchImage)
+  }
 }

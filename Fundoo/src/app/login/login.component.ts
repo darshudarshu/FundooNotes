@@ -87,6 +87,13 @@ export class LoginComponent {
         this.errorMessage = error.message;
       });
   }
+  /**
+  * @method socialSignIn()
+  * @return void
+  * @param socialPlatform
+  * @description Function to error validation
+  */
+
   public socialSignIn(socialPlatform: string) {
     debugger;
     let socialPlatformProvider;
@@ -102,6 +109,16 @@ export class LoginComponent {
     }
     );
   }
+  /**
+  * @method sendToRestApiMethod()
+  * @return void
+  * @param token
+  * @param email
+  * @param image
+  * @param name
+  * @description Function to error validation
+  */
+
   sendToRestApiMethod(token, email, image, name): void {
     let obsss = this.data.socialLoginData(email, name);
     obsss.subscribe(
@@ -113,12 +130,15 @@ export class LoginComponent {
           this._cookieService.put('image', image);
 
           this.router.navigate(['/fundoo'])
+          obsss.unsubscribe();
         } else {
           this._cookieService.put('email', email);
           localStorage.setItem('token', res.token);
           this._cookieService.put('image', image);
 
           this.router.navigate(['/fundoo'])
+          obsss.unsubscribe();
+          
         }
       },
       error => {

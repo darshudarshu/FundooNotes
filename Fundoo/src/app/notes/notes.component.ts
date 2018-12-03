@@ -40,7 +40,7 @@ export class NotesComponent implements OnInit, OnDestroy {
    * variable to check whether the error occured or not
    */
   public isArchived = "no";
- 
+
   /**
     * variable to  store selected labels 
     */
@@ -88,15 +88,15 @@ export class NotesComponent implements OnInit, OnDestroy {
   /**
   * array to users notes
   */
-  notes :Notes[]=[];
+  notes: Notes[] = [];
   /**
    * variable to to store labels 
    */
-  labels:Labels[]=[];
+  labels: Labels[] = [];
   /**
    * variable to store all colaberartor
    */
-  collabarators:Collaborators[]=[];
+  collabarators: Collaborators[] = [];
   /**
   * variable to hold user email
   */
@@ -105,7 +105,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   * variable to hold search data
   */
   searchData;
-  constructor(private image:ImageService,private collabaratorService: CollabaratorService, private commonlabelService: CommonlabelService, private labelservice: LabelService, private archiveService: ArchiveService, public dialog: MatDialog, private router: Router, private notesService: NoteserviceService, private _cookieService: CookieService, private commonService: CommonService) {
+  constructor(private image: ImageService, private collabaratorService: CollabaratorService, private commonlabelService: CommonlabelService, private labelservice: LabelService, private archiveService: ArchiveService, public dialog: MatDialog, private router: Router, private notesService: NoteserviceService, private _cookieService: CookieService, private commonService: CommonService) {
     /**
     * subscribing the notifyObservable variable in common service
     */
@@ -115,10 +115,10 @@ export class NotesComponent implements OnInit, OnDestroy {
     /**
      * subscribing the notifyObservable variable in common service
      */
-    this.searchSubscription= this.commonService.searchDataObservable$.subscribe((res) => {
+    this.searchSubscription = this.commonService.searchDataObservable$.subscribe((res) => {
       this.searchData = res;
     });
-    
+
     /**
     * method which runs over every 1 second
     */
@@ -186,11 +186,13 @@ export class NotesComponent implements OnInit, OnDestroy {
          * assing response to the user notes
          */
         this.notes = res;
-        console.log(res);
-        
+        // console.log(res);
+        obs.unsubscribe();
+
       }, error => {
         this.iserror = true;
         this.errorMessage = error.message;
+
       });
     let obss = this.labelservice.fetchLabels(this.email);
     obss.subscribe(
@@ -200,17 +202,23 @@ export class NotesComponent implements OnInit, OnDestroy {
                                
          */
         this.labels = res;
+        obss.unsubscribe();
+
       });
     let obsss = this.collabaratorService.fetchCollabaratorsOfNotes(this.email);
     obsss.subscribe(
       (res: any) => {
         this.collabarators = res;
+        obsss.unsubscribe();
+
       });
 
     let obbs = this.collabaratorService.fetchCollabarators(1111, this.email);
     obbs.subscribe(
       (res: any) => {
         this.mainCollabarators = res;
+        obbs.unsubscribe();
+
       }, error => {
         this.iserror = true;
         this.errorMessage = error.message;
@@ -242,6 +250,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     let obbs = this.notesService.dragAndDrop(this.difference, this.notes[event.currentIndex].dragId, this.dirrection, this.email);
     obbs.subscribe(
       (res: any) => {
+        obbs.unsubscribe();
       }, error => {
         this.iserror = true;
         this.errorMessage = error.message;
@@ -301,22 +310,27 @@ export class NotesComponent implements OnInit, OnDestroy {
             alert("Unathourized User");
             localStorage.removeItem("token");
             this.router.navigate(['/login'])
+            obs.unsubscribe();
+
           } else {
             this.notes = res;
             let obsss = this.collabaratorService.fetchCollabaratorsOfNotes(this.email);
             obsss.subscribe(
               (ress: any) => {
                 this.collabarators = ress;
-                console.log(res);
+                // console.log(res);
               });
             let obbs = this.collabaratorService.fetchCollabarators(1111, this.email);
             obbs.subscribe(
               (res: any) => {
                 this.mainCollabarators = res;
+                obbs.unsubscribe();
+
               }, error => {
                 this.iserror = true;
                 this.errorMessage = error.message;
               });
+            obs.unsubscribe();
           }
         },
         error => {
@@ -331,6 +345,8 @@ export class NotesComponent implements OnInit, OnDestroy {
         (res: any) => {
           this.mainCollabarators = res;
           // console.log(res[0]);
+          obbs.unsubscribe();
+
         }, error => {
           this.iserror = true;
           this.errorMessage = error.message;
@@ -358,7 +374,9 @@ export class NotesComponent implements OnInit, OnDestroy {
   setColor(id, changecolor) {
     let obs = this.notesService.colorChange(id, changecolor);
     obs.subscribe(
-      (res: any) => { });
+      (res: any) => {
+        obs.unsubscribe();
+      });
     this.notes.forEach(element => {
       if (element.id == id) {
         element.color = changecolor;
@@ -407,7 +425,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     if (this.model.date != null && this.model.time != null) {
       let obs = this.notesService.dateTimeChange(id, this.otherPresentTime);
       obs.subscribe(
-        (res: any) => { });
+        (res: any) => { obs.unsubscribe(); });
       this.other_timer_button = true;
       this.other_timer_panel = false;
     }
@@ -430,7 +448,9 @@ export class NotesComponent implements OnInit, OnDestroy {
     });
     let obs = this.notesService.dateTimeChange(id, this.otherPresentTime);
     obs.subscribe(
-      (res: any) => { });
+      (res: any) => {
+        obs.unsubscribe();
+      });
   }
   /**
   * @method today()
@@ -448,7 +468,9 @@ export class NotesComponent implements OnInit, OnDestroy {
     });
     let obs = this.notesService.dateTimeChange(id, this.otherPresentTime);
     obs.subscribe(
-      (res: any) => { });
+      (res: any) => {
+        obs.unsubscribe();
+      });
   }
   flag = true;
   /**
@@ -469,6 +491,8 @@ export class NotesComponent implements OnInit, OnDestroy {
             (res: any) => {
               if (res.error == 202) {
                 alert("Unknown data");
+                obs.unsubscribe();
+
               }
               else {
                 console.log(res);
@@ -476,6 +500,8 @@ export class NotesComponent implements OnInit, OnDestroy {
                  * assing response to the user notes
                  */
                 this.notes = res;
+                obs.unsubscribe();
+
               }
             });
         } else {
@@ -484,6 +510,8 @@ export class NotesComponent implements OnInit, OnDestroy {
           obs.subscribe(
             (res: any) => {
               this.collabarators = res;
+              obs.unsubscribe();
+
             }, error => {
               this.iserror = true;
               this.errorMessage = error.message;
@@ -496,6 +524,8 @@ export class NotesComponent implements OnInit, OnDestroy {
                * assing response to the user notes
                */
               this.notes = res;
+              obssss.unsubscribe();
+
             }, error => {
               this.iserror = true;
               this.errorMessage = error.message;
@@ -509,6 +539,8 @@ export class NotesComponent implements OnInit, OnDestroy {
         (res: any) => {
           if (res.error == 202) {
             alert("Unknown data");
+            obs.unsubscribe();
+
           }
           else {
             /**
@@ -549,6 +581,8 @@ export class NotesComponent implements OnInit, OnDestroy {
       (res: any) => {
         if (res.error == 202) {
           alert("Unknown data");
+          obs.unsubscribe();
+
         }
         else {
           // this.notes = res;
@@ -559,6 +593,8 @@ export class NotesComponent implements OnInit, OnDestroy {
                * assing response to the user notes
                */
               this.notes = res;
+              obss.unsubscribe();
+
             }, error => {
               this.iserror = true;
               this.errorMessage = error.message;
@@ -593,7 +629,9 @@ export class NotesComponent implements OnInit, OnDestroy {
   deleteLabel(id) {
     let obs = this.notesService.deleteLabels(id);
     obs.subscribe(
-      (res: any) => { });
+      (res: any) => {
+        obs.unsubscribe();
+      });
     this.notes.forEach(element => {
       if (element.id == id) {
         element.label = null;
@@ -635,6 +673,8 @@ export class NotesComponent implements OnInit, OnDestroy {
              * assing response to the user notes
              */
             this.notes = res;
+            obs.unsubscribe();
+
           }, error => {
             this.iserror = true;
             this.errorMessage = error.message;
@@ -661,12 +701,18 @@ export class NotesComponent implements OnInit, OnDestroy {
    * var to hold image base64url
    */
   public base64textString;
-  noteImageArray;
-myurl;
-imageNoteId;
-   onSelectFile(event,noteId) {
-     debugger;
-    this.imageNoteId=noteId;
+  /**
+   * variable to store the note id of image to be added
+   */
+  imageNoteId;
+  /**
+  * @method onSelectFile()
+  * @return void
+  * @description Function to save the image 
+  */
+  onSelectFile(event, noteId) {
+    debugger;
+    this.imageNoteId = noteId;
     var files = event.target.files;
     var file = files[0];
     if (files && file) {
@@ -679,21 +725,16 @@ imageNoteId;
   _handleReaderLoaded(readerEvt) {
     var binaryString = readerEvt.target.result;
     this.base64textString = btoa(binaryString);
+    this.notes.forEach(element => {
+      if (element.id == this.imageNoteId) {
+        element.image = "data:image/jpeg;base64," + this.base64textString;
+      }
+    });
 
-let obss = this.image.noteSaveImage(this.base64textString,this.email,this.imageNoteId);
-obss.subscribe(
-  (res: any) => {
-//     alert("darshu");
-// console.log("darshu");
-// this.noteImageArray=res;
-//  console.log(res);
-  
-// res.forEach(element => {
-//   console.log(element.image);
-   
-// });
-
-  });
+    let obss = this.image.noteSaveImage(this.base64textString, this.email, this.imageNoteId);
+    obss.subscribe(
+      (res: any) => {
+      });
 
   }
 }

@@ -100,6 +100,9 @@
 <!-- other cards  -->
 <div *ngIf="grid" fxLayout="column wrap" cdkDropList (cdkDropListDropped)="drop($event)" fxLayoutAlign="center" fxLayoutGap="10px" style='margin-top: 40px;margin-left: 27%;margin-right:26%;'>
     <mat-card class="othermat1 " *ngFor="let user of ( notes | searchdata : searchData )" cdkDrag [ngStyle]="{'background-color': user.color}">
+        <div *ngIf="user.image !='data:image/jpeg;base64,'">
+            <img src={{user.image}} class="noteListImage">
+        </div>
         <div style="    margin-top: -17px;" *ngIf="!displayOtherCards ">
             <input style=" width: 92%; " (click)="openDialog(user)" matInput [(ngModel)]="user.title ">
             <button style=" width: 40px ;padding-top: 5px; " class="tools" mat-icon-button><mat-icon   matSuffix><img src="../../assets/img/fundoAssests/pin.svg "></mat-icon></button>
@@ -189,10 +192,11 @@
     <mat-card class="othermat " *ngFor="let user of ( notes | searchdata : searchData )" cdkDrag [ngStyle]="{'background-color': user.color}">
 
 
-        <!-- <div *ngFor="let image of noteImageArray">
-            <div *ngIf="noteImageArray.id == user.id">
-                <img [src]={{image.image}} class="noteImage"></div>
-        </div> -->
+
+        <div *ngIf="user.image !='data:image/jpeg;base64,'">
+            <img src={{user.image}} class="noteImage">
+        </div>
+
 
         <input style="display: none;" type='file' #file (change)="onSelectFile($event,user.id)">
         <div style="    margin-top: -17px;" *ngIf="!displayOtherCards ">
