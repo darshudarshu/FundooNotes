@@ -1,8 +1,8 @@
-
+import { environment } from "../../environments/environment";
 export class serviceUrl {
 
 
-  public host = "http://localhost/codeigniter/";
+  public host = environment.baseURL;
   public createNotes = "createNotes";
   public userNotes = "userNotes";
   public changeColor = "changeColor";

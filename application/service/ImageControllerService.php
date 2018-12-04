@@ -24,6 +24,10 @@ class ImageControllerService
  */
     public $connect = "";
     /**
+     * @var string base64
+     */
+    public $constants="";
+    /**
      * @method constructor to establish the database connection
      * @return void
      */
@@ -31,6 +35,7 @@ class ImageControllerService
     {
         $ref           = new DatabaseConnection();
         $this->connect = $ref->Connection();
+        $constants = new Constant();
     }
 /**
  * @method fetchImage() fetch the user profile pic
@@ -116,26 +121,13 @@ class ImageControllerService
  * @method noteFetchImage() fetch the user profile pic
  * @return void
  */
-    public function notesFetchImage($email)
+    public function notesDeleteImage($email,$noteId)
     {
         /**
          * @var string $query has query to select the profile pic of the user
          */
-        $query     = "SELECT image , id FROM notes where email='$email'";
+        $query     = "UPDATE notes  SET image=null  where email= '$email'  and where id= '$noteId'";
         $statement = $this->connect->prepare($query);
-        if ($statement->execute()) {
-
-            $arr        = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-            for ($i = 0; $i < count($arr); $i++) {
-                $arr[$i]['image'] = "data:image/jpeg;base64,".base64_encode($arr[$i]['image']);
-            }
-            /**
-             * returns json array response
-             */
-         print  json_encode($arr);
-       
-        }
-
+        $true= $statement->execute();
     }
 }

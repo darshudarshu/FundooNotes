@@ -1,5 +1,8 @@
 <body class="matcard" [ngStyle]="{'background-color': data.user.color}">
     <div>
+        <img src={{data.user.image}} class="editNoteImage" alt="">
+    </div>
+    <div>
         <input style=" width: 90%; padding-left:13px ;font-size: 23px; " matInput [(ngModel)]="data.user.title ">
         <button style=" width: 40px ;" mat-icon-button><mat-icon   matSuffix><img src="../../assets/img/fundoAssests/pin.svg "></mat-icon></button>
     </div>

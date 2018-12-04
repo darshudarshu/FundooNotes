@@ -5,10 +5,8 @@
 
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: Authorization");
-
 include "DatabaseConnection.php";
 require 'JWT.php';
-// include "/var/www/html/codeigniter/application/service/NotesControllerServiceService.php";
 /**
  * class Api notes contoller methods
  */
@@ -28,6 +26,10 @@ class NotesControllerService
  * @var string $remainder remainder
  */
     public $connect = "";
+    /**
+     * @var string base64
+     */
+    public $constants="";
     // public $serviceReference = "";
     /**
      * @method constructor to establish the database connection
@@ -37,7 +39,7 @@ class NotesControllerService
     {
         $ref           = new DatabaseConnection();
         $this->connect = $ref->Connection();
-
+        $this->constants = new Constant();
         // $this->serviceReference = new NotesControllerService();
 
     }
@@ -149,7 +151,7 @@ class NotesControllerService
          */
         $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
         for ($i = 0; $i < count($arr); $i++) {
-            $arr[$i]['image'] = "data:image/jpeg;base64," . base64_encode($arr[$i]['image']);
+            $arr[$i]['image'] = $this->constants->base64 . base64_encode($arr[$i]['image']);
         }
 
         /**
@@ -217,6 +219,10 @@ class NotesControllerService
              * @var array $arr to store result
              */
             $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+            for ($i = 0; $i < count($arr); $i++) {
+                $arr[$i]['image'] = $this->constants->base64 . base64_encode($arr[$i]['image']);
+            }
+
             /**
              * returns json array response
              */

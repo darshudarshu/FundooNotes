@@ -1,8 +1,9 @@
 <?php
-
 require_once "/var/www/html/codeigniter/application/controllers/FundoAPI.php";
+include "/var/www/html/codeigniter/application/tests/controllers/TeastCaseConstants.php";
 class FundoAPI_test extends TestCase
-{
+{  
+    //  __construct
     public function testLoginFirstCase()
     {
         $url = "http://localhost/codeigniter/login";
@@ -45,7 +46,7 @@ class FundoAPI_test extends TestCase
         $result = curl_exec($ch);
         curl_close($ch);
         $res = json_decode($result);
-        $this->assertEquals('404', $res->message);
+        $this->assertEquals('401', $res->message);
     }
     public function testRegistrationFirstCase()
     {
@@ -56,6 +57,6 @@ class FundoAPI_test extends TestCase
         $result = curl_exec($ch);
         curl_close($ch);
         $res = json_decode($result);
-        $this->assertEquals('304', $res->message);
+        $this->assertEquals('201', $res->message);
     }
 }

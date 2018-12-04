@@ -130,14 +130,14 @@ export class LoginComponent {
           this._cookieService.put('image', image);
 
           this.router.navigate(['/fundoo'])
-          obsss.unsubscribe();
+          // obsss.unsubscribe();
         } else {
           this._cookieService.put('email', email);
           localStorage.setItem('token', res.token);
           this._cookieService.put('image', image);
 
           this.router.navigate(['/fundoo'])
-          obsss.unsubscribe();
+          // obsss.unsubscribe();
           
         }
       },

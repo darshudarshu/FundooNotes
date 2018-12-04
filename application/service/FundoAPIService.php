@@ -2,13 +2,13 @@
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: Authorization");
 
-
 /*********************************************************************
  * @discription  Controller API
  *********************************************************************/
-// require 'phpmailer/index.php';
 require 'JWT.php';
 include "/var/www/html/codeigniter/application/RabbitMQ/sender.php";
+include "/var/www/html/codeigniter/application/static/Constant.php";
+
 /**
  * @var string $query has query to update data into database (tbl_sample) table name
  */
@@ -25,20 +25,17 @@ class FundoAPIService
      */
     private $connect       = '';
     public static $emailid = "";
+    public $constants      = "";
     /**
      * constructor establish DB connection
      */
     public function __construct()
     {
-        $this->database_connection();
+        $obj              = new Constant();
+        $this->connect    = new PDO("$obj->database:host=$obj->host;dbname=$obj->databaseName", "$obj->user", "$obj->password");
+        $this->constants = new Constant();
     }
-    /**
-     * @method database_connection() creates PDO object
-     */
-    public function database_connection()
-    {
-        $this->connect = new PDO("mysql:host=localhost;dbname=Fundoo", "root", "root");
-    }
+
 /**
  * @var string $name
  * @var string $email
@@ -61,11 +58,10 @@ class FundoAPIService
             ";
             $statement = $this->connect->prepare($query);
             if ($statement->execute()) {
-                $ref = new SendMail();
+                $ref   = new SendMail();
                 $token = md5($email);
                 $sub   = 'verify email id';
-                $body  = " hello click this link to verify your email click here " . "http://localhost:4200/verify" . "?token=" . $token .
-                    "  Regards DARSHU ";
+                $body  = $this->$constants->verificationLinkMasssage . $this->$constants->verificationLink . $token;
                 $ref->sendEmail($email, $sub, $body);
                 $query     = "UPDATE registration SET reset_key = '$token' where email = '$email'";
                 $statement = $this->connect->prepare($query);
@@ -158,7 +154,7 @@ class FundoAPIService
  * @method login() login in to fundo logic
  * @return void
  */
-    public function socialSignIn($email,$name)
+    public function socialSignIn($email, $name)
     {
         $flag = FundoAPIService::isPresentRegisteredLogged($email);
         if ($flag == 1) {
@@ -237,9 +233,7 @@ class FundoAPIService
             $statement = $this->connect->prepare($query);
             $statement->execute();
             $sub  = 'password recovery mail';
-            $body = " hello
-            Click this link to recover your password click here " . "http://localhost:4200/reset" . "?token=" . $token .
-                " Regards DARSHU";
+            $body = $this->$constants->resetLinkMasssage . $this->$constants->resetLink . $token;
             $response = $ref->sendEmail($email, $sub, $body);
             if ($response == "sent") {
                 $data = array(
