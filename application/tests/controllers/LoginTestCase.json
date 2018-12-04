@@ -1,17 +1,21 @@
 [{
         "testEmail": "darshan@gmail.com",
-        "password": 22222222
+        "password": "22222222",
+        "expected": "404"
     },
     {
         "testEmail": "darshangangadhar@gmail.com",
-        "password": 121111
+        "password": "121111",
+        "expected": "200"
     },
     {
         "testEmail": "darshangangadhar@gmail.com",
-        "password": 121111
+        "password": "121111",
+        "expected": "400"
     },
     {
         "testEmail": "darshangangadharr@gmail.com",
-        "password": 111111
+        "password": "111111",
+        "expected": "401"
     }
 ]
