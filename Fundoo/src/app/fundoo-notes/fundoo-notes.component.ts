@@ -47,6 +47,7 @@ export class FundooNotesComponent {
   myurl = "";
   varr = false;
   ispresent;
+  userEmail;
   constructor(private image: ImageService, private commonlabelService: CommonlabelService, private labelservice: LabelService, private _cookieService: CookieService, private router: Router, private commonService: CommonService, public dialog: MatDialog) { }
   /**
     * @method ngOnInit() 
@@ -60,12 +61,22 @@ export class FundooNotesComponent {
       (res: any) => {
         this.labels = res;
       });
+
+/*
+ * fetching email from chache
+ */    
+  let oobs = this.image.fetchUserEmailId();
+  oobs.subscribe(
+    (res: any) => {
+         this.userEmail = res;
+    });  
+/*
+ * fetching the profile
+ */
     let obss = this.image.fetchProfile(this.email);
     obss.subscribe(
       (res: any) => {
-        console.log(res);
         if (res != "" && res != null) {
-          alert(res);
           this.ispresent = true;
           this.myurl = "data:image/jpeg;base64," + res;
         }

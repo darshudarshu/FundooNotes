@@ -60,4 +60,12 @@ export class ImageService {
     noteFetchImage.append("email", email)
     return this.http.post(this.serviceurl.host + this.serviceurl.notesFetchImage, noteFetchImage)
   }
+  /**
+    * @method fetchUserEmailId() 
+    * @return observable data
+    * @description Function to send email and url to server
+    */
+  fetchUserEmailId() {
+    return this.http.get(this.serviceurl.host + this.serviceurl.fetchUserEmail)
+  }
 }

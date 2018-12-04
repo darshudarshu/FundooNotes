@@ -304,6 +304,8 @@ switch (ENVIRONMENT)
 	}
 
 	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
+include 'application/predis/autoload.php';
+Predis\Autoloader::register();
 
 /*
  * --------------------------------------------------------------------
@@ -313,3 +315,4 @@ switch (ENVIRONMENT)
  * And away we go...
  */
 require_once BASEPATH.'core/CodeIgniter.php';
+

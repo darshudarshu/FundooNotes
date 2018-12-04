@@ -72,4 +72,12 @@ class ImageController
         $this->serviceReference->notesFetchImage($email);
 
     }
+/**
+ * @method fetchUserEmail() upload the profile pic
+ * @return void
+ */
+    public function fetchUserEmail()
+    {
+        $this->serviceReference->fetchUserEmail();
+    }
 }

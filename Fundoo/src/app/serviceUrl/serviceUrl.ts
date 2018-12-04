@@ -60,4 +60,5 @@ export class serviceUrl {
   
   public socialLoginData = "socialSignIn";
   public notesFetchImage ="notesFetchImage";
+  public fetchUserEmail = "fetchUserEmail"
 }

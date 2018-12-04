@@ -3,7 +3,18 @@ require_once "/var/www/html/codeigniter/application/controllers/FundoAPI.php";
 include "/var/www/html/codeigniter/application/tests/controllers/TeastCaseConstants.php";
 class FundoAPI_test extends TestCase
 {  
-    //  __construct
+    public function  __construct()
+    {
+//         $data = file_get_contents($this->file);
+// $arr  = json_decode($data, true);
+// foreach ($arr as $key => $value) {
+//     echo "stock name               :" . $value['stockName'] . "\n";
+ 
+    
+}
+
+
+    
     public function testLoginFirstCase()
     {
         $url = "http://localhost/codeigniter/login";

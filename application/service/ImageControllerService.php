@@ -17,7 +17,7 @@ require '/var/www/html/codeigniter/application/service/JWT.php';
  * @var string $id id
  */
 
-class ImageControllerService
+class ImageControllerService extends CI_Controller
 {
 /**
  * @var string $connect PDO object
@@ -26,16 +26,17 @@ class ImageControllerService
     /**
      * @var string base64
      */
-    public $constants="";
+    public $constants = "";
     /**
      * @method constructor to establish the database connection
      * @return void
      */
     public function __construct()
     {
+        parent::__construct();
         $ref           = new DatabaseConnection();
         $this->connect = $ref->Connection();
-        $constants = new Constant();
+        $constants     = new Constant();
     }
 /**
  * @method fetchImage() fetch the user profile pic
@@ -55,7 +56,6 @@ class ImageControllerService
              * returns json array response
              */
             print json_encode(base64_encode($arr['profilepic']));
-
         }
 
     }
@@ -121,13 +121,23 @@ class ImageControllerService
  * @method noteFetchImage() fetch the user profile pic
  * @return void
  */
-    public function notesDeleteImage($email,$noteId)
+    public function notesDeleteImage($email, $noteId)
     {
         /**
          * @var string $query has query to select the profile pic of the user
          */
         $query     = "UPDATE notes  SET image=null  where email= '$email'  and where id= '$noteId'";
         $statement = $this->connect->prepare($query);
-        $true= $statement->execute();
+        $true      = $statement->execute();
+    }
+/**
+ * @method fetchUserEmail() fetching the user email from the chache
+ * @return void
+ */
+    public function fetchUserEmail()
+    {
+        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
+        $userEmail = $this->cache->get('email');
+        print json_encode($userEmail);
     }
 }

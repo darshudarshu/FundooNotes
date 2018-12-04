@@ -119,3 +119,5 @@ $route['fetchImage']    = 'ImageController/fetchImage';
 $route['saveImage']     = 'ImageController/saveImage';
 $route['noteSaveImage'] = 'ImageController/noteSaveImage';
 $route['notesFetchImage'] = 'ImageController/notesFetchImage';
+$route['fetchUserEmail'] = 'ImageController/fetchUserEmail';
+

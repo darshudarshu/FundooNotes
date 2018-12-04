@@ -153,7 +153,7 @@ class NotesControllerService
         for ($i = 0; $i < count($arr); $i++) {
             $arr[$i]['image'] = $this->constants->base64 . base64_encode($arr[$i]['image']);
         }
-
+        
         /**
          * returns json array response
          */

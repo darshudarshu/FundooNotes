@@ -2,7 +2,6 @@
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: Authorization");
 
-
 /*********************************************************************
  * @discription  Controller API
  *********************************************************************/
@@ -25,7 +24,7 @@ include "/var/www/html/codeigniter/application/service/FundoAPIService.php";
  * @var string $pass
  */
 
-class FundoAPI
+class FundoAPI extends CI_Controller
 {
     /**
      * @var string $serviceReference serviceReference
@@ -37,6 +36,7 @@ class FundoAPI
      */
     public function __construct()
     {
+        parent::__construct();
         $this->serviceReference = new FundoAPIService();
 
     }
@@ -51,6 +51,11 @@ class FundoAPI
         $email  = $_POST["email"];
         $number = $_POST["mobilenumber"];
         $pass   = $_POST["password"];
+        /**
+         * adding email to the chache
+         */
+        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
+        $this->cache->save('email', $email);
         $this->serviceReference->registration($name, $email, $number, $pass);
     }
     /**
@@ -59,9 +64,10 @@ class FundoAPI
      */
     public function login()
     {
-
         $email = $_POST["email"];
         $pass  = $_POST["password"];
+        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
+        $this->cache->save('email', $email);
         $this->serviceReference->login($email, $pass);
 
     }
@@ -107,7 +113,7 @@ class FundoAPI
         $token = $_POST["token"];
         $this->serviceReference->veryfyEmailId($token);
     }
-    
+
 /**
  * @method resetPassword() resets the pass word of corresesponding email
  * @return void
@@ -115,8 +121,13 @@ class FundoAPI
     public function socialSignIn()
     {
         $email = $_POST["email"];
-        $name = $_POST["name"];
-        $this->serviceReference->socialSignIn($email,$name);
+        $name  = $_POST["name"];
+        /**
+         * adding user email to the cache
+         */
+        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
+        $this->cache->save('email', $email);
+        $this->serviceReference->socialSignIn($email, $name);
 
     }
 }
