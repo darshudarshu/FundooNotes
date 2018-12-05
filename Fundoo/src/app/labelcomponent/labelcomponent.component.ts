@@ -307,7 +307,6 @@ export class LabelcomponentComponent implements OnInit, OnDestroy {
     let obs = this.selectlabelService.dateTimeChange(id, this.otherPresentTime, this.selectedLabel, this.email);
     obs.subscribe(
       (res: any) => {
-        console.log(res);
         this.notes = res;
       });
   }
@@ -396,7 +395,6 @@ export class LabelcomponentComponent implements OnInit, OnDestroy {
           alert("Unknown data");
         }
         else {
-          console.log(res);
           this.notes = res;
         }
       });

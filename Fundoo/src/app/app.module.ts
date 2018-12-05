@@ -49,6 +49,7 @@ import { CreatecollabaratorComponent } from './createcollabarator/createcollabar
 import { SearchdataPipe } from './notes/searchdata.pipe';
 import { serviceUrl } from './serviceUrl/serviceUrl';
 import { SocialLoginModule, AuthServiceConfig } from "angular-6-social-login";
+import { LoggerserviceService } from "./service/loggerservice/loggerservice.service";
 // import { FacebookLoginProvider } from "angular-6-social-login";
 
 @NgModule({
@@ -73,13 +74,10 @@ import { SocialLoginModule, AuthServiceConfig } from "angular-6-social-login";
     SearchdataPipe
   ],
   imports: [
-    SocialLoginModule
-    , 
-    BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatCardModule, MatInputModule, MatFormFieldModule, MatAutocompleteModule, FormsModule, ReactiveFormsModule, DragDropModule, MatButtonModule, MatIconModule, HttpClientModule, RouterModule, MatProgressSpinnerModule, NgxSpinnerModule, LayoutModule, MatToolbarModule, MatSidenavModule, MatListModule, MatTooltipModule, MatMenuModule, MatGridListModule, MatDatepickerModule, MatNativeDateModule, MatExpansionModule, NgxMaterialTimepickerModule.forRoot(),
-    FlexLayoutModule,
-    MatDialogModule, MatSelectModule, MatChipsModule
+    SocialLoginModule,BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatCardModule, MatInputModule, MatFormFieldModule, MatAutocompleteModule, FormsModule, ReactiveFormsModule, DragDropModule, MatButtonModule, MatIconModule, HttpClientModule, RouterModule, MatProgressSpinnerModule, NgxSpinnerModule, LayoutModule, MatToolbarModule, MatSidenavModule, MatListModule, MatTooltipModule, MatMenuModule, MatGridListModule, MatDatepickerModule, MatNativeDateModule, MatExpansionModule, NgxMaterialTimepickerModule.forRoot(),
+    FlexLayoutModule,MatDialogModule, MatSelectModule, MatChipsModule
   ],
-  providers: [serviceUrl ,ImageService, CommonlabelService, SelectlabelService, TrashService, RemainderService, ArchiveService, DataService, LabelService, CommonService, AuthGuard, CookieService, NoteserviceService,
+  providers: [serviceUrl, LoggerserviceService, ImageService, CommonlabelService, SelectlabelService, TrashService, RemainderService, ArchiveService, DataService, LabelService, CommonService, AuthGuard, CookieService, NoteserviceService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorsService,

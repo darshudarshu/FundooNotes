@@ -23,6 +23,7 @@ import { ImageService } from '../service/image.service';
 import { Notes } from "../core/model/note";
 import { Labels } from "../core/model/note";
 import { Collaborators } from "../core/model/note";
+import { LoggerserviceService } from "../service/loggerservice/loggerservice.service";
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -105,7 +106,18 @@ export class NotesComponent implements OnInit, OnDestroy {
   * variable to hold search data
   */
   searchData;
-  constructor(private image: ImageService, private collabaratorService: CollabaratorService, private commonlabelService: CommonlabelService, private labelservice: LabelService, private archiveService: ArchiveService, public dialog: MatDialog, private router: Router, private notesService: NoteserviceService, private _cookieService: CookieService, private commonService: CommonService) {
+  constructor(
+    private LoggerserviceService: LoggerserviceService,
+    private image: ImageService,
+    private collabaratorService: CollabaratorService,
+    private commonlabelService: CommonlabelService,
+    private labelservice: LabelService,
+    private archiveService: ArchiveService,
+    public dialog: MatDialog,
+    private router: Router,
+    private notesService: NoteserviceService,
+    private _cookieService: CookieService,
+    private commonService: CommonService) {
     /**
     * subscribing the notifyObservable variable in common service
     */
@@ -186,7 +198,8 @@ export class NotesComponent implements OnInit, OnDestroy {
          * assing response to the user notes
          */
         this.notes = res;
-        // console.log(res);
+        LoggerserviceService.log("darshu")
+        
         // obs.unsubscribe();
 
       }, error => {
@@ -316,7 +329,6 @@ export class NotesComponent implements OnInit, OnDestroy {
             obsss.subscribe(
               (ress: any) => {
                 this.collabarators = ress;
-                // console.log(res);
               });
             let obbs = this.collabaratorService.fetchCollabarators(1111, this.email);
             obbs.subscribe(
@@ -342,7 +354,6 @@ export class NotesComponent implements OnInit, OnDestroy {
       obbs.subscribe(
         (res: any) => {
           this.mainCollabarators = res;
-          // console.log(res[0]);
           // obbs.unsubscribe();
 
         }, error => {
@@ -423,9 +434,9 @@ export class NotesComponent implements OnInit, OnDestroy {
     if (this.model.date != null && this.model.time != null) {
       let obs = this.notesService.dateTimeChange(id, this.otherPresentTime);
       obs.subscribe(
-        (res: any) => { 
+        (res: any) => {
           // obs.unsubscribe();
-           });
+        });
       this.other_timer_button = true;
       this.other_timer_panel = false;
     }
@@ -495,7 +506,6 @@ export class NotesComponent implements OnInit, OnDestroy {
 
               }
               else {
-                console.log(res);
                 /**
                  * assing response to the user notes
                  */

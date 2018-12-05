@@ -158,6 +158,7 @@ class NotesControllerService
          * returns json array response
          */
         print json_encode($arr);
+        return "200";
     }
 /**
  * @method changeColor() to change the note color
@@ -235,6 +236,7 @@ class NotesControllerService
              * returns json array response
              */
             print json_encode($data);
+            return "404";
         }
     }
 /**
@@ -251,6 +253,7 @@ class NotesControllerService
         $query     = "UPDATE notes SET remainder = '$remainder' , color ='$color' , title='$title' , notes='$notes' where id = '$id' ";
         $statement = $this->connect->prepare($query);
         $statement->execute();
+        return "200";
 
     }
 /**
@@ -385,6 +388,7 @@ class NotesControllerService
              *  returns json array response
              */
             print json_encode($data);
+            return "404";
         }
 
     }
@@ -427,6 +431,7 @@ class NotesControllerService
              *  returns json array response
              */
             print json_encode($data);
+            return "404";
         }
 
     }

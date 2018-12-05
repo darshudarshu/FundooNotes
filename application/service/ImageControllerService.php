@@ -138,10 +138,9 @@ class ImageControllerService extends CI_Controller
     {
         // $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
         // $userEmail = $this->cache->get('email');
-$this->load->library('Redis');
-$redis = $this->redis->config();
-// $set   = $redis->set('email', $email);
-$userEmail   = $redis->get('email');
+        $this->load->library('Redis');
+        $redis = $this->redis->config();
+        $userEmail = $redis->get('email');
 
         print json_encode($userEmail);
     }

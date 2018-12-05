@@ -7,7 +7,9 @@ header("Access-Control-Allow-Headers: Authorization");
  *********************************************************************/
 require 'JWT.php';
 include "/var/www/html/codeigniter/application/RabbitMQ/sender.php";
-include "/var/www/html/codeigniter/application/static/Constant.php";
+// include "/var/www/html/codeigniter/application/static/Constant.php";
+include "DatabaseConnection.php";
+include "/var/www/html/codeigniter/application/static/LinkConstants.php";
 
 /**
  * @var string $query has query to update data into database (tbl_sample) table name
@@ -31,9 +33,12 @@ class FundoAPIService
      */
     public function __construct()
     {
-        $obj              = new Constant();
-        $this->connect    = new PDO("$obj->database:host=$obj->host;dbname=$obj->databaseName", "$obj->user", "$obj->password");
-        $this->constants = new Constant();
+        // $obj              = new Constant();
+        // $this->connect    = new PDO("$obj->database:host=$obj->host;dbname=$obj->databaseName", "$obj->user", "$obj->password");
+        $ref             = new DatabaseConnection();
+        $this->connect   = $ref->Connection();
+        // $this->constants = new Constant();
+        $this->constants = new LinkConstants();
     }
 
 /**
@@ -61,7 +66,7 @@ class FundoAPIService
                 $ref   = new SendMail();
                 $token = md5($email);
                 $sub   = 'verify email id';
-                $body  = $this->$constants->verificationLinkMasssage . $this->$constants->verificationLink . $token;
+                $body  = $this->constants->verificationLinkMasssage . $this->constants->verificationLink . $token;
                 $ref->sendEmail($email, $sub, $body);
                 $query     = "UPDATE registration SET reset_key = '$token' where email = '$email'";
                 $statement = $this->connect->prepare($query);
@@ -70,29 +75,37 @@ class FundoAPIService
                         "message" => "200",
                     );
                     print json_encode($data);
-
+                    return "200";
                 } else {
                     $data = array(
                         "message" => "204",
                     );
                     print json_encode($data);
+                    return "204";
+
                 }
             } else {
                 $data = array(
                     "message" => "304",
                 );
                 print json_encode($data);
+                return "304";
+
             }
         } else if ($flag == 1) {
             $data = array(
                 "message" => "201",
             );
             print json_encode($data);
+            return "201";
+
         } else {
             $data = array(
                 "message" => "203",
             );
             print json_encode($data);
+            return "203";
+
         }
     }
 /**
@@ -131,11 +144,14 @@ class FundoAPIService
                 "message" => "400",
             );
             print json_encode($data);
+            return "400";
         } else if ($flag == 2) {
             $data = array(
                 "message" => "401",
             );
             print json_encode($data);
+            return "401";
+
         } else if ($flag == 3) {
             $token = FundoAPIService::jwtToken($email);
             $data  = array(
@@ -143,11 +159,15 @@ class FundoAPIService
                 "message" => "200",
             );
             print json_encode($data);
+            return "200";
+
         } else {
             $data = array(
                 "message" => "404",
             );
             print json_encode($data);
+            return "404";
+
         }
     }
 /**
@@ -232,20 +252,22 @@ class FundoAPIService
             $query     = "UPDATE registration SET reset_key = '$token' where email = '$email'";
             $statement = $this->connect->prepare($query);
             $statement->execute();
-            $sub  = 'password recovery mail';
-            $body = $this->$constants->resetLinkMasssage . $this->$constants->resetLink . $token;
+            $sub      = 'password recovery mail';
+            $body     = $this->constants->resetLinkMasssage . $this->constants->resetLink . $token;
             $response = $ref->sendEmail($email, $sub, $body);
             if ($response == "sent") {
                 $data = array(
                     "message" => "200",
                 );
                 print json_encode($data);
+                return "200";
 
             } else {
                 $data = array(
                     "message" => "400",
                 );
                 print json_encode($data);
+                return "400";
 
             }
 
@@ -254,7 +276,7 @@ class FundoAPIService
                 "message" => "404",
             );
             print json_encode($data);
-
+            return "404";
         }
     }
 /**
@@ -295,11 +317,13 @@ class FundoAPIService
                 "message" => "304",
             );
             print json_encode($data);
+            return "304";
         } else {
             $data = array(
                 "message" => "200",
             );
             print json_encode($data);
+            return "200";
             $query     = "UPDATE registration SET reset_key = null where reset_key='$token'";
             $statement = $this->connect->prepare($query);
             $statement->execute();
@@ -327,7 +351,7 @@ class FundoAPIService
                 'session' => 'reset link has been expired',
             );
             print json_encode($data);
-
+            return "reset link has been expired";
         }
 
     }
@@ -339,7 +363,7 @@ class FundoAPIService
     {
         $query     = " UPDATE registration SET active = 'active' where reset_key ='$token' ";
         $statement = $this->connect->prepare($query);
-        $statement->execute();
+        $true      = $statement->execute();
         $query     = "UPDATE registration SET reset_key = null where reset_key='$token'";
         $statement = $this->connect->prepare($query);
         if ($statement->execute()) {
@@ -347,12 +371,13 @@ class FundoAPIService
                 "message" => "200",
             );
             print json_encode($data);
-
+            return "200";
         } else {
             $data = array(
                 "message" => "401",
             );
             print json_encode($data);
+            return "401";
 
         }
     }

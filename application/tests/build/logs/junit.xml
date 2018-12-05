@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="CodeIgniter Application Test Suite" tests="5" assertions="5" failures="0" errors="0" time="0.036982">
+    <testsuite name="NotesController_test" file="/var/www/html/codeigniter/application/tests/controllers/NotesController_test.php" tests="5" assertions="5" failures="0" errors="0" time="0.036982">
+      <testcase name="testUserNotes" class="NotesController_test" file="/var/www/html/codeigniter/application/tests/controllers/NotesController_test.php" line="22" assertions="1" time="0.009472">
+        <system-out>[]</system-out>
+      </testcase>
+      <testcase name="testEditNotes" class="NotesController_test" file="/var/www/html/codeigniter/application/tests/controllers/NotesController_test.php" line="42" assertions="1" time="0.005288"/>
+      <testcase name="testDeleteNotes" class="NotesController_test" file="/var/www/html/codeigniter/application/tests/controllers/NotesController_test.php" line="66" assertions="1" time="0.006730">
+        <system-out>[]
+A PHP Error was encountered
+
+Severity:    Notice
+Message:     Undefined index: expected
+Filename:    /var/www/html/codeigniter/application/tests/controllers/NotesController_test.php
+Line Number: 77
+
+Backtrace:
+	File: /var/www/html/codeigniter/application/tests/controllers/NotesController_test.php
+	Line: 77
+	Function: _error_handler
+
+	File: /usr/share/php/PHPUnit/Framework/TestCase.php
+	Line: 910
+	Function: invokeArgs
+
+	File: /usr/share/php/PHPUnit/Framework/TestCase.php
+	Line: 770
+	Function: runTest
+
+	File: /usr/share/php/PHPUnit/Framework/TestResult.php
+	Line: 685
+	Function: runBare
+
+	File: /usr/share/php/PHPUnit/Framework/TestCase.php
+	Line: 726
+	Function: run
+
+	File: /usr/share/php/PHPUnit/Framework/TestSuite.php
+	Line: 747
+	Function: run
+
+	File: /usr/share/php/PHPUnit/Framework/TestSuite.php
+	Line: 747
+	Function: run
+
+	File: /usr/share/php/PHPUnit/TextUI/TestRunner.php
+	Line: 429
+	Function: run
+
+	File: /usr/share/php/PHPUnit/TextUI/Command.php
+	Line: 155
+	Function: doRun
+
+	File: /usr/share/php/PHPUnit/TextUI/Command.php
+	Line: 106
+	Function: run
+
+	File: /usr/bin/phpunit
+	Line: 29
+	Function: main
+
+
+</system-out>
+      </testcase>
+      <testcase name="testDeleteLabel" class="NotesController_test" file="/var/www/html/codeigniter/application/tests/controllers/NotesController_test.php" line="84" assertions="1" time="0.007949">
+        <system-out>[]
+A PHP Error was encountered
+
+Severity:    Notice
+Message:     Undefined index: expected
+Filename:    /var/www/html/codeigniter/application/tests/controllers/NotesController_test.php
+Line Number: 95
+
+Backtrace:
+	File: /var/www/html/codeigniter/application/tests/controllers/NotesController_test.php
+	Line: 95
+	Function: _error_handler
+
+	File: /usr/share/php/PHPUnit/Framework/TestCase.php
+	Line: 910
+	Function: invokeArgs
+
+	File: /usr/share/php/PHPUnit/Framework/TestCase.php
+	Line: 770
+	Function: runTest
+
+	File: /usr/share/php/PHPUnit/Framework/TestResult.php
+	Line: 685
+	Function: runBare
+
+	File: /usr/share/php/PHPUnit/Framework/TestCase.php
+	Line: 726
+	Function: run
+
+	File: /usr/share/php/PHPUnit/Framework/TestSuite.php
+	Line: 747
+	Function: run
+
+	File: /usr/share/php/PHPUnit/Framework/TestSuite.php
+	Line: 747
+	Function: run
+
+	File: /usr/share/php/PHPUnit/TextUI/TestRunner.php
+	Line: 429
+	Function: run
+
+	File: /usr/share/php/PHPUnit/TextUI/Command.php
+	Line: 155
+	Function: doRun
+
+	File: /usr/share/php/PHPUnit/TextUI/Command.php
+	Line: 106
+	Function: run
+
+	File: /usr/bin/phpunit
+	Line: 29
+	Function: main
+
+
+</system-out>
+      </testcase>
+      <testcase name="testchangeLabel" class="NotesController_test" file="/var/www/html/codeigniter/application/tests/controllers/NotesController_test.php" line="102" assertions="1" time="0.007543">
+        <system-out>[]
+A PHP Error was encountered
+
+Severity:    Notice
+Message:     Undefined index: expected
+Filename:    /var/www/html/codeigniter/application/tests/controllers/NotesController_test.php
+Line Number: 114
+
+Backtrace:
+	File: /var/www/html/codeigniter/application/tests/controllers/NotesController_test.php
+	Line: 114
+	Function: _error_handler
+
+	File: /usr/share/php/PHPUnit/Framework/TestCase.php
+	Line: 910
+	Function: invokeArgs
+
+	File: /usr/share/php/PHPUnit/Framework/TestCase.php
+	Line: 770
+	Function: runTest
+
+	File: /usr/share/php/PHPUnit/Framework/TestResult.php
+	Line: 685
+	Function: runBare
+
+	File: /usr/share/php/PHPUnit/Framework/TestCase.php
+	Line: 726
+	Function: run
+
+	File: /usr/share/php/PHPUnit/Framework/TestSuite.php
+	Line: 747
+	Function: run
+
+	File: /usr/share/php/PHPUnit/Framework/TestSuite.php
+	Line: 747
+	Function: run
+
+	File: /usr/share/php/PHPUnit/TextUI/TestRunner.php
+	Line: 429
+	Function: run
+
+	File: /usr/share/php/PHPUnit/TextUI/Command.php
+	Line: 155
+	Function: doRun
+
+	File: /usr/share/php/PHPUnit/TextUI/Command.php
+	Line: 106
+	Function: run
+
+	File: /usr/bin/phpunit
+	Line: 29
+	Function: main
+
+
+</system-out>
+      </testcase>
+    </testsuite>
+  </testsuite>
+</testsuites>

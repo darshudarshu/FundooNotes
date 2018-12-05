@@ -112,9 +112,6 @@ export class DataService {
     * @description Function to send login data to server
     */
   socialLoginData(email,name){
-    debugger;
-    // console.log(' sdfasfasdfsa',value[0].email);
-    
     let socialLoginData = new FormData();
     socialLoginData.append("email",email);
     socialLoginData.append("name", name)

@@ -54,9 +54,7 @@ class FundoAPI extends CI_Controller
         /**
          * adding email to the chache
          */
-        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
-        $this->cache->save('email', $email);
-        $this->serviceReference->registration($name, $email, $number, $pass);
+        return $this->serviceReference->registration($name, $email, $number, $pass);
     }
     /**
      * @method login() login in to fundo logic
@@ -72,7 +70,7 @@ class FundoAPI extends CI_Controller
         $this->load->library('Redis');
         $redis = $this->redis->config();
         $redis->set('email', $email);
-        $this->serviceReference->login($email, $pass);
+        return $this->serviceReference->login($email, $pass);
 
     }
 
@@ -83,7 +81,7 @@ class FundoAPI extends CI_Controller
     public function forgotPassword()
     {
         $email = $_POST["email"];
-        $this->serviceReference->forgotPassword($email);
+        return $this->serviceReference->forgotPassword($email);
 
     }
 
@@ -95,7 +93,7 @@ class FundoAPI extends CI_Controller
     {
         $token = $_POST["token"];
         $pass  = $_POST["pass"];
-        $this->serviceReference->resetPassword($token, $pass);
+        return $this->serviceReference->resetPassword($token, $pass);
 
     }
 /**
@@ -105,7 +103,7 @@ class FundoAPI extends CI_Controller
     public function getEmailId()
     {
         $token = $_POST["token"];
-        $this->serviceReference->getEmailId($token);
+       return $this->serviceReference->getEmailId($token);
 
     }
 /**
@@ -115,7 +113,7 @@ class FundoAPI extends CI_Controller
     public function veryfyEmailId()
     {
         $token = $_POST["token"];
-        $this->serviceReference->veryfyEmailId($token);
+        return  $this->serviceReference->veryfyEmailId($token);
     }
 
 /**

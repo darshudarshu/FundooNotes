@@ -64,7 +64,7 @@ export class CreatecollabaratorComponent implements OnInit {
    * @description Function to fetch the data from source
    */
   addCollabarator(id) {
-    console.log(id);
+
     let obs = this.collabaratorService.addCollabarators(id, this.mainOwner, this.addEmail);
     obs.subscribe(
       (res: any) => {
@@ -72,7 +72,7 @@ export class CreatecollabaratorComponent implements OnInit {
           this.errorCheck = true;
         } else {
           this.collabarators = res;
-          console.log(res);
+       
         }
       }, error => {
         this.iserror = true;

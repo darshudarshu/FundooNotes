@@ -61,7 +61,7 @@ class NotesController
     {
 
         $email = $_POST["email"];
-        $this->serviceReference->userNotes($email);
+        return $this->serviceReference->userNotes($email);
     }
 /**
  * @method changeColor() to change the note color
@@ -93,7 +93,7 @@ class NotesController
     {
         $id    = $_POST["id"];
         $email = $_POST["email"];
-        $this->serviceReference->deleteNote($id, $email);
+        return $this->serviceReference->deleteNote($id, $email);
 
     }
 /**
@@ -108,7 +108,7 @@ class NotesController
         $color     = $_POST["color"];
         $email     = $_POST["email"];
         $remainder = $_POST["remainder"];
-        $this->serviceReference->editNotes($title, $notes, $id, $color, $email, $remainder);
+        return $this->serviceReference->editNotes($title, $notes, $id, $color, $email, $remainder);
 
     }
 /**
@@ -141,7 +141,7 @@ class NotesController
         $name  = $_POST["name"];
         $id    = $_POST["id"];
         $email = $_POST["email"];
-        $this->serviceReference->changeLabel($name, $id, $email);
+        return $this->serviceReference->changeLabel($name, $id, $email);
 
     }
 /**
@@ -153,7 +153,7 @@ class NotesController
 
         $id    = $_POST["id"];
         $email = $_POST["email"];
-        $this->serviceReference->deleteLabel($id, $email);
+        return $this->serviceReference->deleteLabel($id, $email);
     }
 /**
  * @method noteLabel() add label
