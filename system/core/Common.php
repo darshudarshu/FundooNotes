@@ -601,7 +601,7 @@ if ( ! function_exists('_error_handler'))
 		// This can't be done within the $_error->show_php_error method because
 		// it is only called when the display_errors flag is set (which isn't usually
 		// the case in a production environment) or when errors are ignored because
-		// they are above the error_reporting threshold.
+		// they are above the error_reporting threshold.     
 		if ($is_error)
 		{
 			set_status_header(500);

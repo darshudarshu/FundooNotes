@@ -66,8 +66,12 @@ class FundoAPI extends CI_Controller
     {
         $email = $_POST["email"];
         $pass  = $_POST["password"];
-        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
-        $this->cache->save('email', $email);
+        /**
+         * adding email to redis
+         */
+        $this->load->library('Redis');
+        $redis = $this->redis->config();
+        $redis->set('email', $email);
         $this->serviceReference->login($email, $pass);
 
     }
@@ -123,10 +127,11 @@ class FundoAPI extends CI_Controller
         $email = $_POST["email"];
         $name  = $_POST["name"];
         /**
-         * adding user email to the cache
+         * adding user email to the redis
          */
-        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
-        $this->cache->save('email', $email);
+        $this->load->library('Redis');
+        $redis = $this->redis->config();
+        $redis->set('email', $email);
         $this->serviceReference->socialSignIn($email, $name);
 
     }
