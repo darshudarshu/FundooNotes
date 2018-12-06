@@ -1,8 +1,26 @@
 [{
 
-    "userNotes": [{ "remainder": "date", "id": null, "title": "title", "notes": "notes", "email": "darsh@gmail.com", "color": "blue", "expected": "200" }],
-    "delete": [{ "id": null, "email": "darshan@gmail.com" }],
-    "deleteLabel": [{ "id": null, "email": "darshan@gmail.com" }],
-    "changeLabel": [{ "id": null, "email": "darshan@gmail.com", "name": "darshu" }]
+    "userNotes": [{
+        "remainder": "date",
+        "id": null,
+        "title": "title",
+        "notes": "notes",
+        "email": "darsh@gmail.com",
+        "color": "blue",
+        "expected": "200"
+    }],
+    "delete": [{
+        "id": null,
+        "email": "darshan@gmail.com"
+    }],
+    "deleteLabel": [{
+        "id": null,
+        "email": "darshan@gmail.com"
+    }],
+    "changeLabel": [{
+        "id": null,
+        "email": "darshan@gmail.com",
+        "name": "darshu"
+    }]
 
 }]

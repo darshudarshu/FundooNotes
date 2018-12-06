@@ -94,6 +94,7 @@ export class TrashComponent implements OnInit {
     let obs = this.trashService.fetchTrashNote(this.email);
     obs.subscribe(
       (res: any) => {
+        debugger;
         this.notes = res;
       }, error => {
         this.iserror = true;

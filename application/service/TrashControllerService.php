@@ -31,6 +31,7 @@ class TrashControllerService
     {
         $ref           = new DatabaseConnection();
         $this->connect = $ref->Connection();
+        $this->constants = new Constant();
     }
     /**
      * @method restoreDeletedNote
@@ -60,6 +61,10 @@ class TrashControllerService
                  * @var array $arr to store result
                  */
                 $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+                for ($i = 0; $i < count($arr); $i++) {
+                    $arr[$i]['image'] = $this->constants->base64 . base64_encode($arr[$i]['image']);
+                }
+
                 /**
                  * returns json array response
                  */
@@ -107,6 +112,10 @@ class TrashControllerService
              * @var array $arr to store result
              */
             $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+            for ($i = 0; $i < count($arr); $i++) {
+                $arr[$i]['image'] = $this->constants->base64 . base64_encode($arr[$i]['image']);
+            }
+
             /**
              * returns json array response
              */
@@ -192,6 +201,10 @@ class TrashControllerService
              * @var array $arr to store result
              */
             $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+            for ($i = 0; $i < count($arr); $i++) {
+                $arr[$i]['image'] = $this->constants->base64 . base64_encode($arr[$i]['image']);
+            }
+
             /**
              * returns json array response
              */

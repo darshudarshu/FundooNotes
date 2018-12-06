@@ -28,6 +28,7 @@ export class TrashService {
     * @description Function to send email and id to server
     */
   fetchTrashNote(email) {
+    debugger;
     let TrashNote = new FormData();
     TrashNote.append("email", email)
     return this.http.post(this.serviceurl.host + this.serviceurl.trashFetchTrashNote, TrashNote)

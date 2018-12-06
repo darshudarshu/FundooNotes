@@ -192,13 +192,9 @@
 <div *ngIf="!grid" fxLayout="row wrap" cdkDropList fxLayoutGap="10px" (cdkDropListDropped)="drop($event)" fxLayoutAlign="flex-start" style='margin-top: 40px;margin-left: 20%;margin-right:8%;'>
     <mat-card class="othermat " *ngFor="let user of ( notes | searchdata : searchData )" cdkDrag [ngStyle]="{'background-color': user.color}">
 
-
-
         <div *ngIf="user.image !='data:image/jpeg;base64,'">
             <img src={{user.image}} (click)="openDialog(user)" class="noteImage">
         </div>
-
-
         <input style="display: none;" type='file' #file (change)="onSelectFile($event,user.id)">
         <div style="    margin-top: -17px;" *ngIf="!displayOtherCards ">
             <input style=" width: 80%; " (click)="openDialog(user)" matInput [(ngModel)]="user.title ">
