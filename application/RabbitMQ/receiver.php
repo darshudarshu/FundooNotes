@@ -58,6 +58,5 @@ class Receiver
         // while (count($channel->callbacks)) {
         //     $channel->wait();
         // }
-
     }
 }

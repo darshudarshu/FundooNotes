@@ -1,15 +1,17 @@
 import { AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider} from "angular-6-social-login";
-
+import { constants } from './constants/constants';
 export function getAuthServiceConfigs() {
+
+
   let config = new AuthServiceConfig([
     {
       id: FacebookLoginProvider.PROVIDER_ID,
-      provider: new FacebookLoginProvider('315128245991236')
+      provider: new FacebookLoginProvider(constants.facebookClientId)
     },
 
     {
       id: GoogleLoginProvider.PROVIDER_ID,
-      provider: new GoogleLoginProvider('198946252969-hepq58tqbqpfu3m10avj8k0nql6hnj4m.apps.googleusercontent.com')
+      provider: new GoogleLoginProvider(constants.googleClientId)
     } 
  
   ]);
