@@ -22,4 +22,17 @@ describe('CreatecollabaratorComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('create collabarator form should be valid', async(() => {
+    expect(component.mainOwner).toEqual("example@gmail.com")
+    expect(component.addEmail).toEqual("example@gmail.com")
+    expect(component.addEmail).toBeTruthy();
+  }))
+  it('create collabarator form should not be valid', async(() => {
+    expect(component.mainOwner).toEqual("")
+    expect(component.mainOwner).toEqual("abc")
+    expect(component.addEmail).toEqual("")
+    expect(component.addEmail).toEqual("abc")
+    expect(component.addEmail).toBeFalsy();
+  }))
+  
 });
