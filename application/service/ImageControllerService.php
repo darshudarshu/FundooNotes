@@ -80,7 +80,6 @@ class ImageControllerService extends CI_Controller
             $imageUrl      = $return['url'];
             $ref           = new DatabaseConnection();
             $this->connect = $ref->Connection();
-            $file          = base64_decode($url);
             /**
              * @var string $query has query to update the user profile pic to the data base
              */
@@ -97,7 +96,6 @@ class ImageControllerService extends CI_Controller
                  * return thye json response
                  */
                 print json_encode($data);
-
             }
 
         } else {
@@ -108,7 +106,6 @@ class ImageControllerService extends CI_Controller
              * return the json response
              */
             print json_encode($data);
-
         }
     }
 

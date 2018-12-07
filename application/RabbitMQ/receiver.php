@@ -13,7 +13,7 @@ class Receiver
     auto_delete: false //the exchange won't be deleted once the channel is closed.
      */
     public function receiverMail()
-    {
+    {   
         $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
         $channel    = $connection->channel();
 

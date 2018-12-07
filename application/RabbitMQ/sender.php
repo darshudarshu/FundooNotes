@@ -4,6 +4,7 @@ use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
 include "/var/www/html/codeigniter/application/RabbitMQ/receiver.php";
+include "/var/www/html/codeigniter/application/static/RabbitMQConstants.php";
 class SendMail
 {
 /**
@@ -24,10 +25,10 @@ class SendMail
         auto_delete: false //the queue won't be deleted once the channel is closed.
          */
         $channel->queue_declare('hello', false, false, false, false);
-
+        $RabbitMQConstantsObj = new RabbitMQConstants();
         $data = json_encode(array(
-            "from"       => "darshangangadhar@gmail.com",
-            "from_email" => "darshangangadhar@gmail.com",
+            "from"       => $RabbitMQConstantsObj->senderEmailID,
+            "from_email" => $RabbitMQConstantsObj->senderEmailID,
             "to_email"   => $toEmail,
             "subject"    => $subject,
             "message"    => $body,
