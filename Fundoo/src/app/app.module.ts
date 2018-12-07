@@ -51,7 +51,6 @@ import { serviceUrl } from './serviceUrl/serviceUrl';
 import { constants } from './constants/constants';
 import { SocialLoginModule, AuthServiceConfig } from "angular-6-social-login";
 import { LoggerserviceService } from "./service/loggerservice/loggerservice.service";
-// import { FacebookLoginProvider } from "angular-6-social-login";
 
 @NgModule({
   declarations: [
