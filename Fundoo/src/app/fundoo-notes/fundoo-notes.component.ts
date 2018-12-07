@@ -65,7 +65,7 @@ export class FundooNotesComponent {
     /*
      * fetching email from chache
      */
-    let oobs = this.image.fetchUserEmailId();
+    let oobs = this.image.fetchUserEmailId(this.email);
     oobs.subscribe(
       (res: any) => {
         this.userEmail = res;

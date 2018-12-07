@@ -152,14 +152,15 @@ class ImageControllerService extends CI_Controller
  * @method fetchUserEmail() fetching the user email from the chache
  * @return void
  */
-    public function fetchUserEmail()
+    public function fetchUserEmail($email)
     {
         // $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
         // $userEmail = $this->cache->get('email');
+        $key = explode("@", $email);
+        $key = $key[0];
         $this->load->library('Redis');
         $redis     = $this->redis->config();
-        $userEmail = $redis->get('email');
-
+        $userEmail = $redis->get($key);
         print json_encode($userEmail);
     }
 }

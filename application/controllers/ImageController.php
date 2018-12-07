@@ -78,6 +78,7 @@ class ImageController
  */
     public function fetchUserEmail()
     {
-        $this->serviceReference->fetchUserEmail();
+        $email = $_POST["email"];
+        $this->serviceReference->fetchUserEmail($email);
     }
 }

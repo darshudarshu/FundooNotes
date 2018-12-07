@@ -64,12 +64,15 @@ class FundoAPI extends CI_Controller
     {
         $email = $_POST["email"];
         $pass  = $_POST["password"];
+
+        $key = explode("@", $email);
+        $key = $key[0];
         /**
          * adding email to redis
          */
         $this->load->library('Redis');
         $redis = $this->redis->config();
-        $redis->set('email', $email);
+        $redis->set($key, $email);
         return $this->serviceReference->login($email, $pass);
 
     }
@@ -103,7 +106,7 @@ class FundoAPI extends CI_Controller
     public function getEmailId()
     {
         $token = $_POST["token"];
-       return $this->serviceReference->getEmailId($token);
+        return $this->serviceReference->getEmailId($token);
 
     }
 /**
@@ -113,7 +116,7 @@ class FundoAPI extends CI_Controller
     public function veryfyEmailId()
     {
         $token = $_POST["token"];
-        return  $this->serviceReference->veryfyEmailId($token);
+        return $this->serviceReference->veryfyEmailId($token);
     }
 
 /**
@@ -124,12 +127,15 @@ class FundoAPI extends CI_Controller
     {
         $email = $_POST["email"];
         $name  = $_POST["name"];
+        $key   = explode("@", $email);
+        $key   = $key[0];
+
         /**
          * adding user email to the redis
          */
         $this->load->library('Redis');
         $redis = $this->redis->config();
-        $redis->set('email', $email);
+        $redis->set($email, $email);
         $this->serviceReference->socialSignIn($email, $name);
 
     }
