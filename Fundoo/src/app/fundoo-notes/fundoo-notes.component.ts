@@ -62,17 +62,17 @@ export class FundooNotesComponent {
         this.labels = res;
       });
 
-/*
- * fetching email from chache
- */    
-  let oobs = this.image.fetchUserEmailId();
-  oobs.subscribe(
-    (res: any) => {
-         this.userEmail = res;
-    });  
-/*
- * fetching the profile
- */
+    /*
+     * fetching email from chache
+     */
+    let oobs = this.image.fetchUserEmailId();
+    oobs.subscribe(
+      (res: any) => {
+        this.userEmail = res;
+      });
+    /*
+     * fetching the profile
+     */
     let obss = this.image.fetchProfile(this.email);
     obss.subscribe(
       (res: any) => {
@@ -84,8 +84,8 @@ export class FundooNotesComponent {
           if (this._cookieService.get('image') != "" && this._cookieService.get('image') != null) {
             this.ispresent = true;
             this.myurl = this._cookieService.get('image');
-          }else{
-            this.ispresent = false; 
+          } else {
+            this.ispresent = false;
           }
         }
       });
@@ -167,44 +167,34 @@ export class FundooNotesComponent {
      */
     this.commonlabelService.notifyLabel(selectedLabel);
   }
-
-
   /**
     * @method onSelectFile() 
     * @return void
     * @description Function to upload profile pic
     */
-    onSelectFile(event) {
+  onSelectFile(event) {
 
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
-
       reader.readAsDataURL(event.target.files[0]); // read file as data url
-
       reader.onload = (event) => { // called once readAsDataURL is completed
         debugger;
         this.url = event.target.result;
-        console.log(this.url);
-
         let obss = this.image.saveProfile(this.url, this.email);
         obss.subscribe(
           (res: any) => {
             if (res != "") {
               this.ispresent = true;
               this.myurl = res;
-        
+
             }
             else {
               this.ispresent = false;
             }
-        });
+          });
       }
     }
   }
 }
-  
-
-
-    // }
 
 
