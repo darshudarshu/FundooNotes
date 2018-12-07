@@ -193,7 +193,7 @@
     <mat-card class="othermat " *ngFor="let user of ( notes | searchdata : searchData )" cdkDrag [ngStyle]="{'background-color': user.color}">
 
         <div *ngIf="user.image !='data:image/jpeg;base64,'">
-            <img src={{user.image}} (click)="openDialog(user)" class="noteImage">
+            <img src={{user.image}} (click)="openDialog(user)" alt="" class="noteImage">
         </div>
         <input style="display: none;" type='file' #file (change)="onSelectFile($event,user.id)">
         <div style="    margin-top: -17px;" *ngIf="!displayOtherCards ">

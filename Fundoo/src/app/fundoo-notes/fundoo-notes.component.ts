@@ -78,7 +78,7 @@ export class FundooNotesComponent {
       (res: any) => {
         if (res != "" && res != null) {
           this.ispresent = true;
-          this.myurl = "data:image/jpeg;base64," + res;
+          this.myurl = res;
         }
         else {
           if (this._cookieService.get('image') != "" && this._cookieService.get('image') != null) {
@@ -174,32 +174,37 @@ export class FundooNotesComponent {
     * @return void
     * @description Function to upload profile pic
     */
-  onSelectFile(event) {
-    var files = event.target.files;
-    var file = files[0];
-    if (files && file) {
+    onSelectFile(event) {
+
+    if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
-      reader.onload = this._handleReaderLoaded.bind(this);
-      reader.readAsBinaryString(file);
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        debugger;
+        this.url = event.target.result;
+        console.log(this.url);
+
+        let obss = this.image.saveProfile(this.url, this.email);
+        obss.subscribe(
+          (res: any) => {
+            if (res != "") {
+              this.ispresent = true;
+              this.myurl = res;
+        
+            }
+            else {
+              this.ispresent = false;
+            }
+        });
+      }
     }
   }
-
-  _handleReaderLoaded(readerEvt) {
-    var binaryString = readerEvt.target.result;
-    this.base64textString = btoa(binaryString);
-    let obss = this.image.saveProfile(this.base64textString, this.email);
-    obss.subscribe(
-      (res: any) => {
-        if (res != "") {
-          this.ispresent = true;
-          this.myurl = "data:image/jpeg;base64," + res;
-
-        }
-        else {
-          this.ispresent = false;
-        }
-      });
-
-  }
-
 }
+  
+
+
+    // }
+
+

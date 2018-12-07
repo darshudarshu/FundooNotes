@@ -8,7 +8,11 @@ header("Access-Control-Allow-Headers: Authorization");
 
 include "/var/www/html/codeigniter/application/service/DatabaseConnection.php";
 require '/var/www/html/codeigniter/application/service/JWT.php';
-
+require '/var/www/html/codeigniter/application/cloud/vendor/cloudinary/cloudinary_php/src/Cloudinary.php';
+require '/var/www/html/codeigniter/application/cloud/vendor/cloudinary/cloudinary_php/src/Uploader.php';
+require '/var/www/html/codeigniter/application/cloud/vendor/cloudinary/cloudinary_php/src/Helpers.php';
+require '/var/www/html/codeigniter/application/cloud/vendor/cloudinary/cloudinary_php/src/Api.php';
+require '/var/www/html/codeigniter/application/cloud/settings.php';
 /**
  * class Api notes contoller methods
  */
@@ -45,9 +49,9 @@ class ImageControllerService extends CI_Controller
     public function fetchImage($email)
     {
         /**
-         * @var string $query has query to select the profile pic of the user
+         * @var string $query has query to select the profile stored in the cloudinary of the user
          */
-        $query     = "SELECT profilepic FROM registration where email='$email'";
+        $query     = "SELECT cloudImage FROM registration where email='$email'";
         $statement = $this->connect->prepare($query);
         if ($statement->execute()) {
 
@@ -55,7 +59,7 @@ class ImageControllerService extends CI_Controller
             /**
              * returns json array response
              */
-            print json_encode(base64_encode($arr['profilepic']));
+            print json_encode($arr['cloudImage']);
         }
 
     }
@@ -65,24 +69,44 @@ class ImageControllerService extends CI_Controller
  */
     public function saveImage($url, $email)
     {
-        $ref           = new DatabaseConnection();
-        $this->connect = $ref->Connection();
-        $file          = base64_decode($url);
-        /**
-         * @var string $query has query to update the user profile pic
-         */
-        $query     = "UPDATE registration  SET `profilepic` = :file  where `email`= :email ";
-        $statement = $this->connect->prepare($query);
-        if ($statement->execute(array(
-            ':file'  => $file,
-            ':email' => $email))) {
+        if ($url != null) {
+            /**
+             * adding image to the cloudinary using uploader method
+             */
+            $return        = \Cloudinary\Uploader::upload($url);
+            /**
+             * @var imageUrl the cloudinary url 
+             */
+            $imageUrl      = $return['url'];
+            $ref           = new DatabaseConnection();
+            $this->connect = $ref->Connection();
+            $file          = base64_decode($url);
+            /**
+             * @var string $query has query to update the user profile pic to the data base
+             */
+            $query     = "UPDATE registration  SET cloudImage = '$imageUrl'  where email= '$email' ";
+            $statement = $this->connect->prepare($query);
+            if ($statement->execute()) {
+                $ref = new ImageControllerService();
+                $ref->fetchImage($email);
+            } else {
+                $data = array(
+                    "message" => "404",
+                );
+                /**
+                 * return thye json response
+                 */
+                print json_encode($data);
 
-            $ref = new ImageControllerService();
-            $ref->fetchImage($email);
+            }
+
         } else {
             $data = array(
-                "message" => "203",
+                "message" => "404",
             );
+            /**
+             * return the json response
+             */
             print json_encode($data);
 
         }
@@ -106,9 +130,6 @@ class ImageControllerService extends CI_Controller
             ':file'  => $file,
             ':email' => $email,
             ':id'    => $id))) {
-
-            // $ref = new ImageControllerService();
-            // $ref->notesFetchImage($email);
         } else {
             $data = array(
                 "message" => "203",
@@ -139,7 +160,7 @@ class ImageControllerService extends CI_Controller
         // $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
         // $userEmail = $this->cache->get('email');
         $this->load->library('Redis');
-        $redis = $this->redis->config();
+        $redis     = $this->redis->config();
         $userEmail = $redis->get('email');
 
         print json_encode($userEmail);

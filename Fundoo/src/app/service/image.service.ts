@@ -25,7 +25,7 @@ export class ImageService {
     * @method saveProfile() 
     * @return observable data
     * @param email 
-    * @param url 
+    * @param file 
     * @description Function to send email and url to server
     */
   saveProfile(url, email) {

@@ -734,6 +734,7 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   _handleReaderLoaded(readerEvt) {
     var binaryString = readerEvt.target.result;
+    console.log(binaryString);
     this.base64textString = btoa(binaryString);
     this.notes.forEach(element => {
       if (element.id == this.imageNoteId) {
