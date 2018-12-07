@@ -26,7 +26,7 @@ describe('ArchiveComponent', () => {
     expect(component.email).toEqual("example@gmail.com")
     expect(component.email).toBeTruthy();
   }))
-  it('sign up form should not be valid', async(() => {
+  it('archive form should not be valid', async(() => {
 
     expect(component.email).toEqual("")
     expect(component.email).toEqual("abc")
