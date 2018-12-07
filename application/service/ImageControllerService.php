@@ -71,13 +71,13 @@ class ImageControllerService extends CI_Controller
     {
         if ($url != null) {
             /**
-             * adding image to the cloudinary using uploader method
+             * @var returnResponse array having the response after adding image to the cloudinary using uploader method
              */
-            $return        = \Cloudinary\Uploader::upload($url);
+            $returnResponse = \Cloudinary\Uploader::upload($url);
             /**
-             * @var imageUrl the cloudinary url 
+             * @var imageUrl the cloudinary url
              */
-            $imageUrl      = $return['url'];
+            $imageUrl      = $returnResponse['url'];
             $ref           = new DatabaseConnection();
             $this->connect = $ref->Connection();
             /**
