@@ -31,8 +31,8 @@ class Receiver
              * Create the Transport
              */
             $transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
-                ->setUsername('darshangangadhar@gmail.com')
-                ->setPassword('darshu@4150');
+                ->setUsername('senderEmail')
+                ->setPassword('senderPassword');
             /**
              * Create the Mailer using your created Transport
              */
