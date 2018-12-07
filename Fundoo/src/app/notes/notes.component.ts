@@ -200,7 +200,7 @@ export class NotesComponent implements OnInit, OnDestroy {
         this.notes = res;
         LoggerserviceService.log("darshu")
         
-        // obs.unsubscribe();
+        obs.unsubscribe();
 
       }, error => {
         this.iserror = true;
@@ -215,7 +215,7 @@ export class NotesComponent implements OnInit, OnDestroy {
                                
          */
         this.labels = res;
-        // obss.unsubscribe();
+        obss.unsubscribe();
 
       });
     let obsss = this.collabaratorService.fetchCollabaratorsOfNotes(this.email);
@@ -261,7 +261,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     let obbs = this.notesService.dragAndDrop(this.difference, this.notes[event.currentIndex].dragId, this.dirrection, this.email);
     obbs.subscribe(
       (res: any) => {
-        // obbs.unsubscribe();
+        obbs.unsubscribe();
       }, error => {
         this.iserror = true;
         this.errorMessage = error.message;
@@ -321,7 +321,7 @@ export class NotesComponent implements OnInit, OnDestroy {
             alert("Unathourized User");
             localStorage.removeItem("token");
             this.router.navigate(['/login'])
-            // obs.unsubscribe();
+            obs.unsubscribe();
 
           } else {
             this.notes = res;
@@ -334,13 +334,13 @@ export class NotesComponent implements OnInit, OnDestroy {
             obbs.subscribe(
               (res: any) => {
                 this.mainCollabarators = res;
-                // obbs.unsubscribe();
+                obbs.unsubscribe();
 
               }, error => {
                 this.iserror = true;
                 this.errorMessage = error.message;
               });
-            // obs.unsubscribe();
+            obs.unsubscribe();
           }
         },
         error => {
@@ -354,7 +354,7 @@ export class NotesComponent implements OnInit, OnDestroy {
       obbs.subscribe(
         (res: any) => {
           this.mainCollabarators = res;
-          // obbs.unsubscribe();
+          obbs.unsubscribe();
 
         }, error => {
           this.iserror = true;
@@ -372,7 +372,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.searchSubscription.unsubscribe();
-    // this.obs.unsubscribe();
+    this.obs.unsubscribe();
   }
   /**
    * @method setColor()
@@ -384,7 +384,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     let obs = this.notesService.colorChange(id, changecolor);
     obs.subscribe(
       (res: any) => {
-        // obs.unsubscribe();
+        obs.unsubscribe();
       });
     this.notes.forEach(element => {
       if (element.id == id) {
@@ -435,7 +435,7 @@ export class NotesComponent implements OnInit, OnDestroy {
       let obs = this.notesService.dateTimeChange(id, this.otherPresentTime);
       obs.subscribe(
         (res: any) => {
-          // obs.unsubscribe();
+          obs.unsubscribe();
         });
       this.other_timer_button = true;
       this.other_timer_panel = false;
@@ -460,7 +460,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     let obs = this.notesService.dateTimeChange(id, this.otherPresentTime);
     obs.subscribe(
       (res: any) => {
-        // obs.unsubscribe();
+        obs.unsubscribe();
       });
   }
   /**
@@ -480,7 +480,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     let obs = this.notesService.dateTimeChange(id, this.otherPresentTime);
     obs.subscribe(
       (res: any) => {
-        // obs.unsubscribe();
+        obs.unsubscribe();
       });
   }
   flag = true;
@@ -502,7 +502,7 @@ export class NotesComponent implements OnInit, OnDestroy {
             (res: any) => {
               if (res.error == 202) {
                 alert("Unknown data");
-                // obs.unsubscribe();
+                obs.unsubscribe();
 
               }
               else {
@@ -510,7 +510,7 @@ export class NotesComponent implements OnInit, OnDestroy {
                  * assing response to the user notes
                  */
                 this.notes = res;
-                // obs.unsubscribe();
+                obs.unsubscribe();
 
               }
             });
@@ -520,7 +520,7 @@ export class NotesComponent implements OnInit, OnDestroy {
           obs.subscribe(
             (res: any) => {
               this.collabarators = res;
-              // obs.unsubscribe();
+              obs.unsubscribe();
 
             }, error => {
               this.iserror = true;
@@ -534,7 +534,7 @@ export class NotesComponent implements OnInit, OnDestroy {
                * assing response to the user notes
                */
               this.notes = res;
-              // obssss.unsubscribe();
+              obssss.unsubscribe();
 
             }, error => {
               this.iserror = true;
@@ -549,7 +549,7 @@ export class NotesComponent implements OnInit, OnDestroy {
         (res: any) => {
           if (res.error == 202) {
             alert("Unknown data");
-            // obs.unsubscribe();
+            obs.unsubscribe();
 
           }
           else {
@@ -591,7 +591,7 @@ export class NotesComponent implements OnInit, OnDestroy {
       (res: any) => {
         if (res.error == 202) {
           alert("Unknown data");
-          // obs.unsubscribe();
+          obs.unsubscribe();
 
         }
         else {
@@ -603,7 +603,7 @@ export class NotesComponent implements OnInit, OnDestroy {
                * assing response to the user notes
                */
               this.notes = res;
-              // obss.unsubscribe();
+              obss.unsubscribe();
 
             }, error => {
               this.iserror = true;
@@ -640,7 +640,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     let obs = this.notesService.deleteLabels(id);
     obs.subscribe(
       (res: any) => {
-        // obs.unsubscribe();
+        obs.unsubscribe();
       });
     this.notes.forEach(element => {
       if (element.id == id) {
@@ -683,7 +683,7 @@ export class NotesComponent implements OnInit, OnDestroy {
              * assing response to the user notes
              */
             this.notes = res;
-            // obs.unsubscribe();
+            obs.unsubscribe();
 
           }, error => {
             this.iserror = true;
